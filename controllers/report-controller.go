@@ -18,9 +18,12 @@ type winlose struct {
 	Client_end   string `json:"client_end" validate:"required"`
 }
 type response_winlose struct {
-	Status  int         `json:"status"`
-	Message string      `json:"message"`
-	Record  interface{} `json:"record"`
+	Status                 int         `json:"status"`
+	Message                string      `json:"message"`
+	Record                 interface{} `json:"record"`
+	Subtotalturnover       int         `json:"subtotalturnover"`
+	Subtotalwinlose        int         `json:"subtotalwinlose"`
+	Subtotalwinlosecompany int         `json:"subtotalwinlosecompany"`
 }
 
 func Reportwinlose(c *fiber.Ctx) error {
@@ -62,26 +65,41 @@ func Reportwinlose(c *fiber.Ctx) error {
 			"client_start": client.Client_start,
 			"client_end":   client.Client_end,
 		}).
-		Post(config.Path_url() + "api/editperiode")
+		Post(config.Path_url() + "api/reportwinlose")
 	if err != nil {
 		log.Println(err.Error())
 	}
+	log.Println("Response Info:")
+	log.Println("  Error      :", err)
+	log.Println("  Status Code:", resp.StatusCode())
+	log.Println("  Status     :", resp.Status())
+	log.Println("  Proto      :", resp.Proto())
+	log.Println("  Time       :", resp.Time())
+	log.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :\n", resp)
+	log.Println()
 	result := resp.Result().(*response_winlose)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":  http.StatusOK,
-			"message": result.Message,
-			"record":  result.Record,
-			"time":    time.Since(render_page).String(),
+			"status":                 http.StatusOK,
+			"message":                result.Message,
+			"record":                 result.Record,
+			"subtotalturnover":       result.Subtotalturnover,
+			"subtotalwinlose":        result.Subtotalwinlose,
+			"subtotalwinlosecompany": result.Subtotalwinlosecompany,
+			"time":                   time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
-			"time":    time.Since(render_page).String(),
+			"status":                 resp.StatusCode(),
+			"message":                result.Message,
+			"record":                 result.Record,
+			"subtotalturnover":       result.Subtotalturnover,
+			"subtotalwinlose":        result.Subtotalwinlose,
+			"subtotalwinlosecompany": result.Subtotalwinlosecompany,
+			"time":                   time.Since(render_page).String(),
 		})
 	}
 }

@@ -92,8 +92,8 @@
                         ];
                     }
                     total_turnover = parseInt(json.subtotalturnover);
-                    total_winlose = parseInt(json.Subtotalwinlose);
-                    total_winlose_agent = parseInt(json.Subtotalwinlosecompany);
+                    total_winlose = parseInt(json.subtotalwinlose);
+                    total_winlose_agent = parseInt(json.subtotalwinlosecompany);
 
                     if (total_winlose > 0) {
                         css_sub_winlosemember = "color:blue;font-weight:bold;";

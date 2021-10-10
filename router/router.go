@@ -25,6 +25,10 @@ func Init() *fiber.App {
 
 	app.Post("/api/allpasaran", controllers.Pasaran)
 	app.Post("/api/editpasaran", controllers.Pasarandetail)
+	app.Post("/api/savepasaran", controllers.Pasaransave)
+	app.Post("/api/savepasaranonline", controllers.Pasaransaveonline)
+	app.Post("/api/deletepasaranonline", controllers.Pasarandeleteonline)
+	app.Post("/api/savepasaranlimitline", controllers.Pasaransavelimit)
 
 	app.Post("/api/alladmin", controllers.Admin)
 	app.Post("/api/editadmin", controllers.Admindetail)

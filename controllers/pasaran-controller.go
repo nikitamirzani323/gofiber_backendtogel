@@ -998,6 +998,281 @@ func Pasaransaveconfcjitu(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconf5050umum(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfc5050)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                    client.Idpasaran,
+			"idpasarantogel":               client.Idpasarantogel,
+			"page":                         client.Page,
+			"pasaran_minbet_5050umum":      client.Pasaran_minbet_5050umum,
+			"pasaran_maxbet_5050umum":      client.Pasaran_maxbet_5050umum,
+			"pasaran_limittotal_5050umum":  client.Pasaran_limittotal_5050umum,
+			"pasaran_limitglobal_5050umum": client.Pasaran_limitglobal_5050umum,
+			"pasaran_keibesar_5050umum":    client.Pasaran_keibesar_5050umum,
+			"pasaran_keikecil_5050umum":    client.Pasaran_keikecil_5050umum,
+			"pasaran_keigenap_5050umum":    client.Pasaran_keigenap_5050umum,
+			"pasaran_keiganjil_5050umum":   client.Pasaran_keiganjil_5050umum,
+			"pasaran_keitengah_5050umum":   client.Pasaran_keitengah_5050umum,
+			"pasaran_keitepi_5050umum":     client.Pasaran_keitepi_5050umum,
+			"pasaran_discbesar_5050umum":   client.Pasaran_discbesar_5050umum,
+			"pasaran_disckecil_5050umum":   client.Pasaran_disckecil_5050umum,
+			"pasaran_discgenap_5050umum":   client.Pasaran_discgenap_5050umum,
+			"pasaran_discganjil_5050umum":  client.Pasaran_discganjil_5050umum,
+			"pasaran_disctengah_5050umum":  client.Pasaran_disctengah_5050umum,
+			"pasaran_disctepi_5050umum":    client.Pasaran_disctepi_5050umum,
+		}).
+		Post(config.Path_url() + "api/savepasaranconf5050umum")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconf5050special(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfc5050special)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                            client.Idpasaran,
+			"idpasarantogel":                       client.Idpasarantogel,
+			"page":                                 client.Page,
+			"pasaran_minbet_5050special":           client.Pasaran_minbet_5050special,
+			"pasaran_maxbet_5050special":           client.Pasaran_maxbet_5050special,
+			"pasaran_limittotal_5050special":       client.Pasaran_limittotal_5050special,
+			"pasaran_limitglobal_5050special":      client.Pasaran_limitglobal_5050special,
+			"pasaran_keiasganjil_5050special":      client.Pasaran_keiasganjil_5050special,
+			"pasaran_keiasgenap_5050special":       client.Pasaran_keiasgenap_5050special,
+			"pasaran_keiasbesar_5050special":       client.Pasaran_keiasbesar_5050special,
+			"pasaran_keiaskecil_5050special":       client.Pasaran_keiaskecil_5050special,
+			"pasaran_keikopganjil_5050special":     client.Pasaran_keikopganjil_5050special,
+			"pasaran_keikopgenap_5050special":      client.Pasaran_keikopgenap_5050special,
+			"pasaran_keikopbesar_5050special":      client.Pasaran_keikopbesar_5050special,
+			"pasaran_keikopkecil_5050special":      client.Pasaran_keikopkecil_5050special,
+			"pasaran_keikepalaganjil_5050special":  client.Pasaran_keikepalaganjil_5050special,
+			"pasaran_keikepalagenap_5050special":   client.Pasaran_keikepalagenap_5050special,
+			"pasaran_keikepalabesar_5050special":   client.Pasaran_keikepalabesar_5050special,
+			"pasaran_keikepalakecil_5050special":   client.Pasaran_keikepalakecil_5050special,
+			"pasaran_keiekorganjil_5050special":    client.Pasaran_keiekorganjil_5050special,
+			"pasaran_keiekorgenap_5050special":     client.Pasaran_keiekorgenap_5050special,
+			"pasaran_keiekorbesar_5050special":     client.Pasaran_keiekorbesar_5050special,
+			"pasaran_keiekorkecil_5050special":     client.Pasaran_keiekorkecil_5050special,
+			"pasaran_discasganjil_5050special":     client.Pasaran_discasganjil_5050special,
+			"pasaran_discasgenap_5050special":      client.Pasaran_discasgenap_5050special,
+			"pasaran_discasbesar_5050special":      client.Pasaran_discasbesar_5050special,
+			"pasaran_discaskecil_5050special":      client.Pasaran_discaskecil_5050special,
+			"pasaran_disckopganjil_5050special":    client.Pasaran_disckopganjil_5050special,
+			"pasaran_disckopgenap_5050special":     client.Pasaran_disckopgenap_5050special,
+			"pasaran_disckopbesar_5050special":     client.Pasaran_disckopbesar_5050special,
+			"pasaran_disckopkecil_5050special":     client.Pasaran_disckopkecil_5050special,
+			"pasaran_disckepalaganjil_5050special": client.Pasaran_disckepalaganjil_5050special,
+			"pasaran_disckepalagenap_5050special":  client.Pasaran_disckepalagenap_5050special,
+			"pasaran_disckepalabesar_5050special":  client.Pasaran_disckepalabesar_5050special,
+			"pasaran_disckepalakecil_5050special":  client.Pasaran_disckepalakecil_5050special,
+			"pasaran_discekorganjil_5050special":   client.Pasaran_discekorganjil_5050special,
+			"pasaran_discekorgenap_5050special":    client.Pasaran_discekorgenap_5050special,
+			"pasaran_discekorbesar_5050special":    client.Pasaran_discekorbesar_5050special,
+			"pasaran_discekorkecil_5050special":    client.Pasaran_discekorkecil_5050special,
+		}).
+		Post(config.Path_url() + "api/savepasaranconf5050special")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconf5050kombinasi(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfc5050kombinasi)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                                 client.Idpasaran,
+			"idpasarantogel":                            client.Idpasarantogel,
+			"page":                                      client.Page,
+			"pasaran_minbet_5050kombinasi":              client.Pasaran_minbet_5050kombinasi,
+			"pasaran_maxbet_5050kombinasi":              client.Pasaran_maxbet_5050kombinasi,
+			"pasaran_limittotal_5050kombinasi":          client.Pasaran_limittotal_5050kombinasi,
+			"pasaran_limitglobal_5050kombinasi":         client.Pasaran_limitglobal_5050kombinasi,
+			"pasaran_belakangkeimono_5050kombinasi":     client.Pasaran_belakangkeimono_5050kombinasi,
+			"pasaran_belakangkeistereo_5050kombinasi":   client.Pasaran_belakangkeistereo_5050kombinasi,
+			"pasaran_belakangkeikembang_5050kombinasi":  client.Pasaran_belakangkeikembang_5050kombinasi,
+			"pasaran_belakangkeikempis_5050kombinasi":   client.Pasaran_belakangkeikempis_5050kombinasi,
+			"pasaran_belakangkeikembar_5050kombinasi":   client.Pasaran_belakangkeikembar_5050kombinasi,
+			"pasaran_tengahkeimono_5050kombinasi":       client.Pasaran_tengahkeimono_5050kombinasi,
+			"pasaran_tengahkeistereo_5050kombinasi":     client.Pasaran_tengahkeistereo_5050kombinasi,
+			"pasaran_tengahkeikembang_5050kombinasi":    client.Pasaran_tengahkeikembang_5050kombinasi,
+			"pasaran_tengahkeikempis_5050kombinasi":     client.Pasaran_tengahkeikempis_5050kombinasi,
+			"pasaran_tengahkeikembar_5050kombinasi":     client.Pasaran_tengahkeikembar_5050kombinasi,
+			"pasaran_depankeimono_5050kombinasi":        client.Pasaran_depankeimono_5050kombinasi,
+			"pasaran_depankeistereo_5050kombinasi":      client.Pasaran_depankeistereo_5050kombinasi,
+			"pasaran_depankeikembang_5050kombinasi":     client.Pasaran_depankeikembang_5050kombinasi,
+			"pasaran_depankeikempis_5050kombinasi":      client.Pasaran_depankeikempis_5050kombinasi,
+			"pasaran_depankeikembar_5050kombinasi":      client.Pasaran_depankeikembar_5050kombinasi,
+			"pasaran_belakangdiscmono_5050kombinasi":    client.Pasaran_belakangdiscmono_5050kombinasi,
+			"pasaran_belakangdiscstereo_5050kombinasi":  client.Pasaran_belakangdiscstereo_5050kombinasi,
+			"pasaran_belakangdisckembang_5050kombinasi": client.Pasaran_belakangdisckembang_5050kombinasi,
+			"pasaran_belakangdisckempis_5050kombinasi":  client.Pasaran_belakangdisckempis_5050kombinasi,
+			"pasaran_belakangdisckembar_5050kombinasi":  client.Pasaran_belakangdisckembar_5050kombinasi,
+			"pasaran_tengahdiscmono_5050kombinasi":      client.Pasaran_tengahdiscmono_5050kombinasi,
+			"pasaran_tengahdiscstereo_5050kombinasi":    client.Pasaran_tengahdiscstereo_5050kombinasi,
+			"pasaran_tengahdisckembang_5050kombinasi":   client.Pasaran_tengahdisckembang_5050kombinasi,
+			"pasaran_tengahdisckempis_5050kombinasi":    client.Pasaran_tengahdisckempis_5050kombinasi,
+			"pasaran_tengahdisckembar_5050kombinasi":    client.Pasaran_tengahdisckembar_5050kombinasi,
+			"pasaran_depandiscmono_5050kombinasi":       client.Pasaran_depandiscmono_5050kombinasi,
+			"pasaran_depandiscstereo_5050kombinasi":     client.Pasaran_depandiscstereo_5050kombinasi,
+			"pasaran_depandisckembang_5050kombinasi":    client.Pasaran_depandisckembang_5050kombinasi,
+			"pasaran_depandisckempis_5050kombinasi":     client.Pasaran_depandisckempis_5050kombinasi,
+			"pasaran_depandisckembar_5050kombinasi":     client.Pasaran_depandisckembar_5050kombinasi,
+		}).
+		Post(config.Path_url() + "api/savepasaranconf5050kombinasi")
+	if err != nil {
+		log.Println(err.Error())
+	}
 	log.Println("Response Info:")
 	log.Println("  Error      :", err)
 	log.Println("  Status Code:", resp.StatusCode())

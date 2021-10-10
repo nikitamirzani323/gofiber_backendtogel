@@ -3,6 +3,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -25,7 +26,8 @@ type response_login struct {
 	Token string `json:"token"`
 	Key   string `json:"key"`
 }
-type response_home struct {
+type response_loginhome struct {
+	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
 
@@ -107,11 +109,13 @@ func Home(c *fiber.Ctx) error {
 			"record":  errors,
 		})
 	}
-
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
 	render_page := time.Now()
 	axios := resty.New()
 	resp, err := axios.R().
-		SetResult(response_home{}).
+		SetAuthToken(token[1]).
+		SetResult(response_loginhome{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"page": client.Page,
@@ -120,11 +124,21 @@ func Home(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_home)
-	c.Status(fiber.StatusOK)
-	return c.JSON(fiber.Map{
-		"status":  http.StatusOK,
-		"message": result.Message,
-		"time":    time.Since(render_page).String(),
-	})
+	result := resp.Result().(*response_loginhome)
+	log.Println(result.Status)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(resp.StatusCode())
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": "Anda tidak bisa mengakses halaman ini",
+			"time":    time.Since(render_page).String(),
+		})
+	}
 }

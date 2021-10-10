@@ -1,0 +1,1051 @@
+<script>
+    import { Icon, Row, Col, Container } from "sveltestrap";
+    import { createEventDispatcher } from "svelte";
+    import Panel from "../../components/Panel.svelte";
+    import Modal from "../../components/Modal.svelte";
+
+    export let sData = "";
+    export let idtrxkeluaran = 0;
+    export let idpasarancode = "";
+    export let client_key = "";
+    export let token = "";
+    export let periode_status_field = "LOCK";
+    export let periode_tglkeluaran_field = "";
+    export let periode_tanggalnext_field = "";
+    export let periode_periode_field = "";
+    export let periode_keluaran_field = "";
+    export let periode_statusonline_field = "";
+    export let periode_create_field = "";
+    export let periode_createdate_field = "";
+    export let periode_update_field = "";
+    export let periode_updatedate_field = "";
+    let listBetTable = [];
+    let listBet = [];
+    let listMember = [];
+    let listMemberNomor = [];
+    let totalbet = 0;
+    let totalbayar = 0;
+    let totalwin = 0;
+    let subtotal_member_bet = 0;
+    let subtotal_member_bayar = 0;
+    let subtotal_member_win = 0;
+    let css_loader = "display: none;";
+    let msgloader = "";
+    let dispatch = createEventDispatcher();
+    const BackHalaman = () => {
+        dispatch("handleBackHalaman", "call");
+    };
+    async function SaveTransaksi() {
+        let flag = false;
+        let msg = "";
+        css_loader = "display: inline-block;";
+        msgloader = "Sending...";
+        if (periode_keluaran_field == "") {
+            flag = true;
+            msg += "The keluaran is required\n";
+        }
+        if (parseInt(periode_keluaran_field.length) < 4) {
+            flag = true;
+            msg += "The keluaran is must 4 Character\n";
+        }
+
+        if (flag == false) {
+            periode_status_field = "LOCK";
+            const res = await fetch("/api/saveperiode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+                body: JSON.stringify({
+                    sData: sData,
+                    client_key: client_key,
+                    page: "PERIODE-SAVE",
+                    idinvoice: parseInt(idtrxkeluaran),
+                    idpasarancode: idpasarancode,
+                    nomorkeluaran: periode_keluaran_field,
+                }),
+            });
+            const json = await res.json();
+
+            if (json.status == 200) {
+                msgloader = json.message;
+            } else if (json.status == 403) {
+                alert(json.message);
+                periode_keluaran_field = "";
+            } else {
+                msgloader = json.message;
+            }
+            dispatch("handleRefreshEdit", idtrxkeluaran);
+            setTimeout(function () {
+                css_loader = "display: none;";
+            }, 1000);
+            listBetTable = [];
+            listBet = [];
+            listMember = [];
+            call_listbet();
+            call_listmember();
+        } else {
+            alert(msg);
+            setTimeout(function () {
+                css_loader = "display: none;";
+            }, 1000);
+        }
+    }
+    async function call_listmembernomor(permainan, nomor) {
+        const res = await fetch("/api/periodelistmemberbynomor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                client_key: client_key,
+                idinvoice: parseInt(idtrxkeluaran),
+                permainan: permainan,
+                nomor: nomor,
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        let nomember = 0;
+
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                let myModal = new bootstrap.Modal(
+                    document.getElementById("modalmemberbet")
+                );
+                myModal.show();
+                for (var i = 0; i < record.length; i++) {
+                    nomember = nomember + 1;
+                    listMemberNomor = [
+                        ...listMemberNomor,
+                        {
+                            member_no: nomember,
+                            member_name: record[i]["member"],
+                            member_permainan: record[i]["member_permainan"],
+                            member_nomor: record[i]["member_nomor"],
+                            member_bet: record[i]["member_bet"],
+                            member_disc: record[i]["member_disc"],
+                            member_discpercen: record[i]["member_discpercen"],
+                            member_kei: record[i]["member_kei"],
+                            member_keipercen: record[i]["member_keipercen"],
+                            member_bayar: record[i]["member_bayar"],
+                            member_win: record[i]["member_win"],
+                            member_winhasil: record[i]["member_winhasil"],
+                        },
+                    ];
+                }
+            } else {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            }
+        }
+    }
+    async function call_listmember() {
+        const res = await fetch("/api/periodelistmember", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                client_key: client_key,
+                idinvoice: parseInt(idtrxkeluaran),
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        let nomember = 0;
+
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    nomember = nomember + 1;
+                    subtotal_member_bet =
+                        subtotal_member_bet + parseInt(record[i]["totalbet"]);
+                    subtotal_member_bayar =
+                        subtotal_member_bayar +
+                        parseInt(record[i]["totalbayar"]);
+                    subtotal_member_win =
+                        subtotal_member_win + parseInt(record[i]["totalwin"]);
+                    listMember = [
+                        ...listMember,
+                        {
+                            member_no: nomember,
+                            member_name: record[i]["member"],
+                            member_totalbet: record[i]["totalbet"],
+                            member_totalbayar: record[i]["totalbayar"],
+                            member_totalwin: record[i]["totalwin"],
+                        },
+                    ];
+                }
+            } else {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            }
+        }
+    }
+    async function call_listbet() {
+        const res = await fetch("/api/periodelistbet", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                client_key: client_key,
+                idinvoice: parseInt(idtrxkeluaran),
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        totalbet = json.totalbet;
+        totalbayar = json.subtotal;
+        totalwin = json.subtotalwin;
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    listBet = [
+                        ...listBet,
+                        {
+                            bet_id: record[i]["bet_id"],
+                            bet_datetime: record[i]["bet_datetime"],
+                            bet_ipaddress: record[i]["bet_ipaddress"],
+                            bet_device: record[i]["bet_device"],
+                            bet_timezone: record[i]["bet_timezone"],
+                            bet_username: record[i]["bet_username"],
+                            bet_typegame: record[i]["bet_typegame"],
+                            bet_nomortogel: record[i]["bet_nomortogel"],
+                            bet_bet: record[i]["bet_bet"],
+                            bet_diskon: record[i]["bet_diskon"],
+                            bet_diskonpercen: record[i]["bet_diskonpercen"],
+                            bet_kei: record[i]["bet_kei"],
+                            bet_keipercen: record[i]["bet_keipercen"],
+                            bet_bayar: record[i]["bet_bayar"],
+                            bet_win: record[i]["bet_win"],
+                            bet_totalwin: record[i]["bet_totalwin"],
+                            bet_status: record[i]["bet_status"],
+                            bet_statuscss: record[i]["bet_statuscss"],
+                        },
+                    ];
+                }
+                call_bettable();
+            } else {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            }
+        }
+    }
+    async function call_bettable() {
+        const res = await fetch("/api/periodebettable", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                client_key: client_key,
+                idinvoice: parseInt(idtrxkeluaran),
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    listBetTable = [
+                        ...listBetTable,
+                        {
+                            permainan: record[i]["permainan"],
+                            listbet: record[i]["bet"],
+                        },
+                    ];
+                }
+            }
+        }
+    }
+    const handleKeyboard_number = (e) => {
+        let numbera;
+        for (let i = 0; i < periode_keluaran_field.length; i++) {
+            numbera = parseInt(periode_keluaran_field[i]);
+            if (isNaN(numbera)) {
+                periode_keluaran_field = "";
+            }
+        }
+    };
+    let searchBet = "";
+    let filteritems = [];
+
+    $: {
+        if (listBet.length > 0) {
+            setTimeout(function () {
+                msgloader = "";
+                css_loader = "display: none;";
+            }, 1000);
+        } else {
+            if (listBet == null) {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            } else {
+                css_loader = "display: inline-block;";
+                msgloader = "Fetching...";
+            }
+        }
+
+        if (searchBet) {
+            filteritems = listBet.filter(
+                (item) =>
+                    item.bet_status
+                        .toLowerCase()
+                        .includes(searchBet.toLowerCase()) ||
+                    item.bet_nomortogel
+                        .toLowerCase()
+                        .includes(searchBet.toLowerCase()) ||
+                    item.bet_typegame
+                        .toLowerCase()
+                        .includes(searchBet.toLowerCase())
+            );
+        } else {
+            filteritems = [...listBet];
+        }
+    }
+
+    const openCity = (evt, cityName) => {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(
+                " active",
+                ""
+            );
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    };
+    const groupMember = (permainan, nomor) => {
+        listMemberNomor = [];
+        call_listmembernomor(permainan, nomor);
+    };
+    call_listbet();
+    call_listmember();
+</script>
+
+<div id="loader" style="margin-left:50%;{css_loader}">
+    {msgloader}
+</div>
+
+<Container fluid style="margin-top: 70px;">
+    <Row>
+        <Col>
+            <button
+                on:click={() => {
+                    BackHalaman();
+                }}
+                class="btn btn-dark"
+                style="border-radius: 0px;"
+            >
+                Back
+            </button>
+        </Col>
+    </Row>
+    <div class="clearfix" />
+    <Row>
+        <Col xs="3">
+            <div
+                class="alert alert-warning"
+                role="alert"
+                style="margin-top: 10px;"
+            >
+                <h4>INFORMATION</h4>
+                <p>Periode Selanjutnya : {periode_tanggalnext_field}</p>
+            </div>
+            <div class="card" style="border-radius: 0px;margin-top:10px;">
+                <div class="card-header" style="">
+                    Periode / {sData}
+                    {#if periode_status_field == "OPEN"}
+                        {#if periode_statusonline_field == "OFFLINE"}
+                            <div class="float-end">
+                                <button
+                                    on:click={() => {
+                                        SaveTransaksi();
+                                    }}
+                                    class="btn btn-warning"
+                                    style="border-radius: 0px;"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        {/if}
+                    {/if}
+                </div>
+                <div class="card-body" style="height:450px;">
+                    <Row>
+                        <div class="mb-3">
+                            <label
+                                for="exampleFormControlInput1"
+                                class="form-label">Invoice</label
+                            >
+                            <input
+                                bind:value={idtrxkeluaran}
+                                type="text"
+                                disabled
+                                class="form-control"
+                                placeholder="Invoice"
+                                aria-label="Invoice"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="exampleFormControlInput1"
+                                class="form-label">Tanggal</label
+                            >
+                            <input
+                                bind:value={periode_tglkeluaran_field}
+                                type="text"
+                                style="text-align: center;"
+                                disabled
+                                class="form-control"
+                                placeholder="Tanggal"
+                                aria-label="Tanggal"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="exampleFormControlInput1"
+                                class="form-label">Periode</label
+                            >
+                            <input
+                                bind:value={periode_periode_field}
+                                type="text"
+                                disabled
+                                class="form-control required"
+                                placeholder="Periode"
+                                aria-label="Periode"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                for="exampleFormControlInput1"
+                                class="form-label">Keluaran</label
+                            >
+                            <input
+                                bind:value={periode_keluaran_field}
+                                on:keyup={handleKeyboard_number}
+                                type="text"
+                                maxlength="4"
+                                class="form-control required"
+                                placeholder="Keluaran"
+                                aria-label="Keluaran"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 11px;">Create</td>
+                                    <td style="font-size: 11px;">:</td>
+                                    <td style="font-size: 11px;"
+                                        >{periode_create_field} - {periode_createdate_field}</td
+                                    >
+                                </tr>
+                                {#if periode_update_field != ""}
+                                    <tr>
+                                        <td style="font-size: 11px;">Update</td>
+                                        <td style="font-size: 11px;">:</td>
+                                        <td style="font-size: 11px;"
+                                            >{periode_update_field} - {periode_updatedate_field}</td
+                                        >
+                                    </tr>
+                                {/if}
+                            </table>
+                        </div>
+                    </Row>
+                </div>
+            </div>
+            <div class="clearfix" />
+            <br />
+            <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
+                <slot:template slot="cheader"> List Member </slot:template>
+                <slot:template slot="cbody">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th
+                                    width="1%"
+                                    style="text-align: center;vertical-align: top;font-size: 13px;"
+                                    >NO</th
+                                >
+                                <th
+                                    width="*"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >USERNAME</th
+                                >
+                                <th
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >TOTAL<br />BET</th
+                                >
+                                <th
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >TOTAL<br />BAYAR</th
+                                >
+                                <th
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >TOTAL<br />WIN</th
+                                >
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each listMember as rec}
+                                <tr>
+                                    <td
+                                        NOWRAP
+                                        style="text-align: center;vertical-align: top;font-size: 12px;"
+                                        >{rec.member_no}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.member_name}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.member_totalbet
+                                        )}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.member_totalbayar
+                                        )}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.member_totalwin
+                                        )}</td
+                                    >
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </slot:template>
+                <slot:template slot="cfooter">
+                    <table width="100%" style="padding:0px;margin-bottom:0px;">
+                        <tbody>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
+                                    >TOTAL BET</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        subtotal_member_bet
+                                    )}</td
+                                >
+                            </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL BAYAR</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        subtotal_member_bayar
+                                    )}</td
+                                >
+                            </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL WIN</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        subtotal_member_win
+                                    )}</td
+                                >
+                            </tr>
+                        </tbody>
+                    </table>
+                </slot:template>
+            </Panel>
+        </Col>
+        <Col xs="9">
+            <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
+                <slot:template slot="cheader"> List Bet </slot:template>
+                <slot:template slot="csearch">
+                    <div class="col-lg-12" style="padding: 5px;">
+                        <input
+                            class="form-control"
+                            placeholder="Searching"
+                            bind:value={searchBet}
+                            type="text"
+                        />
+                    </div>
+                </slot:template>
+                <slot:template slot="cbody">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th
+                                    width="1%"
+                                    style="text-align: center;vertical-align: top;font-size: 13px;"
+                                    >STATUS</th
+                                >
+                                <th
+                                    width="10%"
+                                    style="text-align: center;vertical-align: top;font-size: 13px;"
+                                    >TANGGAL</th
+                                >
+                                <th
+                                    width="*"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >USERNAME</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >IPADDRESS</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >BROWSER</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >TIMEZONE</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >PERMAINAN</th
+                                >
+                                <th
+                                    width="1%"
+                                    style="text-align: left;vertical-align: top;font-size: 13px;"
+                                    >NOMOR</th
+                                >
+                                <th
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >BET</th
+                                >
+                                <th
+                                    width="10%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >DISC</th
+                                >
+                                <th
+                                    width="10%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >KEI</th
+                                >
+                                <th
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >BAYAR</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >WIN</th
+                                >
+                                <th
+                                    width="7%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >WIN<br />TOTAL</th
+                                >
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each filteritems as rec}
+                                <tr>
+                                    <td
+                                        NOWRAP
+                                        style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
+                                        >{rec.bet_status}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: center;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_datetime}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_username}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_ipaddress}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_device}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_timezone}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_typegame}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_nomortogel}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.bet_bet
+                                        )}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                        >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                        >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.bet_bayar
+                                        )}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_win}x</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.bet_totalwin
+                                        )}</td
+                                    >
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </slot:template>
+                <slot:template slot="cfooter">
+                    <table width="100%" style="padding:0px;margin-bottom:0px;">
+                        <tbody>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
+                                    >TOTAL BET</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        totalbet
+                                    )}</td
+                                >
+                            </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL BAYAR</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        totalbayar
+                                    )}</td
+                                >
+                            </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL WIN</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        totalwin
+                                    )}</td
+                                >
+                            </tr>
+                        </tbody>
+                    </table>
+                </slot:template>
+            </Panel>
+            <div class="clearfix" />
+            <br />
+            {#if listBetTable.length > 0}
+                <div class="tab">
+                    {#each listBetTable as rec}
+                        <button
+                            on:click={() => {
+                                openCity(event, rec.permainan);
+                            }}
+                            class="tablinks"
+                            ><span style="font-size:12px;">{rec.permainan}</span
+                            ></button
+                        >
+                    {/each}
+                </div>
+                {#each listBetTable as rec}
+                    <div
+                        id={rec.permainan}
+                        class="tabcontent"
+                        style="height:400px;overflow:scroll;"
+                    >
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th
+                                        width="10%"
+                                        style="text-align: center;vertical-align: top;font-size: 15px;"
+                                        >NOMOR</th
+                                    >
+                                    <th
+                                        width="*"
+                                        style="text-align: right;vertical-align: top;font-size: 15px;"
+                                        >TOTAL BET</th
+                                    >
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#each rec.listbet as rec2}
+                                    <tr>
+                                        <td
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                        >
+                                            {rec2.bet_keluaran} (
+                                            <span
+                                                on:click={() => {
+                                                    groupMember(
+                                                        rec.permainan,
+                                                        rec2.bet_keluaran
+                                                    );
+                                                }}
+                                                style="cursor: pointer;text-decoration: underline;"
+                                            >
+                                                <Icon name="people-fill" />
+                                                <span style="color:red;"
+                                                    >{rec2.bet_totalmember}</span
+                                                >
+                                            </span>)
+                                        </td>
+                                        <td
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >{new Intl.NumberFormat().format(
+                                                rec2.bet_totalbet
+                                            )}</td
+                                        >
+                                    </tr>
+                                {/each}
+                            </tbody>
+                        </table>
+                    </div>
+                {/each}
+            {/if}
+        </Col>
+    </Row>
+</Container>
+
+<Modal
+    modal_id={"modalmemberbet"}
+    modal_size={"modal-lg modal-dialog-centered"}
+    modal_footer_flag={false}
+>
+    <slot:template slot="header">
+        <h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
+    </slot:template>
+    <slot:template slot="body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th
+                        width="*"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >USERNAME</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >PERMAINAN</th
+                    >
+                    <th
+                        width="1%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >NOMOR</th
+                    >
+                    <th
+                        width="20%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >BET</th
+                    >
+                    <th
+                        width="10%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >DISC</th
+                    >
+                    <th
+                        width="10%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >KEI</th
+                    >
+                    <th
+                        width="20%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >BAYAR</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >WIN</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >WIN<br />TOTAL</th
+                    >
+                </tr>
+            </thead>
+            <tbody>
+                {#each listMemberNomor as rec}
+                    <tr>
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.member_name}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.member_permainan}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.member_nomor}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;"
+                            >{new Intl.NumberFormat().format(
+                                rec.member_bet
+                            )}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                            >{rec.member_disc}&nbsp;({rec.member_discpercen}%)</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                            >{rec.member_kei}&nbsp;({rec.member_keipercen}%)</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                            >{new Intl.NumberFormat().format(
+                                rec.member_bayar
+                            )}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;"
+                            >{rec.member_win}x</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                            >{new Intl.NumberFormat().format(
+                                rec.member_winhasil
+                            )}</td
+                        >
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </slot:template>
+</Modal>
+
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>

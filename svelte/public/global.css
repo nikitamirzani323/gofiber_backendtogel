@@ -1,0 +1,72 @@
+html,
+body {
+    font-size: 1rem;
+    font-family: 'Trebuchet MS', Verdana, Arial, Helvetica, sans-serif;
+    ;
+    color: #374151;
+    line-height: 1.5;
+    background: #f2f4f6;
+}
+
+#loader {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    width: 100px;
+    padding: 10px 10px 10px 10px;
+    background: #FFF6BF;
+    color: black;
+    border: 2px solid #FFF6BF;
+
+    position: fixed;
+    z-index: 5000;
+    top: 10;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #1f2937;
+}
+
+.required {
+    color: #000000;
+    background-color: #ffffc4;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #ffffc4;
+    border-right: 1px solid #ffffc4;
+}
+
+.btn-warning {
+    color: #1f2937;
+    background-color: #fba918;
+    border-color: #fba918;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(17 24 39 / 8%);
+}
+
+#btn1 {
+    border-radius: 0px;
+    background: #303030;
+    border: 1px solid #303030;
+    text-decoration: none;
+    cursor: pointer;
+    color: #aaa68a;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+#btn2 {
+    border-radius: 0px;
+    background: #cc0000;
+    border: 1px solid #cc0000;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}

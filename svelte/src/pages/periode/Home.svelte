@@ -11,7 +11,6 @@
     export let listPeriodePasaran = [];
     export let totalrecord = 0;
     export let token = "";
-    export let client_key = "";
 
     let select_pasaran = "";
     let css_loader = "display: none;";
@@ -68,7 +67,6 @@
                 },
                 body: JSON.stringify({
                     sdata: sData,
-                    client_key: client_key,
                     pasaran_code: select_pasaran,
                 }),
             });

@@ -67,7 +67,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 page: "PERIODE-VIEW",
             }),
         });
@@ -90,7 +89,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
             }),
         });
         const json = await res.json();
@@ -176,7 +174,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idinvoice: parseInt(e),
             }),
         });
@@ -220,7 +217,6 @@
             on:handleRefreshData={handleRefreshData}
             on:handleEditData={handleEditData}
             {token}
-            {client_key}
             {totalrecord}
             {listPeriode}
             {listPeriodePasaran}
@@ -232,7 +228,6 @@
         on:handleRefreshEdit={handleRefreshEdit}
         {sData}
         {token}
-        {client_key}
         {idtrxkeluaran}
         {idpasarancode}
         {periode_status_field}

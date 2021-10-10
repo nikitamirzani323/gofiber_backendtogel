@@ -7,7 +7,6 @@
     export let sData = "";
     export let idtrxkeluaran = 0;
     export let idpasarancode = "";
-    export let client_key = "";
     export let token = "";
     export let periode_status_field = "LOCK";
     export let periode_tglkeluaran_field = "";
@@ -59,7 +58,6 @@
                 },
                 body: JSON.stringify({
                     sData: sData,
-                    client_key: client_key,
                     page: "PERIODE-SAVE",
                     idinvoice: parseInt(idtrxkeluaran),
                     idpasarancode: idpasarancode,
@@ -100,7 +98,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idinvoice: parseInt(idtrxkeluaran),
                 permainan: permainan,
                 nomor: nomor,
@@ -154,7 +151,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idinvoice: parseInt(idtrxkeluaran),
             }),
         });
@@ -202,7 +198,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idinvoice: parseInt(idtrxkeluaran),
             }),
         });
@@ -257,7 +252,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idinvoice: parseInt(idtrxkeluaran),
             }),
         });

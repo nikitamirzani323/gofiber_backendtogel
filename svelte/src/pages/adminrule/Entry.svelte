@@ -5,7 +5,6 @@
     import * as yup from "yup";
 
     export let sData = "";
-    export let client_key = "";
     export let token = "";
     export let adminrule_id = "";
     export let adminrule_name = "";
@@ -57,7 +56,6 @@
             },
             body: JSON.stringify({
                 sdata: sData,
-                client_key: client_key,
                 page: "ADMINRULE-SAVE",
                 idrule: adminrule_id,
                 nama: name,
@@ -95,7 +93,6 @@
                 },
                 body: JSON.stringify({
                     sdata: sData,
-                    client_key: client_key,
                     page: "ADMINRULE-SAVE",
                     idrule: adminrule_id,
                     rule: adminrule_rule_field.toString(),

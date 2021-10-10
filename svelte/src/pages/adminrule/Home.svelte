@@ -9,7 +9,6 @@
     let page = "Admin Rule Management";
     let sData = "New";
     let screen_height = screen.height - 480;
-    export let client_key = "";
     export let token = "";
     export let listAdminrule = [];
     export let totalrecord = 0;
@@ -70,7 +69,6 @@
             },
             body: JSON.stringify({
                 sdata: sData,
-                client_key: client_key,
                 page: "ADMINRULE-SAVE",
                 idrule: 1,
                 nama: name,

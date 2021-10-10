@@ -23,9 +23,17 @@ func Init() *fiber.App {
 	app.Post("/api/home", controllers.Home)
 	app.Post("/api/dashboardwinlose", controllers.Dashboard)
 
+	app.Post("/api/allpasaran", controllers.Pasaran)
+	app.Post("/api/editpasaran", controllers.Pasarandetail)
+
 	app.Post("/api/alladmin", controllers.Admin)
 	app.Post("/api/editadmin", controllers.Admindetail)
 	app.Post("/api/saveadmin", controllers.Adminsave)
 	app.Post("/api/saveadminiplist", controllers.Adminsaveiplist)
+
+	app.Post("/api/alladminrule", controllers.Adminrule)
+	app.Post("/api/editadminrule", controllers.Adminruledetail)
+	app.Post("/api/saveadminrule", controllers.Adminrulesave)
+	app.Post("/api/saveadminruleconf", controllers.Adminruleconfsave)
 	return app
 }

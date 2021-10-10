@@ -8,7 +8,6 @@
     let adminrule_id = "";
     let adminrule_name = "";
     let token = localStorage.getItem("token");
-    let client_key = localStorage.getItem("client_key");
     let akses_page = true;
     let adminrule_rule_field = "";
     let adminrule_create_field = "";
@@ -44,7 +43,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 page: "ADMINRULE-VIEW",
             }),
         });
@@ -67,7 +65,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
             }),
         });
         const json = await res.json();
@@ -101,7 +98,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 idrule: e,
             }),
         });
@@ -130,7 +126,6 @@
         <Home
             on:handleRefreshData={handleRefreshData}
             on:handleEditData={handleEditData}
-            {client_key}
             {token}
             {listAdminrule}
             {totalrecord}
@@ -140,7 +135,6 @@
     <Entry
         on:handleBackHalaman={handleBackHalaman}
         {sData}
-        {client_key}
         {token}
         {adminrule_id}
         {adminrule_name}

@@ -9,7 +9,6 @@
 	let idcomppasaran = "";
 	let sData = "";
 	let token = localStorage.getItem("token");
-	let client_key = localStorage.getItem("client_key");
 	let akses_page = true;
 	let pasaran_idpasarantogel_field = "";
 	let pasaran_name_field = "";
@@ -236,7 +235,6 @@
 				Authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
-				client_key: client_key,
 				idpasaran: parseInt(z),
 				idpasaraonline: parseInt(e),
 				page:"PASARAN-SAVE",
@@ -259,7 +257,6 @@
 				Authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
-				client_key: client_key,
 				idpasaran: e,
 			}),
 		});
@@ -604,7 +601,6 @@
 				Authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
-				client_key: client_key,
 				page: "PASARAN-VIEW",
 			}),
 		});
@@ -627,7 +623,6 @@
 				Authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
-				client_key: client_key,
 			}),
 		});
 		const json = await res.json();
@@ -684,7 +679,6 @@
 		on:handleRefreshPasaranOnline={handleRefreshPasaranOnline}
 		on:handleDeletePasaranOnline={handleDeletePasaranOnline}
 		{sData}
-		{client_key}
 		{idcomppasaran}
 		{token}
 		{pasaran_idpasarantogel_field}

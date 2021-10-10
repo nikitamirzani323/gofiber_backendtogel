@@ -11,7 +11,6 @@
     import { createEventDispatcher } from "svelte";
 
     export let sData = "";
-    export let client_key = "";
     export let idcomppasaran = "";
     export let token = "";
     export let pasaran_idpasarantogel_field = "";
@@ -234,7 +233,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     page:"PASARAN-SAVE",
                     idpasaran: idcomppasaran,
                     pasaran_hariraya: select_pasaranonline,
@@ -296,7 +294,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     page:"PASARAN-SAVE",
                     idpasaran: idcomppasaran,
                     pasaran_diundi: pasaran_diundi_field,
@@ -357,7 +354,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     page:"PASARAN-SAVE",
                     pasaran_limitline4d: parseInt(pasaran_limitline4d_field),
@@ -500,7 +496,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     page:"PASARAN-SAVE",
                     idpasarantogel: pasaran_idpasarantogel_field,
@@ -625,7 +620,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     page:"PASARAN-SAVE",
                     idpasarantogel: pasaran_idpasarantogel_field,
@@ -708,7 +702,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -789,7 +782,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -873,7 +865,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -993,7 +984,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -1220,7 +1210,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -1499,7 +1488,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -1660,7 +1648,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -1761,7 +1748,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",
@@ -1853,7 +1839,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
                     page:"PASARAN-SAVE",

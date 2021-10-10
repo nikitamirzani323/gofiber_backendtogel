@@ -6,7 +6,6 @@
     dayjs.extend(isBetween);
 
     let token = localStorage.getItem("token");
-    let client_key = localStorage.getItem("client_key");
     let akses_page = true;
     let listwinlose = [];
     let total_turnover = 0;
@@ -26,7 +25,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 page: "REPORTWINLOSE-VIEW",
             }),
         });
@@ -60,7 +58,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     client_start: start_field,
                     client_end: end_field,
                 }),

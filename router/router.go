@@ -25,5 +25,7 @@ func Init() *fiber.App {
 
 	app.Post("/api/alladmin", controllers.Admin)
 	app.Post("/api/editadmin", controllers.Admindetail)
+	app.Post("/api/saveadmin", controllers.Adminsave)
+	app.Post("/api/saveadminiplist", controllers.Adminsaveiplist)
 	return app
 }

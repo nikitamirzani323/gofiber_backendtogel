@@ -45,6 +45,7 @@ func Init() *fiber.App {
 	app.Post("/api/allperiode", controllers.Periode)
 	app.Post("/api/editperiode", controllers.Periodedetail)
 	app.Post("/api/saveperiode", controllers.Periodesave)
+	app.Post("/api/savepasarannew", controllers.Periodesavenew)
 	app.Post("/api/periodelistmember", controllers.Periodelistmember)
 	app.Post("/api/periodelistmemberbynomor", controllers.Periodelistmemberbynomor)
 	app.Post("/api/periodelistbet", controllers.Periodelistbet)

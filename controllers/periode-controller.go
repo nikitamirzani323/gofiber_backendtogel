@@ -33,7 +33,7 @@ type periodeSaveNew struct {
 	Page          string `json:"page"`
 	Idcomppasaran int    `json:"pasaran_code" validate:"required"`
 }
-type periodePrediksi struct {
+type periodeprediksi struct {
 	Nomorkeluaran string `json:"nomorkeluaran" validate:"required,min=4,max=4"`
 	Idcomppasaran int    `json:"pasaran_code" validate:"required"`
 }
@@ -42,6 +42,11 @@ type response_periode struct {
 	Message       string      `json:"message"`
 	Record        interface{} `json:"record"`
 	Pasaranonline interface{} `json:"pasaranonline"`
+}
+type response_periodedetail struct {
+	Status  int         `json:"status"`
+	Message string      `json:"message"`
+	Record  interface{} `json:"record"`
 }
 
 func Periode(c *fiber.Ctx) error {
@@ -61,18 +66,20 @@ func Periode(c *fiber.Ctx) error {
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":  http.StatusOK,
-			"message": result.Message,
-			"record":  result.Record,
-			"time":    time.Since(render_page).String(),
+			"status":        http.StatusOK,
+			"message":       result.Message,
+			"record":        result.Record,
+			"pasaranonline": result.Pasaranonline,
+			"time":          time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
-			"time":    time.Since(render_page).String(),
+			"status":        resp.StatusCode(),
+			"message":       result.Message,
+			"record":        result.Record,
+			"pasaranonline": result.Pasaranonline,
+			"time":          time.Since(render_page).String(),
 		})
 	}
 }
@@ -109,7 +116,7 @@ func Periodedetail(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
@@ -118,24 +125,22 @@ func Periodedetail(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -172,9 +177,10 @@ func Periodesave(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
+			"sData":         client.Sdata,
 			"idinvoice":     client.Idtrxkeluaran,
 			"nomorkeluaran": client.Nomorkeluaran,
 			"idpasarancode": client.Idpasarantogel,
@@ -183,24 +189,23 @@ func Periodesave(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -237,7 +242,7 @@ func Periodelistmember(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
@@ -246,24 +251,22 @@ func Periodelistmember(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -300,7 +303,7 @@ func Periodelistmemberbynomor(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
@@ -311,24 +314,22 @@ func Periodelistmemberbynomor(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -365,7 +366,7 @@ func Periodelistbet(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
@@ -374,24 +375,22 @@ func Periodelistbet(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -428,7 +427,7 @@ func Periodebettable(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_pasaran{}).
+		SetResult(response_periodedetail{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
@@ -437,24 +436,116 @@ func Periodebettable(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_pasaran)
+	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":        http.StatusOK,
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Periodelistpasaran(c *fiber.Ctx) error {
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_periode{}).
+		SetHeader("Content-Type", "application/json").
+		Post(config.Path_url() + "api/listpasaran")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_periode)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Periodeprediksi(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(periodeprediksi)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_periodedetail{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"nomorkeluaran": client.Nomorkeluaran,
+			"Idcomppasaran": client.Idcomppasaran,
+		}).
+		Post(config.Path_url() + "api/listprediksi")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_periodedetail)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }

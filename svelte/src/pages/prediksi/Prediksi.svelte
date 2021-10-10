@@ -2,7 +2,6 @@
     import { Row, Col, Container } from "sveltestrap";
     import Panel from "../../components/Panel.svelte";
     let token = localStorage.getItem("token");
-    let client_key = localStorage.getItem("client_key");
     let akses_page = true;
     let listPasaranCompany = [];
     let listresult = [];
@@ -40,7 +39,6 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    client_key: client_key,
                     nomorkeluaran: prediksi_field,
                     pasaran_code: parseInt(prediksi_select_field),
                 }),
@@ -104,7 +102,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
                 page: "PREDIKSI-VIEW",
             }),
         });
@@ -126,7 +123,6 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
-                client_key: client_key,
             }),
         });
         const json = await res.json();

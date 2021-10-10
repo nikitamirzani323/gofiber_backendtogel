@@ -1273,15 +1273,220 @@ func Pasaransaveconf5050kombinasi(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("Response Info:")
-	log.Println("  Error      :", err)
-	log.Println("  Status Code:", resp.StatusCode())
-	log.Println("  Status     :", resp.Status())
-	log.Println("  Proto      :", resp.Proto())
-	log.Println("  Time       :", resp.Time())
-	log.Println("  Received At:", resp.ReceivedAt())
-	log.Println("  Body       :\n", resp)
-	log.Println()
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconfmacaukombinasi(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfmakaukombinasi)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                     client.Idpasaran,
+			"idpasarantogel":                client.Idpasarantogel,
+			"page":                          client.Page,
+			"pasaran_minbet_kombinasi":      client.Pasaran_minbet_kombinasi,
+			"pasaran_maxbet_kombinasi":      client.Pasaran_maxbet_kombinasi,
+			"pasaran_limittotal_kombinasi":  client.Pasaran_limittotal_kombinasi,
+			"pasaran_limitglobal_kombinasi": client.Pasaran_limitglobal_kombinasi,
+			"pasaran_win_kombinasi":         client.Pasaran_win_kombinasi,
+			"pasaran_disc_kombinasi":        client.Pasaran_disc_kombinasi,
+		}).
+		Post(config.Path_url() + "api/savepasaranconfmacaukombinasi")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconfdasar(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfdasar)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                 client.Idpasaran,
+			"idpasarantogel":            client.Idpasarantogel,
+			"page":                      client.Page,
+			"pasaran_minbet_dasar":      client.Pasaran_minbet_dasar,
+			"pasaran_maxbet_dasar":      client.Pasaran_maxbet_dasar,
+			"pasaran_limittotal_dasar":  client.Pasaran_limittotal_dasar,
+			"pasaran_limitglobal_dasar": client.Pasaran_limitglobal_dasar,
+			"pasaran_keibesar_dasar":    client.Pasaran_keibesar_dasar,
+			"pasaran_keikecil_dasar":    client.Pasaran_keikecil_dasar,
+			"pasaran_keigenap_dasar":    client.Pasaran_keigenap_dasar,
+			"pasaran_keiganjil_dasar":   client.Pasaran_keiganjil_dasar,
+			"pasaran_discbesar_dasar":   client.Pasaran_discbesar_dasar,
+			"pasaran_disckecil_dasar":   client.Pasaran_disckecil_dasar,
+			"pasaran_discgenap_dasar":   client.Pasaran_discgenap_dasar,
+			"pasaran_discganjil_dasar":  client.Pasaran_discganjil_dasar,
+		}).
+		Post(config.Path_url() + "api/savepasaranconfdasar")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_pasaransave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  resp.StatusCode(),
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Pasaransaveconfshio(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(pasaranconfshio)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_pasaransave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idpasaran":                client.Idpasaran,
+			"idpasarantogel":           client.Idpasarantogel,
+			"page":                     client.Page,
+			"pasaran_minbet_shio":      client.Pasaran_minbet_shio,
+			"pasaran_maxbet_shio":      client.Pasaran_maxbet_shio,
+			"pasaran_limittotal_shio":  client.Pasaran_limittotal_shio,
+			"pasaran_limitglobal_shio": client.Pasaran_limitglobal_shio,
+			"pasaran_shioyear_shio":    client.Pasaran_shioyear_shio,
+			"pasaran_disc_shio":        client.Pasaran_disc_shio,
+			"pasaran_win_shio":         client.Pasaran_win_shio,
+		}).
+		Post(config.Path_url() + "api/savepasaranconfshio")
+	if err != nil {
+		log.Println(err.Error())
+	}
 	result := resp.Result().(*response_pasaransave)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)

@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/nikitamirzani323/gofiber_backendtogel/router"
+	"bitbucket.org/isbtotogroup/frontendagen_svelte/router"
 )
 
 func main() {

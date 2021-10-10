@@ -1,4 +1,4 @@
-module github.com/nikitamirzani323/gofiber_backendtogel
+module bitbucket.org/isbtotogroup/frontendagen_svelte
 
 go 1.17
 

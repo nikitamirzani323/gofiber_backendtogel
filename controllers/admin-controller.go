@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
+	"bitbucket.org/isbtotogroup/frontendagen_svelte/config"
+	"bitbucket.org/isbtotogroup/frontendagen_svelte/helpers"
 	"github.com/go-playground/validator/v10"
 	"github.com/go-resty/resty/v2"
 	"github.com/gofiber/fiber/v2"
-	"github.com/nikitamirzani323/gofiber_backendtogel/config"
-	"github.com/nikitamirzani323/gofiber_backendtogel/helpers"
 )
 
 type admindetail struct {

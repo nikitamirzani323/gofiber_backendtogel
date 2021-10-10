@@ -1,11 +1,11 @@
 package router
 
 import (
+	"bitbucket.org/isbtotogroup/frontendagen_svelte/controllers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/nikitamirzani323/gofiber_backendtogel/controllers"
 )
 
 func Init() *fiber.App {

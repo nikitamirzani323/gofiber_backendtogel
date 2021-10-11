@@ -116,6 +116,7 @@ func Home(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_loginhome{}).
+		SetError(response_loginhome{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"page": client.Page,
@@ -124,8 +125,8 @@ func Home(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
+
 	result := resp.Result().(*response_loginhome)
-	log.Println(result.Status)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
@@ -134,10 +135,12 @@ func Home(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(resp.StatusCode())
+		result_error := resp.Error().(*response_loginhome)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": "Anda tidak bisa mengakses halaman ini",
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}

@@ -42,6 +42,7 @@ func Adminrule(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_adminrule{}).
+		SetError(response_adminrule{}).
 		SetHeader("Content-Type", "application/json").
 		Post(config.Path_url() + "api/alladminrule")
 	if err != nil {
@@ -57,11 +58,12 @@ func Adminrule(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_adminrule)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -100,6 +102,7 @@ func Adminruledetail(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_adminrule{}).
+		SetError(response_adminrule{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idrule": client.Idrule,
@@ -118,11 +121,12 @@ func Adminruledetail(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_adminrule)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -161,6 +165,7 @@ func Adminrulesave(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_adminrule{}).
+		SetError(response_adminrule{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idrule": client.Idrule,
@@ -182,11 +187,12 @@ func Adminrulesave(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_adminrule)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -225,6 +231,7 @@ func Adminruleconfsave(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_adminrule{}).
+		SetError(response_adminrule{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idrule": client.Idrule,
@@ -246,11 +253,12 @@ func Adminruleconfsave(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_adminrule)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}

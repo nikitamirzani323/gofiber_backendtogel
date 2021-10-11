@@ -102,6 +102,8 @@
                         css_sub_winloseagent = "color:blue;font-weight:bold;";
                     }
                 }
+            }else if (json.status == 400) {
+                logout();
             }
         } else {
             alert(

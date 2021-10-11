@@ -60,6 +60,7 @@ func Reportwinlose(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_winlose{}).
+		SetError(response_winlose{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"client_start": client.Client_start,
@@ -69,15 +70,6 @@ func Reportwinlose(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("Response Info:")
-	log.Println("  Error      :", err)
-	log.Println("  Status Code:", resp.StatusCode())
-	log.Println("  Status     :", resp.Status())
-	log.Println("  Proto      :", resp.Proto())
-	log.Println("  Time       :", resp.Time())
-	log.Println("  Received At:", resp.ReceivedAt())
-	log.Println("  Body       :\n", resp)
-	log.Println()
 	result := resp.Result().(*response_winlose)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
@@ -91,15 +83,13 @@ func Reportwinlose(c *fiber.Ctx) error {
 			"time":                   time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_winlose)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":                 resp.StatusCode(),
-			"message":                result.Message,
-			"record":                 result.Record,
-			"subtotalturnover":       result.Subtotalturnover,
-			"subtotalwinlose":        result.Subtotalwinlose,
-			"subtotalwinlosecompany": result.Subtotalwinlosecompany,
-			"time":                   time.Since(render_page).String(),
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }

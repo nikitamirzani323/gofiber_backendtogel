@@ -274,6 +274,11 @@ type response_pasaran struct {
 	Record        interface{} `json:"record"`
 	Pasaranonline interface{} `json:"pasaranonline"`
 }
+type response_pasarandefault struct {
+	Status  int         `json:"status"`
+	Message string      `json:"message"`
+	Record  interface{} `json:"record"`
+}
 type response_pasaransave struct {
 	Status  int         `json:"status"`
 	Message string      `json:"message"`
@@ -287,13 +292,14 @@ func Pasaran(c *fiber.Ctx) error {
 	axios := resty.New()
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
-		SetResult(response_adminrule{}).
+		SetResult(response_pasarandefault{}).
+		SetError(response_pasarandefault{}).
 		SetHeader("Content-Type", "application/json").
 		Post(config.Path_url() + "api/allpasaran")
 	if err != nil {
 		log.Println(err.Error())
 	}
-	result := resp.Result().(*response_adminrule)
+	result := resp.Result().(*response_pasarandefault)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
@@ -303,11 +309,12 @@ func Pasaran(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasarandefault)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -346,6 +353,7 @@ func Pasarandetail(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaran{}).
+		SetError(response_pasaran{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran": client.Idpasaran,
@@ -365,13 +373,13 @@ func Pasarandetail(c *fiber.Ctx) error {
 			"time":          time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaran)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":        resp.StatusCode(),
-			"message":       result.Message,
-			"record":        result.Record,
-			"pasaranonline": result.Pasaranonline,
-			"time":          time.Since(render_page).String(),
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
+			"time":    time.Since(render_page).String(),
 		})
 	}
 }
@@ -409,6 +417,7 @@ func Pasaransave(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":         client.Idpasaran,
@@ -435,11 +444,12 @@ func Pasaransave(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -478,6 +488,7 @@ func Pasaransaveonline(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":        client.Idpasaran,
@@ -498,11 +509,12 @@ func Pasaransaveonline(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -541,6 +553,7 @@ func Pasarandeleteonline(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":      client.Idpasaran,
@@ -561,11 +574,12 @@ func Pasarandeleteonline(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -604,6 +618,7 @@ func Pasaransavelimit(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":            client.Idpasaran,
@@ -628,11 +643,12 @@ func Pasaransavelimit(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -671,6 +687,7 @@ func Pasaransaveconf432d(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                   client.Idpasaran,
@@ -717,11 +734,12 @@ func Pasaransaveconf432d(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -760,6 +778,7 @@ func Pasaransaveconfcbebas(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                  client.Idpasaran,
@@ -786,11 +805,12 @@ func Pasaransaveconfcbebas(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -829,6 +849,7 @@ func Pasaransaveconfcmacau(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                  client.Idpasaran,
@@ -857,11 +878,12 @@ func Pasaransaveconfcmacau(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -900,6 +922,7 @@ func Pasaransaveconfcnaga(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                 client.Idpasaran,
@@ -917,15 +940,6 @@ func Pasaransaveconfcnaga(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println("Response Info:")
-	log.Println("  Error      :", err)
-	log.Println("  Status Code:", resp.StatusCode())
-	log.Println("  Status     :", resp.Status())
-	log.Println("  Proto      :", resp.Proto())
-	log.Println("  Time       :", resp.Time())
-	log.Println("  Received At:", resp.ReceivedAt())
-	log.Println("  Body       :\n", resp)
-	log.Println()
 	result := resp.Result().(*response_pasaransave)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
@@ -936,11 +950,12 @@ func Pasaransaveconfcnaga(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -979,6 +994,7 @@ func Pasaransaveconfcjitu(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                 client.Idpasaran,
@@ -1008,11 +1024,12 @@ func Pasaransaveconfcjitu(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1051,6 +1068,7 @@ func Pasaransaveconf5050umum(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                    client.Idpasaran,
@@ -1087,11 +1105,12 @@ func Pasaransaveconf5050umum(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1130,6 +1149,7 @@ func Pasaransaveconf5050special(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                            client.Idpasaran,
@@ -1186,11 +1206,12 @@ func Pasaransaveconf5050special(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1229,6 +1250,7 @@ func Pasaransaveconf5050kombinasi(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                                 client.Idpasaran,
@@ -1283,11 +1305,12 @@ func Pasaransaveconf5050kombinasi(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1326,6 +1349,7 @@ func Pasaransaveconfmacaukombinasi(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                     client.Idpasaran,
@@ -1352,11 +1376,12 @@ func Pasaransaveconfmacaukombinasi(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1395,6 +1420,7 @@ func Pasaransaveconfdasar(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                 client.Idpasaran,
@@ -1427,11 +1453,12 @@ func Pasaransaveconfdasar(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}
@@ -1470,6 +1497,7 @@ func Pasaransaveconfshio(c *fiber.Ctx) error {
 	resp, err := axios.R().
 		SetAuthToken(token[1]).
 		SetResult(response_pasaransave{}).
+		SetError(response_pasaransave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idpasaran":                client.Idpasaran,
@@ -1497,11 +1525,12 @@ func Pasaransaveconfshio(c *fiber.Ctx) error {
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
-		c.Status(fiber.StatusBadRequest)
+		result_error := resp.Error().(*response_pasaransave)
+		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  resp.StatusCode(),
-			"message": result.Message,
-			"record":  result.Record,
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
 			"time":    time.Since(render_page).String(),
 		})
 	}

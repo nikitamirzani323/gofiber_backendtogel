@@ -14,6 +14,7 @@
     export let periode_periode_field = "";
     export let periode_keluaran_field = "";
     export let periode_statusonline_field = "";
+    export let periode_statusrevisi_field = "";
     export let periode_create_field = "";
     export let periode_createdate_field = "";
     export let periode_update_field = "";
@@ -273,6 +274,14 @@
             }
         }
     }
+    const refreshListBet = () => {
+        listBet = []
+        listBetTable = [];
+        totalbet = 0;
+        totalbayar = 0;
+        totalwin = 0;
+        call_listbet();
+    };
     const handleKeyboard_number = (e) => {
         let numbera;
         for (let i = 0; i < periode_keluaran_field.length; i++) {
@@ -377,9 +386,9 @@
             <div class="card" style="border-radius: 0px;margin-top:10px;">
                 <div class="card-header" style="">
                     Periode / {sData}
+                    <div class="float-end">
                     {#if periode_status_field == "OPEN"}
                         {#if periode_statusonline_field == "OFFLINE"}
-                            <div class="float-end">
                                 <button
                                     on:click={() => {
                                         SaveTransaksi();
@@ -389,9 +398,21 @@
                                 >
                                     Save
                                 </button>
-                            </div>
+                        {/if}
+                    {:else}
+                        {#if periode_statusrevisi_field == "OPEN"}
+                        <button
+                            on:click={() => {
+                                revisiTransaksi();
+                            }}
+                            class="btn btn-warning"
+                            style="border-radius: 0px;"
+                        >
+                            Revisi
+                        </button>
                         {/if}
                     {/if}
+                    </div>
                 </div>
                 <div class="card-body" style="height:450px;">
                     <Row>
@@ -596,7 +617,16 @@
         </Col>
         <Col xs="9">
             <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
-                <slot:template slot="cheader"> List Bet </slot:template>
+                <slot:template slot="cheader">
+                    <div class="float-end">
+                        <button 
+                            on:click={() => {
+                                refreshListBet();
+                            }}
+                            class="btn btn-primary btn-sm"><i class="bi bi-arrow-repeat"></i></button>
+                    </div>
+                    List Bet
+                </slot:template>
                 <slot:template slot="csearch">
                     <div class="col-lg-12" style="padding: 5px;">
                         <input
@@ -614,7 +644,17 @@
                                 <th
                                     width="1%"
                                     style="text-align: center;vertical-align: top;font-size: 13px;"
+                                    >&nbsp;</th
+                                >
+                                <th
+                                    width="1%"
+                                    style="text-align: center;vertical-align: top;font-size: 13px;"
                                     >STATUS</th
+                                >
+                                <th
+                                    width="10%"
+                                    style="text-align: center;vertical-align: top;font-size: 13px;"
+                                    >CODE</th
                                 >
                                 <th
                                     width="10%"
@@ -688,8 +728,22 @@
                                 <tr>
                                     <td
                                         NOWRAP
+                                        style="text-align: center;vertical-align: top;font-size: 11px;"
+                                        >
+                                        {#if periode_keluaran_field == "" }
+                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                        {/if}
+                                        </td
+                                    >
+                                    <td
+                                        NOWRAP
                                         style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
                                         >{rec.bet_status}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: center;vertical-align: top;font-size: 12px;"
+                                        >{rec.bet_id}</td
                                     >
                                     <td
                                         NOWRAP

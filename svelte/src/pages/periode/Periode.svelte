@@ -12,13 +12,13 @@
     let sData = "";
     let akses_page = true;
     let token = localStorage.getItem("token");
-    let client_key = localStorage.getItem("client_key");
     let periode_tglkeluaran_field = "";
     let periode_tanggalnext_field = "";
     let periode_periode_field = "";
     let periode_keluaran_field = "";
     let periode_status_field = "";
     let periode_statusonline_field = "";
+    let periode_statusrevisi_field = "";
     let periode_create_field = "";
     let periode_createdate_field = "";
     let periode_update_field = "";
@@ -195,6 +195,7 @@
                 periode_tanggalnext_field = record[i]["periode_tanggalnext"];
                 periode_periode_field = record[i]["periode_keluaranperiode"];
                 periode_keluaran_field = record[i]["periode_keluaran"];
+                periode_statusrevisi_field = record[i]["periode_statusrevisi"];
                 periode_statusonline_field = record[i]["periode_statusonline"];
                 periode_create_field = record[i]["periode_create"];
                 periode_createdate_field = record[i]["periode_createdate"];
@@ -236,6 +237,7 @@
         {periode_periode_field}
         {periode_keluaran_field}
         {periode_statusonline_field}
+        {periode_statusrevisi_field}
         {periode_create_field}
         {periode_createdate_field}
         {periode_update_field}

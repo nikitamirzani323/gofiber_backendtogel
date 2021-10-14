@@ -19,6 +19,7 @@
     export let periode_createdate_field = "";
     export let periode_update_field = "";
     export let periode_updatedate_field = "";
+    let listBetTableGroup = [];
     let listBetTable = [];
     let listBet = [];
     let listMember = [];
@@ -29,6 +30,7 @@
     let subtotal_member_bet = 0;
     let subtotal_member_bayar = 0;
     let subtotal_member_win = 0;
+    let chooce_permainan = "";
     let css_loader = "display: none;";
     let msgloader = "";
     let dispatch = createEventDispatcher();
@@ -82,7 +84,7 @@
             listBetTable = [];
             listBet = [];
             listMember = [];
-            call_listbet();
+            call_listbet("4D");
             call_listmember();
         } else {
             alert(msg);
@@ -91,7 +93,7 @@
             }, 1000);
         }
     }
-    async function call_listmembernomor(permainan, nomor) {
+    async function call_listmembernomor(nomor) {
         const res = await fetch("/api/periodelistmemberbynomor", {
             method: "POST",
             headers: {
@@ -100,7 +102,7 @@
             },
             body: JSON.stringify({
                 idinvoice: parseInt(idtrxkeluaran),
-                permainan: permainan,
+                permainan: chooce_permainan,
                 nomor: nomor,
             }),
         });
@@ -191,7 +193,8 @@
             }
         }
     }
-    async function call_listbet() {
+    async function call_listbet(e) {
+        listBet = []
         const res = await fetch("/api/periodelistbet", {
             method: "POST",
             headers: {
@@ -200,6 +203,7 @@
             },
             body: JSON.stringify({
                 idinvoice: parseInt(idtrxkeluaran),
+                permainan:e
             }),
         });
         const json = await res.json();
@@ -236,7 +240,7 @@
                         },
                     ];
                 }
-                call_bettable();
+                // call_bettable();
             } else {
                 setTimeout(function () {
                     msgloader = "";
@@ -245,8 +249,8 @@
             }
         }
     }
-    async function call_bettable() {
-        const res = await fetch("/api/periodebettable", {
+    async function call_listbettable() {
+        const res = await fetch("/api/periodelistbettable", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -267,21 +271,45 @@
                         ...listBetTable,
                         {
                             permainan: record[i]["permainan"],
-                            listbet: record[i]["bet"],
                         },
                     ];
                 }
             }
         }
     }
-    const refreshListBet = () => {
-        listBet = []
-        listBetTable = [];
-        totalbet = 0;
-        totalbayar = 0;
-        totalwin = 0;
-        call_listbet();
-    };
+    async function call_bettable(e) {
+        chooce_permainan = e;
+        const res = await fetch("/api/periodebettable", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                idinvoice: parseInt(idtrxkeluaran),
+                permainan:e
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    listBetTableGroup = [
+                        ...listBetTableGroup,
+                        {
+                            bet_keluaran: record[i]["bet_keluaran"],
+                            bet_totalbet: record[i]["bet_totalbet"],
+                            bet_totalmember: record[i]["bet_totalmember"],
+                        },
+                    ];
+                }
+            }
+        }
+    }
+   
     const handleKeyboard_number = (e) => {
         let numbera;
         for (let i = 0; i < periode_keluaran_field.length; i++) {
@@ -330,28 +358,17 @@
         }
     }
 
-    const openCity = (evt, cityName) => {
-        let i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(
-                " active",
-                ""
-            );
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+    const openCity = (e) => {
+        listBetTableGroup = [];
+        call_bettable(e)
     };
-    const groupMember = (permainan, nomor) => {
+    const groupMember = (nomor) => {
         listMemberNomor = [];
-        call_listmembernomor(permainan, nomor);
+        call_listmembernomor(nomor);
     };
-    call_listbet();
+    call_listbet("4D");
     call_listmember();
+    call_listbettable();
 </script>
 
 <div id="loader" style="margin-left:50%;{css_loader}">
@@ -499,7 +516,10 @@
             </div>
             <div class="clearfix" />
             <br />
-            <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
+            
+        </Col>
+        <Col xs="4">
+            <Panel height_body="510px" css_footer="padding:10px;margin:0px;">
                 <slot:template slot="cheader"> List Member </slot:template>
                 <slot:template slot="cbody">
                     <table class="table">
@@ -516,19 +536,22 @@
                                     >USERNAME</th
                                 >
                                 <th
+                                    NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />BET</th
+                                    >TOTAL BET</th
                                 >
                                 <th
+                                    NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />BAYAR</th
+                                    >TOTAL BAYAR</th
                                 >
                                 <th
+                                    NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />WIN</th
+                                    >TOTAL WIN</th
                                 >
                             </tr>
                         </thead>
@@ -615,19 +638,171 @@
                 </slot:template>
             </Panel>
         </Col>
-        <Col xs="9">
-            <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
+        <Col xs="5">
+            <Panel height_body="510px" css_footer="padding:5px;margin:0px;">
                 <slot:template slot="cheader">
-                    <div class="float-end">
-                        <button 
-                            on:click={() => {
-                                refreshListBet();
-                            }}
-                            class="btn btn-primary btn-sm"><i class="bi bi-arrow-repeat"></i></button>
+                    Bet Group
+                </slot:template>
+                <slot:template slot="cbody">
+                    <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            {#each listBetTable as rec}
+                            <button
+                                on:click={() => {
+                                    openCity(rec.permainan);
+                                }}
+                                style="font-size:13px;"
+                                class="nav-link" id="listbet_4d-tab" data-bs-toggle="pill" data-bs-target="#listbet_4d" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">{rec.permainan}</button>
+                            {/each}
+                        </div>
+                        <div class="tab-content" id="v-pills-tabContent" style="width:100%;" >
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;vertical-align: top;font-size:13px;">NOMOR</th>
+                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL MEMBER</th>
+                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL BET</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#each listBetTableGroup as rec }
+                                    <tr>
+                                        <td style="text-align: center;vertical-align: top;font-size:12px;">{rec.bet_keluaran}</td>
+                                        <td 
+                                            on:click={() => {
+                                                    groupMember(
+                                                        rec.bet_keluaran
+                                                    );
+                                                }}
+                                            style="text-decoration:underline;cursor:pointer;text-align: right;vertical-align: top;font-size:12px;">{rec.bet_totalmember}</td>
+                                        <td style="text-align: right;vertical-align: top;font-size:12px;color:blue;">
+                                            {new Intl.NumberFormat().format(
+                                                rec.bet_totalbet
+                                            )}
+                                        </td>
+                                    </tr>
+                                    {/each}
+                                </tbody>
+                            </table>    
+                        </div>
                     </div>
+                </slot:template>
+            </Panel>
+        </Col>
+        <div class="clearfix"></div>
+        <Col xs="12">
+            <Panel height_body="700px" css_footer="padding:10px;margin:0px;">
+                <slot:template slot="cheader">
                     List Bet
                 </slot:template>
-                <slot:template slot="csearch">
+                <slot:template slot="cbody">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li 
+                            on:click={() => {
+                                call_listbet("4D");
+                            }} 
+                            class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">4D</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("3D");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">3D</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("2D");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2D</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("2DD");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DD</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("2DT");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DT</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("COLOK_BEBAS");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK BEBAS</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("COLOK_MACAU");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK MACAU</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("COLOK_NAGA");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK NAGA</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("COLOK_JITU");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK JITU</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("50_50_UMUM");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 UMUM</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("50_50_SPECIAL");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 SPECIAL</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("50_50_KOMBINASI");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 KOMBINASI</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("MACAU_KOMBINASI");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">MACAU / KOMBINASI</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("DASAR");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">DASAR</button>
+                        </li>
+                        <li 
+                            on:click={() => {
+                                call_listbet("SHIO");
+                            }}
+                            class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">SHIO</button>
+                        </li>
+                    </ul>
                     <div class="col-lg-12" style="padding: 5px;">
                         <input
                             class="form-control"
@@ -636,9 +811,7 @@
                             type="text"
                         />
                     </div>
-                </slot:template>
-                <slot:template slot="cbody">
-                    <table class="table">
+                    <table class="table" width="100%">
                         <thead>
                             <tr>
                                 <th
@@ -652,7 +825,7 @@
                                     >STATUS</th
                                 >
                                 <th
-                                    width="10%"
+                                    width="1%"
                                     style="text-align: center;vertical-align: top;font-size: 13px;"
                                     >CODE</th
                                 >
@@ -864,84 +1037,14 @@
                     </table>
                 </slot:template>
             </Panel>
-            <div class="clearfix" />
-            <br />
-            {#if listBetTable.length > 0}
-                <div class="tab">
-                    {#each listBetTable as rec}
-                        <button
-                            on:click={() => {
-                                openCity(event, rec.permainan);
-                            }}
-                            class="tablinks"
-                            ><span style="font-size:12px;">{rec.permainan}</span
-                            ></button
-                        >
-                    {/each}
-                </div>
-                {#each listBetTable as rec}
-                    <div
-                        id={rec.permainan}
-                        class="tabcontent"
-                        style="height:400px;overflow:scroll;"
-                    >
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th
-                                        width="10%"
-                                        style="text-align: center;vertical-align: top;font-size: 15px;"
-                                        >NOMOR</th
-                                    >
-                                    <th
-                                        width="*"
-                                        style="text-align: right;vertical-align: top;font-size: 15px;"
-                                        >TOTAL BET</th
-                                    >
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {#each rec.listbet as rec2}
-                                    <tr>
-                                        <td
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                        >
-                                            {rec2.bet_keluaran} (
-                                            <span
-                                                on:click={() => {
-                                                    groupMember(
-                                                        rec.permainan,
-                                                        rec2.bet_keluaran
-                                                    );
-                                                }}
-                                                style="cursor: pointer;text-decoration: underline;"
-                                            >
-                                                <Icon name="people-fill" />
-                                                <span style="color:red;"
-                                                    >{rec2.bet_totalmember}</span
-                                                >
-                                            </span>)
-                                        </td>
-                                        <td
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >{new Intl.NumberFormat().format(
-                                                rec2.bet_totalbet
-                                            )}</td
-                                        >
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </div>
-                {/each}
-            {/if}
         </Col>
     </Row>
 </Container>
 
 <Modal
     modal_id={"modalmemberbet"}
-    modal_size={"modal-lg modal-dialog-centered"}
+    modal_size={"modal-xl modal-dialog-centered"}
+    modal_body_height={"height:500px;overflow:scroll;"}
     modal_footer_flag={false}
 >
     <slot:template slot="header">

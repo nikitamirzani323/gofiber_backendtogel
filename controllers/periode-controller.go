@@ -16,10 +16,18 @@ import (
 type periodedetail struct {
 	Idtrxkeluaran int `json:"idinvoice"`
 }
+type periodedetailbettable struct {
+	Idtrxkeluaran int    `json:"idinvoice"`
+	Permainan     string `json:"permainan"`
+}
 type periodedetailmembernomor struct {
 	Idtrxkeluaran int    `json:"idinvoice" validate:"required"`
 	Permainan     string `json:"permainan" validate:"required"`
 	Nomor         string `json:"nomor" validate:"required"`
+}
+type periodelistbet struct {
+	Idtrxkeluaran int    `json:"idinvoice"`
+	Permainan     string `json:"permainan"`
 }
 type periodeSave struct {
 	Sdata          string `json:"sData" validate:"required"`
@@ -418,7 +426,7 @@ func Periodelistmemberbynomor(c *fiber.Ctx) error {
 }
 func Periodelistbet(c *fiber.Ctx) error {
 	var errors []*helpers.ErrorResponse
-	client := new(periodedetail)
+	client := new(periodelistbet)
 	validate := validator.New()
 	if err := c.BodyParser(client); err != nil {
 		c.Status(fiber.StatusBadRequest)
@@ -454,6 +462,7 @@ func Periodelistbet(c *fiber.Ctx) error {
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
+			"permainan": client.Permainan,
 		}).
 		Post(config.Path_url() + "api/periodelistbet")
 	if err != nil {
@@ -482,7 +491,7 @@ func Periodelistbet(c *fiber.Ctx) error {
 		})
 	}
 }
-func Periodebettable(c *fiber.Ctx) error {
+func Periodelistbettable(c *fiber.Ctx) error {
 	var errors []*helpers.ErrorResponse
 	client := new(periodedetail)
 	validate := validator.New()
@@ -520,6 +529,70 @@ func Periodebettable(c *fiber.Ctx) error {
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"idinvoice": client.Idtrxkeluaran,
+		}).
+		Post(config.Path_url() + "api/periodelistbettable")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_periodedetail)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		result_error := resp.Error().(*response_periodedetail)
+		c.Status(result_error.Status)
+		return c.JSON(fiber.Map{
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Periodebettable(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(periodedetailbettable)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_periodedetail{}).
+		SetError(response_periodedetail{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idinvoice": client.Idtrxkeluaran,
+			"permainan": client.Permainan,
 		}).
 		Post(config.Path_url() + "api/periodebettable")
 	if err != nil {

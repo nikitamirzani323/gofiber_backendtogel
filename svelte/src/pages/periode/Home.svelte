@@ -154,7 +154,8 @@
                                         >DATE</th
                                     >
                                     <th
-                                        width="10%"
+                                        NOWRAP
+                                        width="1%"
                                         style="text-align: left;vertical-align:top;font-size: 14px;"
                                         >INVOICE</th
                                     >
@@ -172,6 +173,12 @@
                                         width="10%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
                                         >KELUARAN</th
+                                    >
+                                    <th
+                                        NOWRAP
+                                        width="1%"
+                                        style="text-align: right;vertical-align:top;font-size: 14px;"
+                                        >REVISI</th
                                     >
                                     <th
                                         width="10%"
@@ -246,6 +253,16 @@
                                             style="text-align: center;vertical-align:top;font-size: 13px;font-weight:bold;color:black;"
                                             >{rec.pasaran_keluaran}</td
                                         >
+                                        <td
+                                            NOWRAP
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_revisi_css}"
+                                            >{new Intl.NumberFormat().format(
+                                                rec.pasaran_revisi
+                                            )}
+                                            {#if rec.pasaran_revisi > 0} 
+                                            <i class="bi bi-chat-right-text" data-bs-toggle="tooltip" data-bs-placement="top" title="{rec.pasaran_msgrevisi}"></i> 
+                                            {/if}
+                                        </td>
                                         <td
                                             NOWRAP
                                             style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalmember_css}"

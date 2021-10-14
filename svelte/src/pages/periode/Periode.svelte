@@ -99,6 +99,7 @@
             let css_totalbet = "";
             let css_totalbayar = "";
             let css_winlose = "";
+            let css_revisi = "";
             if (record != null) {
                 totalrecord = record.length;
                 for (var i = 0; i < record.length; i++) {
@@ -122,6 +123,11 @@
                     } else {
                         css_winlose = "color:red;font-weight:bold";
                     }
+                    if (parseInt(record[i]["pasaran_revisi"]) > 0) {
+                        css_revisi = "color:blue;font-weight:bold";
+                    } else {
+                        css_revisi = "color:red;font-weight:bold";
+                    }
                     listPeriode = [
                         ...listPeriode,
                         {
@@ -141,6 +147,9 @@
                             pasaran_totaloutstanding:
                                 record[i]["pasaran_totaloutstanding"],
                             pasaran_totaloutstanding_css: css_totalbayar,
+                            pasaran_msgrevisi: record[i]["pasaran_msgrevisi"],
+                            pasaran_revisi: record[i]["pasaran_revisi"],
+                            pasaran_revisi_css: css_revisi,
                             pasaran_winlose: record[i]["pasaran_winlose"],
                             pasaran_winlose_css: css_winlose,
                             pasaran_status: record[i]["pasaran_status"],

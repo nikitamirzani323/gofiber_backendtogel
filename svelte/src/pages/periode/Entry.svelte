@@ -1,6 +1,8 @@
 <script>
-    import { Icon, Row, Col, Container } from "sveltestrap";
+    import { Row, Col, Container } from "sveltestrap";
     import { createEventDispatcher } from "svelte";
+    import { createForm } from "svelte-forms-lib";
+    import * as yup from "yup";
     import Panel from "../../components/Panel.svelte";
     import Modal from "../../components/Modal.svelte";
 
@@ -30,10 +32,30 @@
     let subtotal_member_bet = 0;
     let subtotal_member_bayar = 0;
     let subtotal_member_win = 0;
+    let subtotal_member_winlose = 0;
+    let css_winlose = "color:red;font-weight:bold;";
     let chooce_permainan = "";
     let css_loader = "display: none;";
     let msgloader = "";
     let dispatch = createEventDispatcher();
+
+    const schema = yup.object().shape({
+        msgrevisi: yup.string().
+                        required().
+                        matches(/^[a-zA-z0-9 ]+$/, "Alasan revisi must Character A-Z or a-z or 1-9 ").
+                        min(5,"Alasan revisi must be at least 5 Character").
+                        max(120,"Alasan revisi must be at least 120 Character"),
+    });
+    const { form, errors, handleChange, handleSubmit } = createForm({
+        initialValues: {
+            msgrevisi: ""
+        },
+        validationSchema: schema,
+        onSubmit:(values) => {
+           revisiTransaksi(values.msgrevisi)
+        }
+    })
+
     const BackHalaman = () => {
         dispatch("handleBackHalaman", "call");
     };
@@ -81,7 +103,6 @@
             setTimeout(function () {
                 css_loader = "display: none;";
             }, 1000);
-            listBetTable = [];
             listBet = [];
             listMember = [];
             call_listbet("4D");
@@ -92,6 +113,47 @@
                 css_loader = "display: none;";
             }, 1000);
         }
+    }
+    function callrevisiTransaksi(){
+        let myModal = new bootstrap.Modal(
+            document.getElementById("modalrevisi")
+        );
+        myModal.show();
+    }
+    async function revisiTransaksi(e){
+        periode_status_field = "LOCK";
+        const res = await fetch("/api/saveperioderevisi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                sData: sData,
+                page: "PERIODE-SAVE",
+                idinvoice: parseInt(idtrxkeluaran),
+                msgrevisi: e,
+            }),
+        });
+        const json = await res.json();
+
+        if (json.status == 200) {
+            msgloader = json.message;
+        } else if (json.status == 403) {
+            alert(json.message);
+            periode_keluaran_field = "";
+        } else {
+            msgloader = json.message;
+        }
+        $form.msgrevisi = "";
+        dispatch("handleRefreshEdit", idtrxkeluaran);
+        setTimeout(function () {
+            css_loader = "display: none;";
+        }, 1000);
+        listBet = [];
+        listMember = [];
+        call_listbet("4D");
+        call_listmember();
     }
     async function call_listmembernomor(nomor) {
         const res = await fetch("/api/periodelistmemberbynomor", {
@@ -172,8 +234,7 @@
                     subtotal_member_bayar =
                         subtotal_member_bayar +
                         parseInt(record[i]["totalbayar"]);
-                    subtotal_member_win =
-                        subtotal_member_win + parseInt(record[i]["totalwin"]);
+                    subtotal_member_win = subtotal_member_win + parseInt(record[i]["totalwin"]);
                     listMember = [
                         ...listMember,
                         {
@@ -184,6 +245,10 @@
                             member_totalwin: record[i]["totalwin"],
                         },
                     ];
+                }
+                subtotal_member_winlose = subtotal_member_bayar - subtotal_member_win
+                if(parseInt(subtotal_member_winlose) > 0){
+                    css_winlose = "color:blue;font-weight:bold;"
                 }
             } else {
                 setTimeout(function () {
@@ -309,7 +374,6 @@
             }
         }
     }
-   
     const handleKeyboard_number = (e) => {
         let numbera;
         for (let i = 0; i < periode_keluaran_field.length; i++) {
@@ -355,6 +419,10 @@
             );
         } else {
             filteritems = [...listBet];
+        }
+        if ($errors.msgrevisi){
+            alert($errors.msgrevisi)
+            $form.msgrevisi = ""
         }
     }
 
@@ -420,7 +488,7 @@
                         {#if periode_statusrevisi_field == "OPEN"}
                         <button
                             on:click={() => {
-                                revisiTransaksi();
+                                callrevisiTransaksi();
                             }}
                             class="btn btn-warning"
                             style="border-radius: 0px;"
@@ -519,7 +587,7 @@
             
         </Col>
         <Col xs="4">
-            <Panel height_body="510px" css_footer="padding:10px;margin:0px;">
+            <Panel height_body="500px" css_footer="padding:10px;margin:0px;">
                 <slot:template slot="cheader"> List Member </slot:template>
                 <slot:template slot="cbody">
                     <table class="table">
@@ -633,13 +701,25 @@
                                     )}</td
                                 >
                             </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL WINLOSE</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;{css_winlose}font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        subtotal_member_winlose
+                                    )}</td
+                                >
+                            </tr>
                         </tbody>
                     </table>
                 </slot:template>
             </Panel>
         </Col>
         <Col xs="5">
-            <Panel height_body="510px" css_footer="padding:5px;margin:0px;">
+            <Panel height_body="510px" css_footer="">
                 <slot:template slot="cheader">
                     Bet Group
                 </slot:template>
@@ -1161,42 +1241,44 @@
         </table>
     </slot:template>
 </Modal>
-
-<style>
-    /* Style the tab */
-    .tab {
-        overflow: hidden;
-        border: 1px solid #ccc;
-        background-color: #f1f1f1;
-    }
-
-    /* Style the buttons inside the tab */
-    .tab button {
-        background-color: inherit;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        transition: 0.3s;
-        font-size: 17px;
-    }
-
-    /* Change background color of buttons on hover */
-    .tab button:hover {
-        background-color: #ddd;
-    }
-
-    /* Create an active/current tablink class */
-    .tab button.active {
-        background-color: #ccc;
-    }
-
-    /* Style the tab content */
-    .tabcontent {
-        display: none;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
-</style>
+<Modal
+    modal_id={"modalrevisi"}
+    modal_size={"modal-dialog-centered"}
+    modal_body_height={"height:150px;"}
+    modal_footer_flag={true}
+>
+    <slot:template slot="header">
+        <h5 class="modal-title" id="exampleModal">REVISI</h5>
+    </slot:template>
+    <slot:template slot="body">
+        <Container>
+            <Row>
+                <div class="mb-3">
+                    <input
+                        on:change="{handleChange}"
+                        bind:value={$form.msgrevisi}
+                        invalid={$errors.msgrevisi.length > 0}
+                        type="text"
+                        maxlength="120"
+                        class="form-control required"
+                        placeholder="Alasan Revisi"
+                        aria-label="Alasan Revisi"
+                    />
+                </div>
+            </Row>
+        </Container>
+    </slot:template>
+    <slot:template slot="footer">
+        <div class="float-end">
+            <button
+                on:click={() => {
+                    handleSubmit();
+                }}
+                class="btn btn-warning"
+                style="border-radius: 0px;"
+            >
+                Save
+            </button>
+        </div>
+    </slot:template>
+</Modal>

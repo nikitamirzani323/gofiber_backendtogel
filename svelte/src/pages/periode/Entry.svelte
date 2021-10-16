@@ -156,6 +156,38 @@
         call_listbet("4D");
         call_listmember();
     }
+    async function cancelbetTransaksi(e){
+        const res = await fetch("/api/cancelbet", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                sData: sData,
+                page: "PERIODE-SAVE",
+                idinvoice: parseInt(idtrxkeluaran),
+                idinvoicedetail: parseInt(e),
+            }),
+        });
+        const json = await res.json();
+
+        if (json.status == 200) {
+            msgloader = json.message;
+        } else if (json.status == 403) {
+            alert(json.message);
+            periode_keluaran_field = "";
+        } else {
+            msgloader = json.message;
+        }
+        setTimeout(function () {
+            css_loader = "display: none;";
+        }, 1000);
+        listBet = [];
+        listMember = [];
+        call_listbet("4D");
+        call_listmember();
+    }
     async function call_listmembernomor(nomor) {
         const res = await fetch("/api/periodelistmemberbynomor", {
             method: "POST",
@@ -482,7 +514,7 @@
         }
     }
     const cancelBet = (e) => {
-        alert(e)
+        cancelbetTransaksi(e)
     };
     const openCity = (e) => {
         listBetTableGroup = [];
@@ -1067,11 +1099,13 @@
                                                 style="text-align: center;vertical-align: top;font-size: 11px;"
                                                 >
                                                 {#if periode_keluaran_field == "" }
+                                                    {#if rec.bet_status == "RUNNING"}
                                                     <button
                                                         on:click={() => {
                                                             cancelBet(rec.bet_id);
                                                         }} 
                                                         class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                    {/if}
                                                 {/if}
                                                 </td
                                             >

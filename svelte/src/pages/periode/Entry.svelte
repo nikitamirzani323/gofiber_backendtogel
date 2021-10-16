@@ -314,29 +314,31 @@
         } else {
             if (record != null) {
                 for (var i = 0; i < record.length; i++) {
-                    listBet = [
-                        ...listBet,
-                        {
-                            bet_id: record[i]["bet_id"],
-                            bet_datetime: record[i]["bet_datetime"],
-                            bet_ipaddress: record[i]["bet_ipaddress"],
-                            bet_device: record[i]["bet_device"],
-                            bet_timezone: record[i]["bet_timezone"],
-                            bet_username: record[i]["bet_username"],
-                            bet_typegame: record[i]["bet_typegame"],
-                            bet_nomortogel: record[i]["bet_nomortogel"],
-                            bet_bet: record[i]["bet_bet"],
-                            bet_diskon: record[i]["bet_diskon"],
-                            bet_diskonpercen: record[i]["bet_diskonpercen"],
-                            bet_kei: record[i]["bet_kei"],
-                            bet_keipercen: record[i]["bet_keipercen"],
-                            bet_bayar: record[i]["bet_bayar"],
-                            bet_win: record[i]["bet_win"],
-                            bet_totalwin: record[i]["bet_totalwin"],
-                            bet_status: record[i]["bet_status"],
-                            bet_statuscss: record[i]["bet_statuscss"],
-                        },
-                    ];
+                    if(record[i]["bet_status"] != "CANCEL"){
+                        listBet = [
+                            ...listBet,
+                            {
+                                bet_id: record[i]["bet_id"],
+                                bet_datetime: record[i]["bet_datetime"],
+                                bet_ipaddress: record[i]["bet_ipaddress"],
+                                bet_device: record[i]["bet_device"],
+                                bet_timezone: record[i]["bet_timezone"],
+                                bet_username: record[i]["bet_username"],
+                                bet_typegame: record[i]["bet_typegame"],
+                                bet_nomortogel: record[i]["bet_nomortogel"],
+                                bet_bet: record[i]["bet_bet"],
+                                bet_diskon: record[i]["bet_diskon"],
+                                bet_diskonpercen: record[i]["bet_diskonpercen"],
+                                bet_kei: record[i]["bet_kei"],
+                                bet_keipercen: record[i]["bet_keipercen"],
+                                bet_bayar: record[i]["bet_bayar"],
+                                bet_win: record[i]["bet_win"],
+                                bet_totalwin: record[i]["bet_totalwin"],
+                                bet_status: record[i]["bet_status"],
+                                bet_statuscss: record[i]["bet_statuscss"],
+                            },
+                        ];
+                    }
                 }
                 // call_bettable();
             } else {

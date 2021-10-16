@@ -24,6 +24,7 @@
     let listBetTableGroup = [];
     let listBetTable = [];
     let listBet = [];
+    let listBetStatus = [];
     let listMember = [];
     let listMemberNomor = [];
     let totalbet = 0;
@@ -314,6 +315,61 @@
             }
         }
     }
+    async function call_listgroupbet(e) {
+        listBetStatus = []
+        const res = await fetch("/api/periodelistbetstatus", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                idinvoice: parseInt(idtrxkeluaran),
+                status:e
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        totalbet = json.totalbet;
+        totalbayar = json.subtotal;
+        totalwin = json.subtotalwin;
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    listBetStatus = [
+                        ...listBetStatus,
+                        {
+                            bet_id: record[i]["bet_id"],
+                            bet_datetime: record[i]["bet_datetime"],
+                            bet_ipaddress: record[i]["bet_ipaddress"],
+                            bet_device: record[i]["bet_device"],
+                            bet_timezone: record[i]["bet_timezone"],
+                            bet_username: record[i]["bet_username"],
+                            bet_typegame: record[i]["bet_typegame"],
+                            bet_nomortogel: record[i]["bet_nomortogel"],
+                            bet_bet: record[i]["bet_bet"],
+                            bet_diskon: record[i]["bet_diskon"],
+                            bet_diskonpercen: record[i]["bet_diskonpercen"],
+                            bet_kei: record[i]["bet_kei"],
+                            bet_keipercen: record[i]["bet_keipercen"],
+                            bet_bayar: record[i]["bet_bayar"],
+                            bet_win: record[i]["bet_win"],
+                            bet_totalwin: record[i]["bet_totalwin"],
+                            bet_status: record[i]["bet_status"],
+                            bet_statuscss: record[i]["bet_statuscss"],
+                        },
+                    ];
+                }
+            } else {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            }
+        }
+    }
     async function call_listbettable() {
         const res = await fetch("/api/periodelistbettable", {
             method: "POST",
@@ -425,7 +481,9 @@
             $form.msgrevisi = ""
         }
     }
-
+    const cancelBet = (e) => {
+        alert(e)
+    };
     const openCity = (e) => {
         listBetTableGroup = [];
         call_bettable(e)
@@ -771,352 +829,822 @@
         </Col>
         <div class="clearfix"></div>
         <Col xs="12">
-            <Panel height_body="700px" css_footer="padding:10px;margin:0px;">
-                <slot:template slot="cheader">
-                    List Bet
-                </slot:template>
-                <slot:template slot="cbody">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li 
-                            on:click={() => {
-                                call_listbet("4D");
-                            }} 
-                            class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">4D</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("3D");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">3D</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("2D");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2D</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("2DD");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DD</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("2DT");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DT</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("COLOK_BEBAS");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK BEBAS</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("COLOK_MACAU");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK MACAU</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("COLOK_NAGA");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK NAGA</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("COLOK_JITU");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK JITU</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("50_50_UMUM");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 UMUM</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("50_50_SPECIAL");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 SPECIAL</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("50_50_KOMBINASI");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 KOMBINASI</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("MACAU_KOMBINASI");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">MACAU / KOMBINASI</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("DASAR");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">DASAR</button>
-                        </li>
-                        <li 
-                            on:click={() => {
-                                call_listbet("SHIO");
-                            }}
-                            class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">SHIO</button>
-                        </li>
-                    </ul>
-                    <div class="col-lg-12" style="padding: 5px;">
-                        <input
-                            class="form-control"
-                            placeholder="Searching"
-                            bind:value={searchBet}
-                            type="text"
-                        />
-                    </div>
-                    <table class="table" width="100%">
-                        <thead>
-                            <tr>
-                                <th
-                                    width="1%"
-                                    style="text-align: center;vertical-align: top;font-size: 13px;"
-                                    >&nbsp;</th
-                                >
-                                <th
-                                    width="1%"
-                                    style="text-align: center;vertical-align: top;font-size: 13px;"
-                                    >STATUS</th
-                                >
-                                <th
-                                    width="1%"
-                                    style="text-align: center;vertical-align: top;font-size: 13px;"
-                                    >CODE</th
-                                >
-                                <th
-                                    width="10%"
-                                    style="text-align: center;vertical-align: top;font-size: 13px;"
-                                    >TANGGAL</th
-                                >
-                                <th
-                                    width="*"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >USERNAME</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >IPADDRESS</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >BROWSER</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >TIMEZONE</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >PERMAINAN</th
-                                >
-                                <th
-                                    width="1%"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >NOMOR</th
-                                >
-                                <th
-                                    width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >BET</th
-                                >
-                                <th
-                                    width="10%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >DISC</th
-                                >
-                                <th
-                                    width="10%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >KEI</th
-                                >
-                                <th
-                                    width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >BAYAR</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >WIN</th
-                                >
-                                <th
-                                    width="7%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >WIN<br />TOTAL</th
-                                >
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each filteritems as rec}
-                                <tr>
-                                    <td
-                                        NOWRAP
-                                        style="text-align: center;vertical-align: top;font-size: 11px;"
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li 
+                    on:click={() => {
+                        call_listgroupbet("all");
+                    }} 
+                    class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">ALL</button>
+                </li>
+                <li 
+                    on:click={() => {
+                        call_listgroupbet("winner");
+                    }}
+                    class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-winner-tab" data-bs-toggle="pill" data-bs-target="#pills-winner" type="button" role="tab" aria-controls="pills-winner" aria-selected="false">WINNER</button>
+                </li>
+                <li 
+                    on:click={() => {
+                        call_listgroupbet("cancel");
+                    }}
+                    class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-cancel-tab" data-bs-toggle="pill" data-bs-target="#pills-cancel" type="button" role="tab" aria-controls="pills-cancel" aria-selected="false">CANCEL</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                    <Panel height_body="700px" css_footer="padding:10px;margin:0px;">
+                        <slot:template slot="cheader">
+                            List Bet
+                        </slot:template>
+                        <slot:template slot="cbody">
+                            <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("4D");
+                                    }} 
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">4D</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("3D");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">3D</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("2D");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2D</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("2DD");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DD</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("2DT");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">2DT</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("COLOK_BEBAS");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK BEBAS</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("COLOK_MACAU");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK MACAU</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("COLOK_NAGA");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK NAGA</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("COLOK_JITU");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">COLOK JITU</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("50_50_UMUM");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 UMUM</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("50_50_SPECIAL");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 SPECIAL</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("50_50_KOMBINASI");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">50 - 50 KOMBINASI</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("MACAU_KOMBINASI");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">MACAU / KOMBINASI</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("DASAR");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">DASAR</button>
+                                </li>
+                                <li 
+                                    on:click={() => {
+                                        call_listbet("SHIO");
+                                    }}
+                                    class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">SHIO</button>
+                                </li>
+                            </ul>
+                            <div class="col-lg-12" style="padding: 5px;">
+                                <input
+                                    class="form-control"
+                                    placeholder="Searching"
+                                    bind:value={searchBet}
+                                    type="text"
+                                />
+                            </div>
+                            <table class="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >&nbsp;</th
                                         >
-                                        {#if periode_keluaran_field == "" }
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-                                        {/if}
-                                        </td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
-                                        >{rec.bet_status}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: center;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_id}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: center;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_datetime}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_username}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_ipaddress}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_device}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_timezone}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_typegame}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_nomortogel}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;"
-                                        >{new Intl.NumberFormat().format(
-                                            rec.bet_bet
-                                        )}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                        >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                        >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                        >{new Intl.NumberFormat().format(
-                                            rec.bet_bayar
-                                        )}</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;"
-                                        >{rec.bet_win}x</td
-                                    >
-                                    <td
-                                        NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                        >{new Intl.NumberFormat().format(
-                                            rec.bet_totalwin
-                                        )}</td
-                                    >
-                                </tr>
-                            {/each}
-                        </tbody>
-                    </table>
-                </slot:template>
-                <slot:template slot="cfooter">
-                    <table width="100%" style="padding:0px;margin-bottom:0px;">
-                        <tbody>
-                            <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
-                                    >TOTAL BET</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
-                                        totalbet
-                                    )}</td
-                                >
-                            </tr>
-                            <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL BAYAR</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
-                                        totalbayar
-                                    )}</td
-                                >
-                            </tr>
-                            <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL WIN</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
-                                        totalwin
-                                    )}</td
-                                >
-                            </tr>
-                        </tbody>
-                    </table>
-                </slot:template>
-            </Panel>
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >STATUS</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >CODE</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >TANGGAL</th
+                                        >
+                                        <th
+                                            width="*"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >USERNAME</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >IPADDRESS</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >BROWSER</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >TIMEZONE</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >PERMAINAN</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >NOMOR</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BET</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >DISC</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >KEI</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BAYAR</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN<br />TOTAL</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#each filteritems as rec}
+                                        <tr>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 11px;"
+                                                >
+                                                {#if periode_keluaran_field == "" }
+                                                    <button
+                                                        on:click={() => {
+                                                            cancelBet(rec.bet_id);
+                                                        }} 
+                                                        class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                {/if}
+                                                </td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
+                                                >{rec.bet_status}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_id}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_datetime}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_username}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_ipaddress}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_device}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_timezone}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_typegame}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_nomortogel}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bet
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bayar
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_win}x</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_totalwin
+                                                )}</td
+                                            >
+                                        </tr>
+                                    {/each}
+                                </tbody>
+                            </table>
+                        </slot:template>
+                        <slot:template slot="cfooter">
+                            <table width="100%" style="padding:0px;margin-bottom:0px;">
+                                <tbody>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
+                                            >TOTAL BET</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbet
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL BAYAR</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbayar
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL WIN</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalwin
+                                            )}</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </slot:template>
+                    </Panel>
+                </div>
+                <div class="tab-pane fade" id="pills-winner" role="tabpanel" aria-labelledby="pills-winner-tab">
+                    <Panel height_body="700px" css_footer="padding:10px;margin:0px;">
+                        <slot:template slot="cheader">
+                            List Bet
+                        </slot:template>
+                        <slot:template slot="cbody">
+                            <table class="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >STATUS</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >CODE</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >TANGGAL</th
+                                        >
+                                        <th
+                                            width="*"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >USERNAME</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >IPADDRESS</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >BROWSER</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >TIMEZONE</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >PERMAINAN</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >NOMOR</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BET</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >DISC</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >KEI</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BAYAR</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN<br />TOTAL</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#each listBetStatus as rec}
+                                        <tr>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
+                                                >{rec.bet_status}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_id}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_datetime}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_username}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_ipaddress}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_device}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_timezone}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_typegame}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_nomortogel}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bet
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bayar
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_win}x</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_totalwin
+                                                )}</td
+                                            >
+                                        </tr>
+                                    {/each}
+                                </tbody>
+                            </table>
+                        </slot:template>
+                        <slot:template slot="cfooter">
+                            <table width="100%" style="padding:0px;margin-bottom:0px;">
+                                <tbody>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
+                                            >TOTAL BET</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbet
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL BAYAR</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbayar
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL WIN</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalwin
+                                            )}</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </slot:template>
+                    </Panel>
+                </div>
+                <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="pills-cancel-tab">
+                    <Panel height_body="700px" css_footer="padding:10px;margin:0px;">
+                        <slot:template slot="cheader">
+                            List Bet
+                        </slot:template>
+                        <slot:template slot="cbody">
+                            <table class="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >STATUS</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >CODE</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: center;vertical-align: top;font-size: 13px;"
+                                            >TANGGAL</th
+                                        >
+                                        <th
+                                            width="*"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >USERNAME</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >IPADDRESS</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >BROWSER</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >TIMEZONE</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >PERMAINAN</th
+                                        >
+                                        <th
+                                            width="1%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;"
+                                            >NOMOR</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BET</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >DISC</th
+                                        >
+                                        <th
+                                            width="10%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >KEI</th
+                                        >
+                                        <th
+                                            width="20%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >BAYAR</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN</th
+                                        >
+                                        <th
+                                            width="7%"
+                                            style="text-align: right;vertical-align: top;font-size: 13px;"
+                                            >WIN<br />TOTAL</th
+                                        >
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#each listBetStatus as rec}
+                                        <tr>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
+                                                >{rec.bet_status}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_id}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: center;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_datetime}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_username}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_ipaddress}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_device}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_timezone}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_typegame}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_nomortogel}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bet
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_bayar
+                                                )}</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;"
+                                                >{rec.bet_win}x</td
+                                            >
+                                            <td
+                                                NOWRAP
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                                >{new Intl.NumberFormat().format(
+                                                    rec.bet_totalwin
+                                                )}</td
+                                            >
+                                        </tr>
+                                    {/each}
+                                </tbody>
+                            </table>
+                        </slot:template>
+                        <slot:template slot="cfooter">
+                            <table width="100%" style="padding:0px;margin-bottom:0px;">
+                                <tbody>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
+                                            >TOTAL BET</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbet
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL BAYAR</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalbayar
+                                            )}</td
+                                        >
+                                    </tr>
+                                    <tr style="padding: 0px;margin:0px;">
+                                        <td
+                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                            >TOTAL WIN</td
+                                        >
+                                        <td
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
+                                            >{new Intl.NumberFormat().format(
+                                                totalwin
+                                            )}</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </slot:template>
+                    </Panel>
+                </div>
+            </div>
+            
         </Col>
     </Row>
 </Container>

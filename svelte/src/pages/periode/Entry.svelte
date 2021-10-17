@@ -25,8 +25,10 @@
     let listBetTable = [];
     let listBet = [];
     let listBetStatus = [];
+    let listBetUsername = [];
     let listMember = [];
     let listMemberNomor = [];
+    let client_username = "";
     let totalbet = 0;
     let totalbayar = 0;
     let totalwin = 0;
@@ -404,6 +406,66 @@
             }
         }
     }
+    async function call_listbetbyusername(e) {
+        listBetUsername = []
+        client_username = e.toUpperCase()
+        const res = await fetch("/api/periodelistbetusername", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                idinvoice: parseInt(idtrxkeluaran),
+                username:e
+            }),
+        });
+        const json = await res.json();
+        let record = json.record;
+        totalbet = json.totalbet;
+        totalbayar = json.subtotal;
+        totalwin = json.subtotalwin;
+        if (json.status === 400) {
+            logout();
+        } else {
+            if (record != null) {
+                for (var i = 0; i < record.length; i++) {
+                    listBetUsername = [
+                        ...listBetUsername,
+                        {
+                            bet_id: record[i]["bet_id"],
+                            bet_datetime: record[i]["bet_datetime"],
+                            bet_ipaddress: record[i]["bet_ipaddress"],
+                            bet_device: record[i]["bet_device"],
+                            bet_timezone: record[i]["bet_timezone"],
+                            bet_username: record[i]["bet_username"],
+                            bet_typegame: record[i]["bet_typegame"],
+                            bet_nomortogel: record[i]["bet_nomortogel"],
+                            bet_bet: record[i]["bet_bet"],
+                            bet_diskon: record[i]["bet_diskon"],
+                            bet_diskonpercen: record[i]["bet_diskonpercen"],
+                            bet_kei: record[i]["bet_kei"],
+                            bet_keipercen: record[i]["bet_keipercen"],
+                            bet_bayar: record[i]["bet_bayar"],
+                            bet_win: record[i]["bet_win"],
+                            bet_totalwin: record[i]["bet_totalwin"],
+                            bet_status: record[i]["bet_status"],
+                            bet_statuscss: record[i]["bet_statuscss"],
+                        },
+                    ];
+                }
+                let myModal = new bootstrap.Modal(
+                    document.getElementById("modallistbetusername")
+                );
+                myModal.show();
+            } else {
+                setTimeout(function () {
+                    msgloader = "";
+                    css_loader = "display: none;";
+                }, 1000);
+            }
+        }
+    }
     async function call_listbettable() {
         const res = await fetch("/api/periodelistbettable", {
             method: "POST",
@@ -475,6 +537,8 @@
     };
     let searchBet = "";
     let filteritems = [];
+    let searchBetUsername = "";
+    let filteritemsusername = [];
 
     $: {
         if (listBet.length > 0) {
@@ -510,6 +574,22 @@
         } else {
             filteritems = [...listBet];
         }
+        if (searchBetUsername) {
+            filteritemsusername = listBetUsername.filter(
+                (item) =>
+                    item.bet_status
+                        .toLowerCase()
+                        .includes(searchBetUsername.toLowerCase()) ||
+                    item.bet_nomortogel
+                        .toLowerCase()
+                        .includes(searchBetUsername.toLowerCase()) ||
+                    item.bet_typegame
+                        .toLowerCase()
+                        .includes(searchBetUsername.toLowerCase())
+            );
+        } else {
+            filteritemsusername = [...listBetUsername];
+        }
         if ($errors.msgrevisi){
             alert($errors.msgrevisi)
             $form.msgrevisi = ""
@@ -518,6 +598,9 @@
     const cancelBet = (e) => {
         cancelbetTransaksi(e)
     };
+    const listbetbyusername = (e) => {
+        call_listbetbyusername(e)
+    }
     const openCity = (e) => {
         listBetTableGroup = [];
         call_bettable(e)
@@ -724,8 +807,11 @@
                                         >{rec.member_no}</td
                                     >
                                     <td
+                                        on:click={() => {
+                                            listbetbyusername(rec.member_name);
+                                        }} 
                                         NOWRAP
-                                        style="text-align: left;vertical-align: top;font-size: 12px;"
+                                        style="text-decoration:underline;cursor:pointer;text-align: left;vertical-align: top;font-size: 12px;"
                                         >{rec.member_name}</td
                                     >
                                     <td
@@ -1844,5 +1930,194 @@
                 Save
             </button>
         </div>
+    </slot:template>
+</Modal>
+
+<Modal
+    modal_id={"modallistbetusername"}
+    modal_size={"modal-xl modal-dialog-centered"}
+    modal_body_height={"height:500px;overflow:scroll;"}
+    modal_footer_flag={false}
+>
+    <slot:template slot="header">
+        <h5 class="modal-title" id="exampleModalLabel">INFORMATION : {client_username}</h5>
+    </slot:template>
+    <slot:template slot="body">
+        <div class="col-lg-12" style="padding: 5px;">
+            <input
+                class="form-control"
+                placeholder="Searching"
+                bind:value={searchBetUsername}
+                type="text"
+            />
+        </div>
+        <table class="table" width="100%">
+            <thead>
+                <tr>
+                    <th
+                        width="1%"
+                        style="text-align: center;vertical-align: top;font-size: 13px;"
+                        >STATUS</th
+                    >
+                    <th
+                        width="1%"
+                        style="text-align: center;vertical-align: top;font-size: 13px;"
+                        >CODE</th
+                    >
+                    <th
+                        width="10%"
+                        style="text-align: center;vertical-align: top;font-size: 13px;"
+                        >TANGGAL</th
+                    >
+                    <th
+                        width="*"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >USERNAME</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >IPADDRESS</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >BROWSER</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >TIMEZONE</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >PERMAINAN</th
+                    >
+                    <th
+                        width="1%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;"
+                        >NOMOR</th
+                    >
+                    <th
+                        width="20%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >BET</th
+                    >
+                    <th
+                        width="10%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >DISC</th
+                    >
+                    <th
+                        width="10%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >KEI</th
+                    >
+                    <th
+                        width="20%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >BAYAR</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >WIN</th
+                    >
+                    <th
+                        width="7%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;"
+                        >WIN<br />TOTAL</th
+                    >
+                </tr>
+            </thead>
+            <tbody>
+                {#each filteritemsusername as rec}
+                    <tr>
+                        <td
+                            NOWRAP
+                            style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
+                            >{rec.bet_status}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: center;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_id}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: center;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_datetime}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_username}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_ipaddress}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_device}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_timezone}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_typegame}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_nomortogel}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;"
+                            >{new Intl.NumberFormat().format(
+                                rec.bet_bet
+                            )}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                            >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                            >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
+                            >{new Intl.NumberFormat().format(
+                                rec.bet_bayar
+                            )}</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;"
+                            >{rec.bet_win}x</td
+                        >
+                        <td
+                            NOWRAP
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                            >{new Intl.NumberFormat().format(
+                                rec.bet_totalwin
+                            )}</td
+                        >
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
     </slot:template>
 </Modal>

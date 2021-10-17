@@ -149,7 +149,7 @@
                                         >&nbsp;</th
                                     >
                                     <th
-                                        width="10%"
+                                        width="7%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
                                         >DATE</th
                                     >
@@ -160,7 +160,7 @@
                                         >INVOICE</th
                                     >
                                     <th
-                                        width="10%"
+                                        width="7%"
                                         style="text-align: left;vertical-align:top;font-size: 14px;"
                                         >PERIODE</th
                                     >

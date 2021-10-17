@@ -33,6 +33,10 @@ type periodelistbetstatus struct {
 	Idtrxkeluaran int    `json:"idinvoice"`
 	Status        string `json:"status"`
 }
+type periodelistbetusername struct {
+	Idtrxkeluaran int    `json:"idinvoice"`
+	Username      string `json:"username"`
+}
 type periodeSave struct {
 	Sdata          string `json:"sData" validate:"required"`
 	Page           string `json:"page"`
@@ -682,6 +686,73 @@ func Periodelistbetstatus(c *fiber.Ctx) error {
 			"status":    client.Status,
 		}).
 		Post(config.Path_url() + "api/periodelistbetstatus")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_periodelistbet)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":      http.StatusOK,
+			"message":     result.Message,
+			"record":      result.Record,
+			"totalbet":    result.Totalbet,
+			"subtotal":    result.Subtotal,
+			"subtotalwin": result.Subtotalwin,
+			"time":        time.Since(render_page).String(),
+		})
+	} else {
+		result_error := resp.Error().(*response_periodelistbet)
+		c.Status(result_error.Status)
+		return c.JSON(fiber.Map{
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Periodelistbetbyusername(c *fiber.Ctx) error {
+	var errors []*helpers.ErrorResponse
+	client := new(periodelistbetusername)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_periodelistbet{}).
+		SetError(response_periodelistbet{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"idinvoice": client.Idtrxkeluaran,
+			"username":  client.Username,
+		}).
+		Post(config.Path_url() + "api/periodelistbetusername")
 	if err != nil {
 		log.Println(err.Error())
 	}

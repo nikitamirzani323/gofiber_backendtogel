@@ -195,6 +195,11 @@
                                         style="text-align: right;vertical-align:top;font-size: 14px;"
                                         >BAYAR</th
                                     >
+                                     <th
+                                        width="10%"
+                                        style="text-align: right;vertical-align:top;font-size: 14px;"
+                                        >CANCEL</th
+                                    >
                                     <th
                                         width="10%"
                                         style="text-align: right;vertical-align:top;font-size: 14px;"
@@ -282,6 +287,13 @@
                                             style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totaloutstanding_css}"
                                             >{new Intl.NumberFormat().format(
                                                 rec.pasaran_totaloutstanding
+                                            )}</td
+                                        >
+                                        <td
+                                            NOWRAP
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalcancelbet_css}"
+                                            >{new Intl.NumberFormat().format(
+                                                rec.pasaran_totalcancelbet
                                             )}</td
                                         >
                                         <td

@@ -34,6 +34,7 @@
     let totalwin = 0;
     let subtotal_member_bet = 0;
     let subtotal_member_bayar = 0;
+    let subtotal_member_cancel = 0;
     let subtotal_member_win = 0;
     let subtotal_member_winlose = 0;
     let css_winlose = "color:red;font-weight:bold;";
@@ -264,11 +265,9 @@
             if (record != null) {
                 for (var i = 0; i < record.length; i++) {
                     nomember = nomember + 1;
-                    subtotal_member_bet =
-                        subtotal_member_bet + parseInt(record[i]["totalbet"]);
-                    subtotal_member_bayar =
-                        subtotal_member_bayar +
-                        parseInt(record[i]["totalbayar"]);
+                    subtotal_member_bet = subtotal_member_bet + parseInt(record[i]["totalbet"]);
+                    subtotal_member_bayar = subtotal_member_bayar + parseInt(record[i]["totalbayar"]);
+                    subtotal_member_cancel = subtotal_member_cancel + parseInt(record[i]["totalcancelbet"]);
                     subtotal_member_win = subtotal_member_win + parseInt(record[i]["totalwin"]);
                     listMember = [
                         ...listMember,
@@ -277,11 +276,12 @@
                             member_name: record[i]["member"],
                             member_totalbet: record[i]["totalbet"],
                             member_totalbayar: record[i]["totalbayar"],
+                            member_totalcancel: record[i]["totalcancelbet"],
                             member_totalwin: record[i]["totalwin"],
                         },
                     ];
                 }
-                subtotal_member_winlose = subtotal_member_bayar - subtotal_member_win
+                subtotal_member_winlose = subtotal_member_bayar - subtotal_member_cancel - subtotal_member_win
                 if(parseInt(subtotal_member_winlose) > 0){
                     css_winlose = "color:blue;font-weight:bold;"
                 }
@@ -782,19 +782,25 @@
                                     NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL BET</th
+                                    >TOTAL<br />BET</th
                                 >
                                 <th
                                     NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL BAYAR</th
+                                    >TOTAL<br />BAYAR</th
                                 >
                                 <th
                                     NOWRAP
                                     width="20%"
                                     style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL WIN</th
+                                    >TOTAL<br />CANCEL</th
+                                >
+                                <th
+                                    NOWRAP
+                                    width="20%"
+                                    style="text-align: right;vertical-align: top;font-size: 13px;"
+                                    >TOTAL<br />WIN</th
                                 >
                             </tr>
                         </thead>
@@ -826,6 +832,13 @@
                                         style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
                                         >{new Intl.NumberFormat().format(
                                             rec.member_totalbayar
+                                        )}</td
+                                    >
+                                    <td
+                                        NOWRAP
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
+                                        >{new Intl.NumberFormat().format(
+                                            rec.member_totalcancel
                                         )}</td
                                     >
                                     <td
@@ -864,6 +877,18 @@
                                     style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
                                     >{new Intl.NumberFormat().format(
                                         subtotal_member_bayar
+                                    )}</td
+                                >
+                            </tr>
+                            <tr style="padding: 0px;margin:0px;">
+                                <td
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
+                                    >TOTAL CANCEL</td
+                                >
+                                <td
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
+                                    >{new Intl.NumberFormat().format(
+                                        subtotal_member_cancel
                                     )}</td
                                 >
                             </tr>

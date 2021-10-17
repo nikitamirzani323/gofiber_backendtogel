@@ -98,6 +98,7 @@
             let css_totalmember = "";
             let css_totalbet = "";
             let css_totalbayar = "";
+            let css_totalcancel = "";
             let css_winlose = "";
             let css_revisi = "";
             if (record != null) {
@@ -117,6 +118,11 @@
                         css_totalbayar = "color:blue;font-weight:bold";
                     } else {
                         css_totalbayar = "color:red;font-weight:bold";
+                    }
+                    if (parseInt(record[i]["pasaran_totalcancelbet"]) > 0) {
+                        css_totalcancel = "color:blue;font-weight:bold";
+                    } else {
+                        css_totalcancel = "color:red;font-weight:bold";
                     }
                     if (parseInt(record[i]["pasaran_winlose"]) > 0) {
                         css_winlose = "color:blue;font-weight:bold";
@@ -144,9 +150,10 @@
                             pasaran_totalmember_css: css_totalmember,
                             pasaran_totalbet: record[i]["pasaran_totalbet"],
                             pasaran_totalbet_css: css_totalbet,
-                            pasaran_totaloutstanding:
-                                record[i]["pasaran_totaloutstanding"],
+                            pasaran_totaloutstanding:record[i]["pasaran_totaloutstanding"],
                             pasaran_totaloutstanding_css: css_totalbayar,
+                            pasaran_totalcancelbet:record[i]["pasaran_totalcancelbet"],
+                            pasaran_totalcancelbet_css:css_totalcancel,
                             pasaran_msgrevisi: record[i]["pasaran_msgrevisi"],
                             pasaran_revisi: record[i]["pasaran_revisi"],
                             pasaran_revisi_css: css_revisi,

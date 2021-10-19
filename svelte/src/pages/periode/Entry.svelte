@@ -41,6 +41,7 @@
     let chooce_permainan = "";
     let css_loader = "display: none;";
     let msgloader = "";
+    let myModalrevisi = "";
     let dispatch = createEventDispatcher();
 
     const schema = yup.object().shape({
@@ -119,10 +120,10 @@
         }
     }
     function callrevisiTransaksi(){
-        let myModal = new bootstrap.Modal(
+        myModalrevisi = new bootstrap.Modal(
             document.getElementById("modalrevisi")
         );
-        myModal.show();
+        myModalrevisi.show();
     }
     async function revisiTransaksi(e){
         periode_status_field = "LOCK";
@@ -158,6 +159,7 @@
         listMember = [];
         call_listbet("4D");
         call_listmember();
+        myModalrevisi.hide();
     }
     async function cancelbetTransaksi(e){
         const res = await fetch("/api/cancelbet", {

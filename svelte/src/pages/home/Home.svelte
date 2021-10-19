@@ -59,7 +59,7 @@
 					temp.push(
 						parseInt(
 							listwinlose[j].pasaran_winlose[x]["Pasaranwinlose"]
-						)
+						)/1000
 					);
 				}
 				pasaran = [

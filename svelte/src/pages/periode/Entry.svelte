@@ -264,6 +264,11 @@
         if (json.status === 400) {
             logout();
         } else {
+            subtotal_member_bet = 0;
+            subtotal_member_bayar = 0;
+            subtotal_member_cancel = 0;
+            subtotal_member_win = 0;
+            subtotal_member_winlose = 0;
             if (record != null) {
                 for (var i = 0; i < record.length; i++) {
                     nomember = nomember + 1;

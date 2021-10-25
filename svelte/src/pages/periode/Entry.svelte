@@ -340,7 +340,7 @@
                         listBet = [
                             ...listBet,
                             {
-                                bet_id: record[i]["bet_id"],
+                                bet_id: record[i]["bet_id"].toString(),
                                 bet_datetime: record[i]["bet_datetime"],
                                 bet_ipaddress: record[i]["bet_ipaddress"],
                                 bet_device: record[i]["bet_device"],
@@ -561,23 +561,6 @@
     let filteritemsusername = [];
 
     $: {
-        if (listBet.length > 0) {
-            setTimeout(function () {
-                msgloader = "";
-                css_loader = "display: none;";
-            }, 1000);
-        } else {
-            if (listBet == null) {
-                setTimeout(function () {
-                    msgloader = "";
-                    css_loader = "display: none;";
-                }, 1000);
-            } else {
-                css_loader = "display: inline-block;";
-                msgloader = "Fetching...";
-            }
-        }
-
         if (searchBet) {
             filteritems = listBet.filter(
                 (item) =>
@@ -589,7 +572,8 @@
                         .includes(searchBet.toLowerCase()) ||
                     item.bet_typegame
                         .toLowerCase()
-                        .includes(searchBet.toLowerCase())
+                        .includes(searchBet.toLowerCase()) ||
+                    item.bet_id.toLowerCase().includes(searchBet.toLowerCase())
             );
         } else {
             filteritems = [...listBet];
@@ -629,7 +613,14 @@
         listMemberNomor = [];
         call_listmembernomor(nomor);
     };
-    call_listbet("4D");
+    const handleSelectPermainan = (event) => {
+        if (event.target.value != "") {
+            call_listbet(event.target.value);
+        } else {
+            listBet = [];
+        }
+    };
+
     call_listmember();
     call_listbettable();
 </script>
@@ -1089,297 +1080,32 @@
                         height_body="700px"
                         css_footer="padding:10px;margin:0px;"
                     >
-                        <slot:template slot="cheader"> List Bet </slot:template>
+                        <slot:template slot="cheader">List Bet</slot:template>
                         <slot:template slot="cbody">
-                            <ul
-                                class="nav nav-pills mb-3"
-                                id="pills-tab2"
-                                role="tablist"
-                            >
-                                <li
-                                    on:click={() => {
-                                        call_listbet("4D");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link active"
-                                        id="pills-home-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-home"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-home"
-                                        aria-selected="true">4D</button
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <select
+                                        on:change={handleSelectPermainan}
+                                        class="form-control"
                                     >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("3D");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">3D</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("2D");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">2D</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("2DD");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">2DD</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("2DT");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">2DT</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("COLOK_BEBAS");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >COLOK BEBAS</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("COLOK_MACAU");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >COLOK MACAU</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("COLOK_NAGA");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">COLOK NAGA</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("COLOK_JITU");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">COLOK JITU</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("50_50_UMUM");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >50 - 50 UMUM</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("50_50_SPECIAL");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >50 - 50 SPECIAL</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("50_50_KOMBINASI");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >50 - 50 KOMBINASI</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("MACAU_KOMBINASI");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false"
-                                        >MACAU / KOMBINASI</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("DASAR");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">DASAR</button
-                                    >
-                                </li>
-                                <li
-                                    on:click={() => {
-                                        call_listbet("SHIO");
-                                    }}
-                                    class="nav-item"
-                                    role="presentation"
-                                >
-                                    <button
-                                        class="nav-link"
-                                        id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">SHIO</button
-                                    >
-                                </li>
-                            </ul>
-                            <div class="col-lg-12" style="padding: 5px;">
-                                <input
-                                    class="form-control"
-                                    placeholder="Searching"
-                                    bind:value={searchBet}
-                                    type="text"
-                                />
+                                        <option value=""
+                                            >--Pilih Permainan--</option
+                                        >
+                                        {#each listBetTable as rec}
+                                            <option value={rec.permainan}
+                                                >{rec.permainan}</option
+                                            >
+                                        {/each}
+                                    </select>
+                                </div>
+                                <div class="col-lg-7">
+                                    <input
+                                        class="form-control"
+                                        placeholder="Searching"
+                                        bind:value={searchBet}
+                                        type="text"
+                                    />
+                                </div>
                             </div>
                             <table class="table" width="100%">
                                 <thead>

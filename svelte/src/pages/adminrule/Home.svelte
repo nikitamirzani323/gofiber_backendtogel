@@ -114,7 +114,7 @@
                 on:click={() => {
                     NewData();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 New
@@ -123,7 +123,7 @@
                 on:click={() => {
                     RefreshHalaman();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 Refresh

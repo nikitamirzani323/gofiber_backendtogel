@@ -32,7 +32,7 @@
         dispatch("handleEditData", pasaran);
     };
 
-    let searchPasaran = ""; 
+    let searchPasaran = "";
     let filterPasaran = [];
     $: {
         if (searchPasaran) {
@@ -99,7 +99,7 @@
                 on:click={() => {
                     NewData();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 New
@@ -108,7 +108,7 @@
                 on:click={() => {
                     RefreshHalaman();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 Refresh
@@ -195,7 +195,7 @@
                                         style="text-align: right;vertical-align:top;font-size: 14px;"
                                         >BAYAR</th
                                     >
-                                     <th
+                                    <th
                                         width="10%"
                                         style="text-align: right;vertical-align:top;font-size: 14px;"
                                         >CANCEL</th
@@ -264,8 +264,13 @@
                                             >{new Intl.NumberFormat().format(
                                                 rec.pasaran_revisi
                                             )}
-                                            {#if rec.pasaran_revisi > 0} 
-                                            <i class="bi bi-chat-right-text" data-bs-toggle="tooltip" data-bs-placement="top" title="{rec.pasaran_msgrevisi}"></i> 
+                                            {#if rec.pasaran_revisi > 0}
+                                                <i
+                                                    class="bi bi-chat-right-text"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title={rec.pasaran_msgrevisi}
+                                                />
                                             {/if}
                                         </td>
                                         <td

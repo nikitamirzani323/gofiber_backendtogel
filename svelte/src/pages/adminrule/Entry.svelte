@@ -126,7 +126,7 @@
                 on:click={() => {
                     BackHalaman();
                 }}
-                class="btn btn-dark"
+                class="btn btn-dark btn-sm"
                 style="border-radius: 0px;"
             >
                 Back
@@ -144,7 +144,7 @@
                             on:click={() => {
                                 handleSubmit();
                             }}
-                            class="btn btn-warning"
+                            class="btn btn-warning btn-sm"
                             style="border-radius: 0px;"
                         >
                             Save
@@ -196,7 +196,7 @@
                             on:click={() => {
                                 Updateconfig();
                             }}
-                            class="btn btn-warning"
+                            class="btn btn-warning btn-sm"
                             style="border-radius: 0px;"
                         >
                             Save

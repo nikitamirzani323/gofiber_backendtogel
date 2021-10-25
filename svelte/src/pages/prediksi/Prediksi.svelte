@@ -122,8 +122,7 @@
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + token,
             },
-            body: JSON.stringify({
-            }),
+            body: JSON.stringify({}),
         });
         const json = await res.json();
         if (json.status == 200) {
@@ -168,7 +167,7 @@
                                 on:click={() => {
                                     callPrediksi();
                                 }}
-                                class="btn btn-warning"
+                                class="btn btn-warning btn-sm"
                                 style="border-radius: 0px;"
                             >
                                 Save

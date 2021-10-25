@@ -18,15 +18,14 @@
         dispatch("handleEditData", pasaran);
     };
 
-    let searchPasaran = ""; 
+    let searchPasaran = "";
     let filterPasaran = [];
     $: {
         if (searchPasaran) {
-            filterPasaran = listPasaran.filter(
-                (item) =>
-                    item.nmpasarantogel
-                        .toLowerCase()
-                        .includes(searchPasaran.toLowerCase()) 
+            filterPasaran = listPasaran.filter((item) =>
+                item.nmpasarantogel
+                    .toLowerCase()
+                    .includes(searchPasaran.toLowerCase())
             );
         } else {
             filterPasaran = [...listPasaran];
@@ -41,7 +40,7 @@
                 on:click={() => {
                     RefreshHalaman();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 Refresh
@@ -53,7 +52,7 @@
                 <slot:template slot="csearch">
                     <div class="col-lg-12" style="padding: 5px;">
                         <div class="row g-2">
-                            <div class="col-sm-11">
+                            <div class="col-sm-12">
                                 <input
                                     bind:value={searchPasaran}
                                     type="text"
@@ -61,14 +60,6 @@
                                     placeholder="Search"
                                     aria-label="Search"
                                 />
-                            </div>
-                            <div class="col-sm">
-                                <button
-                                    class="btn btn-warning"
-                                    style="border-radius: 0px;"
-                                >
-                                    Search
-                                </button>
                             </div>
                         </div>
                     </div>

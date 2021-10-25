@@ -48,7 +48,7 @@
                 body: JSON.stringify({
                     sdata: sData,
                     idruleadmin: parseInt(admin_idrule_field),
-                    page:"ADMIN-SAVE",
+                    page: "ADMIN-SAVE",
                     username: admin_username,
                     password: admin_password,
                     nama: admin_name_field,
@@ -59,8 +59,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -94,7 +94,7 @@
                 },
                 body: JSON.stringify({
                     sData: "New",
-                    page:"ADMIN-SAVE",
+                    page: "ADMIN-SAVE",
                     username: admin_username,
                     ipaddress: admin_ipaddress,
                 }),
@@ -106,8 +106,8 @@
 
                 dispatch("handleRefreshIplist", admin_username);
                 admin_ipaddress = "";
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -147,7 +147,7 @@
                 on:click={() => {
                     BackHalaman();
                 }}
-                class="btn btn-dark"
+                class="btn btn-dark btn-sm"
                 style="border-radius: 0px;"
             >
                 Back
@@ -165,7 +165,7 @@
                             on:click={() => {
                                 SaveTransaksi();
                             }}
-                            class="btn btn-warning"
+                            class="btn btn-warning btn-sm"
                             style="border-radius: 0px;"
                         >
                             Save

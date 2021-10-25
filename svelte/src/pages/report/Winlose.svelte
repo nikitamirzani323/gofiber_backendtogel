@@ -102,7 +102,7 @@
                         css_sub_winloseagent = "color:blue;font-weight:bold;";
                     }
                 }
-            }else if (json.status == 400) {
+            } else if (json.status == 400) {
                 logout();
             }
         } else {
@@ -134,7 +134,7 @@
                                 on:click={() => {
                                     call_generatereport();
                                 }}
-                                class="btn btn-warning"
+                                class="btn btn-warning btn-sm"
                                 style="border-radius: 0px;"
                             >
                                 Generate

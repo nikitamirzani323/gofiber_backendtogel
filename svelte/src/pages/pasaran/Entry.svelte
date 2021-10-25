@@ -233,7 +233,7 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     idpasaran: idcomppasaran,
                     pasaran_hariraya: select_pasaranonline,
                 }),
@@ -244,8 +244,8 @@
                 msgloader = json.message;
 
                 dispatch("handleRefreshPasaranOnline", idcomppasaran);
-            } else if(json.status == 403){
-                alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -294,7 +294,7 @@
                     Authorization: "Bearer " + token,
                 },
                 body: JSON.stringify({
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     idpasaran: idcomppasaran,
                     pasaran_diundi: pasaran_diundi_field,
                     pasaran_url: pasaran_situs_field,
@@ -309,8 +309,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            }else if(json.status == 403){
-                alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -355,7 +355,7 @@
                 },
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_limitline4d: parseInt(pasaran_limitline4d_field),
                     pasaran_limitline3d: parseInt(pasaran_limitline3d_field),
                     pasaran_limitline2d: parseInt(pasaran_limitline2d_field),
@@ -367,8 +367,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-                alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -497,7 +497,7 @@
                 },
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     idpasarantogel: pasaran_idpasarantogel_field,
                     pasaran_minbet_432d: parseInt(pasaran_minbet_432d_field),
                     pasaran_maxbet4d_432d: parseInt(
@@ -571,8 +571,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -621,7 +621,7 @@
                 },
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     idpasarantogel: pasaran_idpasarantogel_field,
                     pasaran_minbet_cbebas: parseInt(
                         pasaran_minbet_cbebas_field
@@ -645,8 +645,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            }else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -704,7 +704,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_cmacau: parseInt(
                         pasaran_minbet_cmacau_field
                     ),
@@ -729,8 +729,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            }else if(json.status == 403){
-                alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -784,7 +784,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_cnaga: parseInt(pasaran_minbet_cnaga_field),
                     pasaran_maxbet_cnaga: parseInt(pasaran_maxbet_cnaga_field),
                     pasaran_limittotal_cnaga: parseInt(
@@ -804,8 +804,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -867,7 +867,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_cjitu: parseInt(pasaran_minbet_cjitu_field),
                     pasaran_maxbet_cjitu: parseInt(pasaran_maxbet_cjitu_field),
                     pasaran_limittotal_cjitu: parseInt(
@@ -895,8 +895,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -986,7 +986,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_5050umum: parseInt(
                         pasaran_minbet_5050umum_field
                     ),
@@ -1041,8 +1041,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -1212,7 +1212,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     Pasaran_minbet_5050special: parseInt(
                         pasaran_minbet_5050special_field
                     ),
@@ -1327,8 +1327,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -1490,7 +1490,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_5050kombinasi: parseInt(
                         pasaran_minbet_5050kombinasi_field
                     ),
@@ -1599,8 +1599,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -1650,7 +1650,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_kombinasi: parseInt(
                         pasaran_minbet_kombinasi_field
                     ),
@@ -1675,8 +1675,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -1750,7 +1750,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_dasar: parseInt(pasaran_minbet_dasar_field),
                     pasaran_maxbet_dasar: parseInt(pasaran_maxbet_dasar_field),
                     pasaran_limittotal_dasar: parseInt(
@@ -1789,8 +1789,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -1841,7 +1841,7 @@
                 body: JSON.stringify({
                     idpasaran: idcomppasaran,
                     idpasarantogel: pasaran_idpasarantogel_field,
-                    page:"PASARAN-SAVE",
+                    page: "PASARAN-SAVE",
                     pasaran_minbet_shio: parseInt(pasaran_minbet_shio_field),
                     pasaran_maxbet_shio: parseInt(pasaran_maxbet_shio_field),
                     pasaran_limittotal_shio: parseInt(
@@ -1861,8 +1861,8 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-            } else if(json.status == 403){
-	            alert(json.message)
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -3535,7 +3535,7 @@
                 on:click={() => {
                     BackHalaman();
                 }}
-                class="btn btn-dark"
+                class="btn btn-dark btn-sm"
                 style="border-radius: 0px;"
             >
                 Back
@@ -3553,7 +3553,7 @@
                             on:click={() => {
                                 SaveTransaksi();
                             }}
-                            class="btn btn-warning"
+                            class="btn btn-warning btn-sm"
                             style="border-radius: 0px;"
                         >
                             Save
@@ -3721,7 +3721,7 @@
                             on:click={() => {
                                 newOnline();
                             }}
-                            class="btn btn-primary"
+                            class="btn btn-primary btn-sm"
                             style="border-radius: 0px;"
                         >
                             New
@@ -3765,7 +3765,7 @@
                             on:click={() => {
                                 SaveLimitline();
                             }}
-                            class="btn btn-warning"
+                            class="btn btn-warning btn-sm"
                             style="border-radius: 0px;"
                         >
                             Save
@@ -3914,7 +3914,7 @@
                                     on:click={() => {
                                         save432d();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -4505,7 +4505,7 @@
                                     on:click={() => {
                                         saveColokBebas();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -4663,7 +4663,7 @@
                                     on:click={() => {
                                         saveColokMacau();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -4866,7 +4866,7 @@
                                     on:click={() => {
                                         saveColokNaga();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -5047,7 +5047,7 @@
                                     on:click={() => {
                                         saveColokJitu();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -5270,7 +5270,7 @@
                                     on:click={() => {
                                         save5050Umum();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -5650,7 +5650,7 @@
                                     on:click={() => {
                                         save5050Special();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -6471,7 +6471,7 @@
                                     on:click={() => {
                                         save5050Kombinasi();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -7248,7 +7248,7 @@
                                     on:click={() => {
                                         saveMacauKombinasi();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -7407,7 +7407,7 @@
                                     on:click={() => {
                                         saveDasar();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -7699,7 +7699,7 @@
                                     on:click={() => {
                                         saveShio();
                                     }}
-                                    class="btn btn-warning"
+                                    class="btn btn-warning btn-sm"
                                     style="border-radius: 0px;"
                                 >
                                     Save
@@ -7927,7 +7927,7 @@
                         savePasaranOnline();
                     }}
                     type="button"
-                    class="btn btn-warning">SAVE</button
+                    class="btn btn-warning btn-sm">SAVE</button
                 >
             </div>
         </div>

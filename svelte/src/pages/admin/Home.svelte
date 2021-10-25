@@ -14,26 +14,33 @@
     export let listAdmin = [];
     export let admin_listrule = [];
     export let totalrecord = 0;
-   
+
     let css_loader = "display: none;";
     let msgloader = "";
 
     let dispatch = createEventDispatcher();
 
     const schema = yup.object().shape({
-        admin_username: yup.string().
-            required("Username is Required").
-            matches(/^[a-zA-z0-9]+$/, "Username must Character A-Z or a-z or 1-9").
-            min(4,"Username must be at least 4 Character").
-            max(20,"Username must be at most 4 Character"),
-        admin_password: yup.string().
-            required("Password is Required").
-            matches(/^[a-zA-z0-9]+$/, "Password must Character A-Z or a-z or 1-9").
-            min(4,"Password must be at least 4 Character").
-            max(20,"Password must be at most 4 Character"),
+        admin_username: yup
+            .string()
+            .required("Username is Required")
+            .matches(
+                /^[a-zA-z0-9]+$/,
+                "Username must Character A-Z or a-z or 1-9"
+            )
+            .min(4, "Username must be at least 4 Character")
+            .max(20, "Username must be at most 4 Character"),
+        admin_password: yup
+            .string()
+            .required("Password is Required")
+            .matches(
+                /^[a-zA-z0-9]+$/,
+                "Password must Character A-Z or a-z or 1-9"
+            )
+            .min(4, "Password must be at least 4 Character")
+            .max(20, "Password must be at most 4 Character"),
         admin_name_field: yup.string().required("Name is Required"),
         admin_idrule_field: yup.number().required("Name is Required"),
-        
     });
     const { form, errors, handleChange, handleSubmit } = createForm({
         initialValues: {
@@ -43,17 +50,35 @@
             admin_idrule_field: "0",
         },
         validationSchema: schema,
-        onSubmit:(values) => {
-           SaveTransaksi(values.admin_username,values.admin_password,values.admin_name_field,values.admin_idrule_field)
-        }
-    })
-    $:{
-        if ($errors.admin_username || $errors.admin_password || $errors.admin_name_field || $errors.admin_idrule_field){
-            alert($errors.admin_username+"\n"+$errors.admin_password+"\n"+$errors.admin_name_field+"\n"+$errors.admin_idrule_field)
-            $form.admin_username = ""
-            $form.admin_password = ""
-            $form.admin_name_field = ""
-            $form.admin_idrule_field = "0"
+        onSubmit: (values) => {
+            SaveTransaksi(
+                values.admin_username,
+                values.admin_password,
+                values.admin_name_field,
+                values.admin_idrule_field
+            );
+        },
+    });
+    $: {
+        if (
+            $errors.admin_username ||
+            $errors.admin_password ||
+            $errors.admin_name_field ||
+            $errors.admin_idrule_field
+        ) {
+            alert(
+                $errors.admin_username +
+                    "\n" +
+                    $errors.admin_password +
+                    "\n" +
+                    $errors.admin_name_field +
+                    "\n" +
+                    $errors.admin_idrule_field
+            );
+            $form.admin_username = "";
+            $form.admin_password = "";
+            $form.admin_name_field = "";
+            $form.admin_idrule_field = "0";
         }
     }
     const RefreshHalaman = () => {
@@ -70,14 +95,14 @@
         };
         dispatch("handleEditData", adminpage);
     };
-    async function SaveTransaksi(username,password,name,rule) {
-        let flag = true
-        let msg = ""
-        if(rule < 1){
-            flag = false
-            msg += "The Admin Rule is required"
+    async function SaveTransaksi(username, password, name, rule) {
+        let flag = true;
+        let msg = "";
+        if (rule < 1) {
+            flag = false;
+            msg += "The Admin Rule is required";
         }
-        if(flag){
+        if (flag) {
             const res = await fetch("/api/saveadmin", {
                 method: "POST",
                 headers: {
@@ -87,7 +112,7 @@
                 body: JSON.stringify({
                     sdata: sData,
                     idruleadmin: parseInt(rule),
-                    page:"ADMIN-SAVE",
+                    page: "ADMIN-SAVE",
                     username: username,
                     password: password,
                     nama: name,
@@ -98,12 +123,12 @@
 
             if (json.status == 200) {
                 msgloader = json.message;
-                $form.admin_username = ""
-                $form.admin_password = ""
-                $form.admin_name_field = ""
-                $form.admin_idrule_field = "0"
-            } else if(json.status == 403){
-                alert(json.message)
+                $form.admin_username = "";
+                $form.admin_password = "";
+                $form.admin_name_field = "";
+                $form.admin_idrule_field = "0";
+            } else if (json.status == 403) {
+                alert(json.message);
             } else {
                 msgloader = json.message;
             }
@@ -111,8 +136,8 @@
                 css_loader = "display: none;";
             }, 1000);
             RefreshHalaman();
-        }else{
-            alert(msg)
+        } else {
+            alert(msg);
         }
     }
     let searchAdmin = "";
@@ -144,7 +169,7 @@
                 on:click={() => {
                     NewData();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 New
@@ -153,7 +178,7 @@
                 on:click={() => {
                     RefreshHalaman();
                 }}
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 style="border-radius: 0px;"
             >
                 Refresh
@@ -319,7 +344,7 @@
                 <div class="mb-3">
                     <label for="exampleForm" class="form-label">Username</label>
                     <input
-                        on:change="{handleChange}"
+                        on:change={handleChange}
                         bind:value={$form.admin_username}
                         invalid={$errors.admin_username.length > 0}
                         type="text"
@@ -332,7 +357,7 @@
                 <div class="mb-3">
                     <label for="exampleForm" class="form-label">Password</label>
                     <input
-                        on:change="{handleChange}"
+                        on:change={handleChange}
                         bind:value={$form.admin_password}
                         invalid={$errors.admin_password.length > 0}
                         type="password"
@@ -346,7 +371,7 @@
                         >Admin Rule</label
                     >
                     <select
-                        on:change="{handleChange}"
+                        on:change={handleChange}
                         bind:value={$form.admin_idrule_field}
                         invalid={$errors.admin_idrule_field.length > 0}
                         class="form-control"
@@ -362,7 +387,7 @@
                 <div class="mb-3">
                     <label for="exampleForm" class="form-label">Name</label>
                     <input
-                        on:change="{handleChange}"
+                        on:change={handleChange}
                         bind:value={$form.admin_name_field}
                         invalid={$errors.admin_name_field.length > 0}
                         type="text"

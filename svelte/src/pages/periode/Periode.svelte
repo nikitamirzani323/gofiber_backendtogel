@@ -138,7 +138,7 @@
                         ...listPeriode,
                         {
                             no: record[i]["pasaran_no"],
-                            pasaran_invoice: record[i]["pasaran_invoice"],
+                            pasaran_invoice: record[i]["pasaran_invoice"].toString(),
                             pasaran_idcompp: record[i]["pasaran_idcompp"],
                             pasaran_code: record[i]["pasaran_code"],
                             pasaran_periode: record[i]["pasaran_periode"],

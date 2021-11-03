@@ -43,6 +43,9 @@
                         .includes(searchPasaran.toLowerCase()) ||
                     item.pasaran_status
                         .toLowerCase()
+                        .includes(searchPasaran.toLowerCase()) || 
+                    item.pasaran_invoice
+                        .toLowerCase()
                         .includes(searchPasaran.toLowerCase())
             );
         } else {

@@ -457,9 +457,9 @@
 				pasaran_discekorkecil_5050special_field =
 					record[i]["discekorkecil_5050special"] * 100;
 				pasaran_limitglobal_5050special_field =
-					record[i]["limitglobal_5050special"] * 100;
+					record[i]["limitglobal_5050special"];
 				pasaran_limittotal_5050special_field =
-					record[i]["limittotal_5050special"] * 100;
+					record[i]["limittotal_5050special"];
 
 				pasaran_minbet_5050kombinasi_field =
 					record[i]["minbet_5050kombinasi"];

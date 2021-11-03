@@ -72,9 +72,12 @@ type response_periode struct {
 	Pasaranonline interface{} `json:"pasaranonline"`
 }
 type response_periodedetail struct {
-	Status  int         `json:"status"`
-	Message string      `json:"message"`
-	Record  interface{} `json:"record"`
+	Status      int         `json:"status"`
+	Message     string      `json:"message"`
+	Record      interface{} `json:"record"`
+	Totalbet    int         `json:"totalbet"`
+	Subtotal    int         `json:"subtotal"`
+	Subtotalwin int         `json:"subtotalwin"`
 }
 type response_periodelistbet struct {
 	Status      int         `json:"status"`
@@ -984,23 +987,38 @@ func Periodeprediksi(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
+	log.Println("Response Info:")
+	log.Println("  Error      :", err)
+	log.Println("  Status Code:", resp.StatusCode())
+	log.Println("  Status     :", resp.Status())
+	log.Println("  Proto      :", resp.Proto())
+	log.Println("  Time       :", resp.Time())
+	log.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :\n", resp)
+	log.Println()
 	result := resp.Result().(*response_periodedetail)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":  http.StatusOK,
-			"message": result.Message,
-			"record":  result.Record,
-			"time":    time.Since(render_page).String(),
+			"status":      http.StatusOK,
+			"message":     result.Message,
+			"record":      result.Record,
+			"totalbet":    result.Totalbet,
+			"subtotal":    result.Subtotal,
+			"subtotalwin": result.Subtotalwin,
+			"time":        time.Since(render_page).String(),
 		})
 	} else {
 		result_error := resp.Error().(*response_periodedetail)
 		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
-			"status":  result_error.Status,
-			"message": result_error.Message,
-			"record":  nil,
-			"time":    time.Since(render_page).String(),
+			"status":      result_error.Status,
+			"message":     result_error.Message,
+			"record":      nil,
+			"totalbet":    0,
+			"subtotal":    0,
+			"subtotalwin": 0,
+			"time":        time.Since(render_page).String(),
 		})
 	}
 }

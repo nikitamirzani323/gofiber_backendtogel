@@ -97,10 +97,15 @@
 
                     if (total_winlose > 0) {
                         css_sub_winlosemember = "color:blue;font-weight:bold;";
+                    }else{
+                        css_sub_winlosemember = "color:red;font-weight:bold;";
                     }
                     if (total_winlose_agent > 0) {
                         css_sub_winloseagent = "color:blue;font-weight:bold;";
+                    }else{
+                        css_sub_winloseagent = "color:red;font-weight:bold;";
                     }
+                    
                 }
             } else if (json.status == 400) {
                 logout();

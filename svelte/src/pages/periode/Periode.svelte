@@ -51,7 +51,7 @@
         idtrxkeluaran = e.detail.e;
         idpasarancode = e.detail.f;
         sData = "Edit";
-
+        
         editPeriode(idtrxkeluaran);
     };
     const handleRefreshEdit = (e) => {
@@ -145,8 +145,7 @@
                             pasaran_name: record[i]["pasaran_name"],
                             pasaran_keluaran: record[i]["pasaran_keluaran"],
                             pasaran_tanggal: record[i]["pasaran_tanggal"],
-                            pasaran_totalmember:
-                                record[i]["pasaran_totalmember"],
+                            pasaran_totalmember:record[i]["pasaran_totalmember"],
                             pasaran_totalmember_css: css_totalmember,
                             pasaran_totalbet: record[i]["pasaran_totalbet"],
                             pasaran_totalbet_css: css_totalbet,
@@ -206,8 +205,7 @@
                     document_status = "LOCK";
                 }
                 periode_status_field = document_status;
-                periode_tglkeluaran_field =
-                    record[i]["periode_tanggalkeluaran"];
+                periode_tglkeluaran_field = record[i]["periode_tanggalkeluaran"];
                 periode_tanggalnext_field = record[i]["periode_tanggalnext"];
                 periode_periode_field = record[i]["periode_keluaranperiode"];
                 periode_keluaran_field = record[i]["periode_keluaran"];

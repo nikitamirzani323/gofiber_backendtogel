@@ -649,8 +649,7 @@
             <div
                 class="alert alert-warning"
                 role="alert"
-                style="margin-top: 10px;"
-            >
+                style="margin-top: 10px;">
                 <h4>INFORMATION</h4>
                 <p>Periode Selanjutnya : {periode_tanggalnext_field}</p>
             </div>
@@ -676,8 +675,7 @@
                                     callrevisiTransaksi();
                                 }}
                                 class="btn btn-warning btn-sm"
-                                style="border-radius: 0px;"
-                            >
+                                style="border-radius: 0px;">
                                 Revisi
                             </button>
                         {/if}

@@ -25,11 +25,15 @@
         myModal.show();
     };
     const EditData = (e, f) => {
-        const pasaran = {
-            e,
-            f,
-        };
-        dispatch("handleEditData", pasaran);
+        if(e != ""){
+            const pasaran = {
+                e,
+                f,
+            };
+            dispatch("handleEditData", pasaran);
+        }else{
+            alert("Invoice not found")
+        }
     };
 
     let searchPasaran = "";
@@ -139,50 +143,41 @@
                                     <th
                                         width="1%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >&nbsp;</th
-                                    >
+                                        >&nbsp;</th>
                                     <th
                                         width="1%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >NO</th
-                                    >
+                                        >NO</th>
                                     <th
                                         width="1%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >&nbsp;</th
-                                    >
+                                        >&nbsp;</th>
                                     <th
                                         width="7%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >DATE</th
-                                    >
+                                        >DATE</th>
                                     <th
                                         NOWRAP
                                         width="1%"
                                         style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >INVOICE</th
-                                    >
+                                        >INVOICE</th>
                                     <th
                                         width="7%"
                                         style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >PERIODE</th
-                                    >
+                                        >PERIODE</th>
                                     <th
                                         width="*"
                                         style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >PASARAN</th
-                                    >
+                                        >PASARAN</th>
                                     <th
                                         width="10%"
                                         style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >KELUARAN</th
-                                    >
+                                        >KELUARAN</th>
                                     <th
                                         NOWRAP
                                         width="1%"
                                         style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >REVISI</th
-                                    >
+                                        >REVISI</th>
                                     <th
                                         width="10%"
                                         style="text-align: right;vertical-align:top;font-size: 14px;"

@@ -284,6 +284,10 @@ type response_pasaransave struct {
 	Message string      `json:"message"`
 	Record  interface{} `json:"record"`
 }
+type responseerror struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
 
 func Pasaran(c *fiber.Ctx) error {
 	render_page := time.Now()
@@ -434,22 +438,29 @@ func Pasaransave(c *fiber.Ctx) error {
 	if err != nil {
 		log.Println(err.Error())
 	}
+	log.Println("Response Info:")
+	log.Println("  Error      :", err)
+	log.Println("  Status Code:", resp.StatusCode())
+	log.Println("  Status     :", resp.Status())
+	log.Println("  Proto      :", resp.Proto())
+	log.Println("  Time       :", resp.Time())
+	log.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :\n", resp)
+	log.Println()
 	result := resp.Result().(*response_pasaransave)
 	if result.Status == 200 {
-		c.Status(fiber.StatusOK)
 		return c.JSON(fiber.Map{
-			"status":  http.StatusOK,
+			"status":  result.Status,
 			"message": result.Message,
 			"record":  result.Record,
 			"time":    time.Since(render_page).String(),
 		})
 	} else {
 		result_error := resp.Error().(*response_pasaransave)
-		c.Status(result_error.Status)
 		return c.JSON(fiber.Map{
 			"status":  result_error.Status,
 			"message": result_error.Message,
-			"record":  nil,
+			"record":  result.Record,
 			"time":    time.Since(render_page).String(),
 		})
 	}

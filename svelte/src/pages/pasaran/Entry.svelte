@@ -15,6 +15,7 @@
     export let token = "";
     export let pasaran_idpasarantogel_field = "";
     export let pasaran_name_field = "";
+    export let pasaran_tipepasaran_field = "";
     export let pasaran_situs_field = "";
     export let pasaran_diundi_field = "";
     export let pasaran_tutup_field = "";
@@ -3517,11 +3518,15 @@
         }
     };
     const removeOnline = (e) => {
-        const pasaranonline = {
-            e,
-            idcomppasaran,
-        };
-        dispatch("handleDeletePasaranOnline", pasaranonline);
+        if(pasaran_tipepasaran_field != "WAJIB"){
+            const pasaranonline = {
+                e,
+                idcomppasaran,
+            };
+            dispatch("handleDeletePasaranOnline", pasaranonline);
+        }else{
+            alert("Cannot Delete")
+        }
     };
 </script>
 
@@ -3536,8 +3541,7 @@
                     BackHalaman();
                 }}
                 class="btn btn-dark btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Back
             </button>
         </Col>
@@ -3549,15 +3553,16 @@
                 <div class="card-header" style="">
                     Pasaran / {sData}
                     <div class="float-end">
+                        {#if pasaran_tipepasaran_field != "WAJIB"}
                         <button
                             on:click={() => {
                                 SaveTransaksi();
                             }}
                             class="btn btn-warning btn-sm"
-                            style="border-radius: 0px;"
-                        >
+                            style="border-radius: 0px;">
                             Save
                         </button>
+                        {/if}
                     </div>
                 </div>
                 <div class="card-body" style="height:550px;">
@@ -3717,15 +3722,16 @@
                 <div class="card-header" style="">
                     Setting Pasaran Online
                     <div class="float-end">
+                        {#if pasaran_tipepasaran_field != "WAJIB"}
                         <button
                             on:click={() => {
                                 newOnline();
                             }}
                             class="btn btn-primary btn-sm"
-                            style="border-radius: 0px;"
-                        >
+                            style="border-radius: 0px;">
                             New
                         </button>
+                        {/if}
                     </div>
                 </div>
 
@@ -3761,15 +3767,16 @@
                 <div class="card-header" style="">
                     Setting Limit Line + BBFS
                     <div class="float-end">
+                        {#if pasaran_tipepasaran_field != "WAJIB"}
                         <button
                             on:click={() => {
                                 SaveLimitline();
                             }}
                             class="btn btn-warning btn-sm"
-                            style="border-radius: 0px;"
-                        >
+                            style="border-radius: 0px;">
                             Save
                         </button>
+                        {/if}
                     </div>
                 </div>
 
@@ -3910,15 +3917,16 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         save432d();
                                     }}
                                     class="btn btn-warning btn-sm"
-                                    style="border-radius: 0px;"
-                                >
+                                    style="border-radius: 0px;">
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -4501,6 +4509,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveColokBebas();
@@ -4510,6 +4519,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -4659,6 +4669,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveColokMacau();
@@ -4668,6 +4679,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -4862,6 +4874,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveColokNaga();
@@ -4871,6 +4884,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -5043,6 +5057,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveColokJitu();
@@ -5052,6 +5067,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -5266,6 +5282,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         save5050Umum();
@@ -5275,6 +5292,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -5646,6 +5664,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         save5050Special();
@@ -5655,6 +5674,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -6467,6 +6487,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         save5050Kombinasi();
@@ -6476,6 +6497,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -7244,6 +7266,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveMacauKombinasi();
@@ -7253,6 +7276,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -7403,6 +7427,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveDasar();
@@ -7412,6 +7437,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -7695,6 +7721,7 @@
                     <Panel height_body="700px">
                         <slot:template slot="cheader">
                             <div class="float-end">
+                                {#if pasaran_tipepasaran_field != "WAJIB"}
                                 <button
                                     on:click={() => {
                                         saveShio();
@@ -7704,6 +7731,7 @@
                                 >
                                     Save
                                 </button>
+                                {/if}
                             </div>
                         </slot:template>
                         <slot:template slot="cbody">
@@ -7895,8 +7923,7 @@
     id="modaNewOnline"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -7927,8 +7954,7 @@
                         savePasaranOnline();
                     }}
                     type="button"
-                    class="btn btn-warning btn-sm">SAVE</button
-                >
+                    class="btn btn-warning btn-sm">SAVE</button>
             </div>
         </div>
     </div>

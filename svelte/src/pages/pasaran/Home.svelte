@@ -11,9 +11,10 @@
     const RefreshHalaman = () => {
         dispatch("handleRefreshData", "call");
     };
-    const EditData = (e) => {
+    const EditData = (e,f) => {
         const pasaran = {
             e,
+            f,
         };
         dispatch("handleEditData", pasaran);
     };
@@ -121,7 +122,7 @@
                                     <tr>
                                         <td
                                             on:click={() => {
-                                                EditData(rec.idcomppasaran);
+                                                EditData(rec.idcomppasaran,rec.tipepasaran);
                                             }}
                                             NOWRAP
                                             style="text-align: center;vertical-align:top;font-size: 13px;cursor:pointer;"

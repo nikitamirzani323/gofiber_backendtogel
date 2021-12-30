@@ -7,11 +7,13 @@
 	let record = "";
 	let totalrecord = 0;
 	let idcomppasaran = "";
+	let tipepasaran = "";
 	let sData = "";
 	let token = localStorage.getItem("token");
 	let akses_page = true;
 	let pasaran_idpasarantogel_field = "";
 	let pasaran_name_field = "";
+	let pasaran_tipepasaran_field = "";
 	let pasaran_diundi_field = "";
 	let pasaran_situs_field = "";
 	let pasaran_tutup_field = "";
@@ -212,9 +214,10 @@
 	};
 	const handleEditData = (e) => {
 		idcomppasaran = e.detail.e;
+		tipepasaran = e.detail.f;
 		sData = "Edit";
 		listPasaranOnlineByEdit = []
-		editpasaran(idcomppasaran);
+		editpasaran(idcomppasaran,tipepasaran);
 	};
 	const handleDeletePasaranOnline = (e) => {
 		let idcomppasaranoff = e.detail.e;
@@ -249,7 +252,7 @@
 			alert(json.message)
 		}
 	}
-	async function editpasaran(e) {
+	async function editpasaran(e,f) {
 		const res = await fetch("/api/editpasaran", {
 			method: "POST",
 			headers: {
@@ -270,6 +273,7 @@
 			for (let i = 0; i < record.length; i++) {
 				pasaran_idpasarantogel_field = record[i]["idpasarantogel"];
 				pasaran_name_field = record[i]["nmpasaran"];
+				pasaran_tipepasaran_field = f;
 				pasaran_situs_field = record[i]["pasaranurl"];
 				pasaran_diundi_field = record[i]["pasarandiundi"];
 				pasaran_tutup_field = record[i]["jamtutup"];
@@ -636,17 +640,16 @@
 						{
 							idcomppasaran: record[i]["idcomppasaran"],
 							nmpasarantogel: record[i]["nmpasarantogel"],
+							tipepasaran: record[i]["tipepasaran"],
 							pasarandiundi: record[i]["pasarandiundi"],
 							jamtutup: record[i]["jamtutup"],
 							jamjadwal: record[i]["jamjadwal"],
 							jamopen: record[i]["jamopen"],
 							displaypasaran: record[i]["displaypasaran"],
 							statuspasaran: record[i]["statuspasaran"],
-							statuspasaranactive:
-								record[i]["statuspasaranactive"],
+							statuspasaranactive: record[i]["statuspasaranactive"],
 							statuspasaran_css: record[i]["statuspasaran_css"],
-							statuspasaranactive_css:
-								record[i]["statuspasaranactive_css"],
+							statuspasaranactive_css: record[i]["statuspasaranactive_css"],
 						},
 					];
 				}
@@ -683,6 +686,7 @@
 		{token}
 		{pasaran_idpasarantogel_field}
 		{pasaran_name_field}
+		{pasaran_tipepasaran_field}
 		{pasaran_situs_field}
 		{pasaran_diundi_field}
 		{pasaran_tutup_field}

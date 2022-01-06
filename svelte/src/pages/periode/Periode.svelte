@@ -194,27 +194,32 @@
         });
         const json = await res.json();
         let record = json.record;
-
         if (json.status === 400) {
             logout();
         } else {
-            for (let i = 0; i < record.length; i++) {
-                let keluaran = record[i]["periode_keluaran"];
-                let document_status = "OPEN";
-                if (keluaran != "") {
-                    document_status = "LOCK";
+            if(json == null){
+                sData = "";
+                idtrxkeluaran = "";
+                alert("This is invoice error, Please Contact Admin")
+            }else{
+                for (let i = 0; i < record.length; i++) {
+                    let keluaran = record[i]["periode_keluaran"];
+                    let document_status = "OPEN";
+                    if (keluaran != "") {
+                        document_status = "LOCK";
+                    }
+                    periode_status_field = document_status;
+                    periode_tglkeluaran_field = record[i]["periode_tanggalkeluaran"];
+                    periode_tanggalnext_field = record[i]["periode_tanggalnext"];
+                    periode_periode_field = record[i]["periode_keluaranperiode"];
+                    periode_keluaran_field = record[i]["periode_keluaran"];
+                    periode_statusrevisi_field = record[i]["periode_statusrevisi"];
+                    periode_statusonline_field = record[i]["periode_statusonline"];
+                    periode_create_field = record[i]["periode_create"];
+                    periode_createdate_field = record[i]["periode_createdate"];
+                    periode_update_field = record[i]["periode_update"];
+                    periode_updatedate_field = record[i]["periode_updatedate"];
                 }
-                periode_status_field = document_status;
-                periode_tglkeluaran_field = record[i]["periode_tanggalkeluaran"];
-                periode_tanggalnext_field = record[i]["periode_tanggalnext"];
-                periode_periode_field = record[i]["periode_keluaranperiode"];
-                periode_keluaran_field = record[i]["periode_keluaran"];
-                periode_statusrevisi_field = record[i]["periode_statusrevisi"];
-                periode_statusonline_field = record[i]["periode_statusonline"];
-                periode_create_field = record[i]["periode_create"];
-                periode_createdate_field = record[i]["periode_createdate"];
-                periode_update_field = record[i]["periode_update"];
-                periode_updatedate_field = record[i]["periode_updatedate"];
             }
         }
     }

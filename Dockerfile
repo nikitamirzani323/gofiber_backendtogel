@@ -4,27 +4,30 @@ COPY . .
 RUN go mod tidy
 RUN go build -o binary
 
-FROM node:lts-alpine AS agenclientsveltebuilds
+# ---- Svelte Base ----
+FROM node:lts-alpine AS totosveltebaseagen
 WORKDIR /svelteapp
-COPY [ "svelte/package.json" , "svelte/package-lock.json" , "svelte/rollup.config.js" , "./"]
+COPY [ "svelte/package.json" , "svelte/yarn.lock" , "svelte/rollup.config.js" , "./"]
 
-FROM agenclientsveltebuilds AS agenclientsveltebuilds2
-RUN npm install
+# ---- Svelte Dependencies ----
+FROM totosveltebaseagen AS totosveltedepagen
+RUN yarn
 RUN cp -R node_modules prod_node_modules
 
-
-FROM agenclientsveltebuilds AS agenclientsveltebuilds3
-COPY --from=agenclientsveltebuilds2 /svelteapp/prod_node_modules ./node_modules
+#
+# ---- Svelte Builder ----
+FROM totosveltebaseagen AS totosveltebuilderagen
+COPY --from=totosveltedepagen /svelteapp/prod_node_modules ./node_modules
 COPY ./svelte .
-RUN npm run build
+RUN yarn build
 
 FROM alpine:latest as agenclientrelease
 WORKDIR /app
 RUN apk add tzdata
-COPY --from=agenclientsveltebuilds3 /svelteapp/public ./svelte/public
+COPY --from=totosveltebuilderagen /svelteapp/public ./svelte/public
 COPY --from=agenclientbuilds /appbuilds/binary .
 COPY --from=agenclientbuilds /appbuilds/.env /app/.env
-ENV PORT=7072
+ENV PORT=6061
 ENV PATH_API_BACKEND="http://128.199.241.112:7072/"
 ENV TZ=Asia/Jakarta
 

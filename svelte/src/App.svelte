@@ -11,7 +11,7 @@
 	import Admin from "./pages/admin/Admin.svelte";
 	import AdminRule from "./pages/adminrule/Adminrule.svelte";
 	import Login from "./pages/Login.svelte";
-	import NotFound from "./pages/Notfound.svelte";
+	import NotFound from "./pages/NotFound.svelte";
 	let token = localStorage.getItem("token");
 	let idcomp = localStorage.getItem("idcomp");
 	let routes = "";

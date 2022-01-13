@@ -55,12 +55,7 @@ type periodesaverevisi struct {
 	Idtrxkeluaran int    `json:"idinvoice" validate:"required"`
 	Msgrevisi     string `json:"msgrevisi" validate:"required"`
 }
-type periodecancelbet struct {
-	Sdata               string `json:"sData" validate:"required"`
-	Page                string `json:"page"`
-	Idtrxkeluaran       int    `json:"idinvoice" validate:"required"`
-	Idtrxkeluarandetail int    `json:"idinvoicedetail" validate:"required"`
-}
+
 type periodeprediksi struct {
 	Nomorkeluaran string `json:"nomorkeluaran" validate:"required,min=4,max=4"`
 	Idcomppasaran int    `json:"pasaran_code" validate:"required"`
@@ -387,8 +382,15 @@ func Periodesaverevisi(c *fiber.Ctx) error {
 	}
 }
 func Periodecancelbet(c *fiber.Ctx) error {
+	type payload_periodecancelbet struct {
+		Sdata               string `json:"sData" validate:"required"`
+		Page                string `json:"page"`
+		Permainan           string `json:"permainan" validate:"required"`
+		Idtrxkeluaran       int    `json:"idinvoice" validate:"required"`
+		Idtrxkeluarandetail int    `json:"idinvoicedetail" validate:"required"`
+	}
 	var errors []*helpers.ErrorResponse
-	client := new(periodecancelbet)
+	client := new(payload_periodecancelbet)
 	validate := validator.New()
 	if err := c.BodyParser(client); err != nil {
 		c.Status(fiber.StatusBadRequest)
@@ -424,9 +426,10 @@ func Periodecancelbet(c *fiber.Ctx) error {
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
 			"sData":           client.Sdata,
+			"page":            client.Page,
+			"permainan":       client.Permainan,
 			"idinvoice":       client.Idtrxkeluaran,
 			"idinvoicedetail": client.Idtrxkeluarandetail,
-			"page":            client.Page,
 		}).
 		Post(config.Path_url() + "api/cancelbet")
 	if err != nil {

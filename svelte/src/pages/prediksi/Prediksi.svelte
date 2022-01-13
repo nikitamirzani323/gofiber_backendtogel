@@ -25,11 +25,11 @@
         }
         if (prediksi_field == "") {
             flag = true;
-            msg += "The Prediksi is required\n";
+            msg += "The Nomor Keluaran is required\n";
         }
         if (parseInt(prediksi_field.length) < 4) {
             flag = true;
-            msg += "The Prediksi is must 4 Character\n";
+            msg += "The Nomor Keluaran is must 4 Character\n";
         }
         if (flag == false) {
             const res = await fetch("/api/listprediksi", {
@@ -62,21 +62,17 @@
                             ...listresult,
                             {
                                 prediksi_tanggal: record[i]["prediksi_tanggal"],
-                                prediksi_username:
-                                    record[i]["prediksi_username"],
-                                prediksi_permainan:
-                                    record[i]["prediksi_permainan"],
+                                prediksi_username: record[i]["prediksi_username"],
+                                prediksi_permainan: record[i]["prediksi_permainan"],
                                 prediksi_nomor: record[i]["prediksi_nomor"],
                                 prediksi_bet: record[i]["prediksi_bet"],
                                 prediksi_diskon: record[i]["prediksi_diskon"],
                                 prediksi_kei: record[i]["prediksi_kei"],
                                 prediksi_bayar: record[i]["prediksi_bayar"],
                                 prediksi_win: record[i]["prediksi_win"],
-                                prediksi_totalwin:
-                                    record[i]["prediksi_totalwin"],
+                                prediksi_totalwin: record[i]["prediksi_totalwin"],
                                 prediksi_status: record[i]["prediksi_status"],
-                                prediksi_statuscss:
-                                    record[i]["prediksi_statuscss"],
+                                prediksi_statuscss: record[i]["prediksi_statuscss"],
                             },
                         ];
                     }
@@ -149,6 +145,15 @@
         localStorage.clear();
         window.location.href = "/";
     }
+    const handleKeyboard_number = (e) => {
+        let numbera;
+		for (let i = 0; i < prediksi_field.length; i++) {
+			numbera = parseInt(prediksi_field[i]);
+			if (isNaN(numbera)) {
+				prediksi_field = "";
+			}
+		}
+    }
     initapp();
 </script>
 
@@ -168,22 +173,19 @@
                                     callPrediksi();
                                 }}
                                 class="btn btn-warning btn-sm"
-                                style="border-radius: 0px;"
-                            >
-                                Save
+                                style="border-radius: 0px;">
+                                Check
                             </button>
                         </div>
                     </div>
                     <div class="card-body" style="height:450px;">
                         <Row>
                             <div class="mb-3">
-                                <label for="example" class="form-label"
-                                    >Pasaran</label
-                                >
+                                <label for="example" class="form-label">Pasaran</label>
                                 <select
                                     bind:value={prediksi_select_field}
-                                    class="form-control"
-                                >
+                                    placeholder="Pilih Pasaran"
+                                    class="form-control">
                                     {#each listPasaranCompany as rec}
                                         <option value={rec.pasaran_idcomp}
                                             >{rec.pasaran_name}</option
@@ -192,18 +194,16 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="example" class="form-label"
-                                    >Prediksi</label
-                                >
+                                <label for="example" class="form-label">Nomor Keluaran</label>
                                 <input
                                     bind:value={prediksi_field}
+                                    on:keyup={handleKeyboard_number}
                                     type="text"
                                     minlength="4"
                                     maxlength="4"
                                     class="form-control"
-                                    placeholder="Keluaran"
-                                    aria-label="Keluaran"
-                                />
+                                    placeholder="Nomor Keluaran: Ex: 1234"
+                                    aria-label="Nomor Keluaran"/>
                             </div>
                         </Row>
                     </div>

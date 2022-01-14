@@ -42,6 +42,7 @@ type pasaransavelimit struct {
 	Page                 string `json:"page"`
 	Pasaran_limitline4d  int    `json:"pasaran_limitline4d"`
 	Pasaran_limitline3d  int    `json:"pasaran_limitline3d"`
+	Pasaran_limitline3dd int    `json:"pasaran_limitline3dd"`
 	Pasaran_limitline2d  int    `json:"pasaran_limitline2d"`
 	Pasaran_limitline2dd int    `json:"pasaran_limitline2dd"`
 	Pasaran_limitline2dt int    `json:"pasaran_limitline2dt"`
@@ -53,26 +54,31 @@ type pasaranconf432 struct {
 	Pasaran_minbet_432d         int     `json:"pasaran_minbet_432d"`
 	Pasaran_maxbet4d_432d       int     `json:"pasaran_maxbet4d_432d"`
 	Pasaran_maxbet3d_432d       int     `json:"pasaran_maxbet3d_432d"`
+	Pasaran_maxbet3dd_432d      int     `json:"pasaran_maxbet3dd_432d"`
 	Pasaran_maxbet2d_432d       int     `json:"pasaran_maxbet2d_432d"`
 	Pasaran_maxbet2dd_432d      int     `json:"pasaran_maxbet2dd_432d"`
 	Pasaran_maxbet2dt_432d      int     `json:"pasaran_maxbet2dt_432d"`
 	Pasaran_limitotal4d_432d    int     `json:"pasaran_limitotal4d_432d"`
 	Pasaran_limitotal3d_432d    int     `json:"pasaran_limitotal3d_432d"`
+	Pasaran_limitotal3dd_432d   int     `json:"pasaran_limitotal3dd_432d"`
 	Pasaran_limitotal2d_432d    int     `json:"pasaran_limitotal2d_432d"`
 	Pasaran_limitotal2dd_432d   int     `json:"pasaran_limitotal2dd_432d"`
 	Pasaran_limitotal2dt_432d   int     `json:"pasaran_limitotal2dt_432d"`
 	Pasaran_limitglobal4d_432d  int     `json:"pasaran_limitglobal4d_432d"`
 	Pasaran_limitglobal3d_432d  int     `json:"pasaran_limitglobal3d_432d"`
+	Pasaran_limitglobal3dd_432d int     `json:"pasaran_limitglobal3dd_432d"`
 	Pasaran_limitglobal2d_432d  int     `json:"pasaran_limitglobal2d_432d"`
 	Pasaran_limitglobal2dd_432d int     `json:"pasaran_limitglobal2dd_432d"`
 	Pasaran_limitglobal2dt_432d int     `json:"pasaran_limitglobal2dt_432d"`
 	Pasaran_win4d_432d          int     `json:"pasaran_win4d_432d"`
 	Pasaran_win3d_432d          int     `json:"pasaran_win3d_432d"`
+	Pasaran_win3dd_432d         int     `json:"pasaran_win3dd_432d"`
 	Pasaran_win2d_432d          int     `json:"pasaran_win2d_432d"`
 	Pasaran_win2dd_432d         int     `json:"pasaran_win2dd_432d"`
 	Pasaran_win2dt_432d         int     `json:"pasaran_win2dt_432d"`
 	Pasaran_disc4d_432d         float32 `json:"pasaran_disc4d_432d"`
 	Pasaran_disc3d_432d         float32 `json:"pasaran_disc3d_432d"`
+	Pasaran_disc3dd_432d        float32 `json:"pasaran_disc3dd_432d"`
 	Pasaran_disc2d_432d         float32 `json:"pasaran_disc2d_432d"`
 	Pasaran_disc2dd_432d        float32 `json:"pasaran_disc2dd_432d"`
 	Pasaran_disc2dt_432d        float32 `json:"pasaran_disc2dt_432d"`
@@ -636,6 +642,7 @@ func Pasaransavelimit(c *fiber.Ctx) error {
 			"page":                 client.Page,
 			"pasaran_limitline4d":  client.Pasaran_limitline4d,
 			"pasaran_limitline3d":  client.Pasaran_limitline3d,
+			"pasaran_limitline3dd": client.Pasaran_limitline3dd,
 			"pasaran_limitline2d":  client.Pasaran_limitline2d,
 			"pasaran_limitline2dd": client.Pasaran_limitline2dd,
 			"pasaran_limitline2dt": client.Pasaran_limitline2dt,
@@ -707,26 +714,31 @@ func Pasaransaveconf432d(c *fiber.Ctx) error {
 			"pasaran_minbet_432d":         client.Pasaran_minbet_432d,
 			"pasaran_maxbet4d_432d":       client.Pasaran_maxbet4d_432d,
 			"pasaran_maxbet3d_432d":       client.Pasaran_maxbet3d_432d,
+			"pasaran_maxbet3dd_432d":      client.Pasaran_maxbet3dd_432d,
 			"pasaran_maxbet2d_432d":       client.Pasaran_maxbet2d_432d,
 			"pasaran_maxbet2dd_432d":      client.Pasaran_maxbet2dd_432d,
 			"pasaran_maxbet2dt_432d":      client.Pasaran_maxbet2dt_432d,
 			"pasaran_limitotal4d_432d":    client.Pasaran_limitotal4d_432d,
 			"pasaran_limitotal3d_432d":    client.Pasaran_limitotal3d_432d,
+			"pasaran_limitotal3dd_432d":   client.Pasaran_limitotal3dd_432d,
 			"pasaran_limitotal2d_432d":    client.Pasaran_limitotal2d_432d,
 			"pasaran_limitotal2dd_432d":   client.Pasaran_limitotal2dd_432d,
 			"pasaran_limitotal2dt_432d":   client.Pasaran_limitotal2dt_432d,
 			"pasaran_limitglobal4d_432d":  client.Pasaran_limitglobal4d_432d,
 			"pasaran_limitglobal3d_432d":  client.Pasaran_limitglobal3d_432d,
+			"pasaran_limitglobal3dd_432d": client.Pasaran_limitglobal3dd_432d,
 			"pasaran_limitglobal2d_432d":  client.Pasaran_limitglobal2d_432d,
 			"pasaran_limitglobal2dd_432d": client.Pasaran_limitglobal2dt_432d,
 			"pasaran_limitglobal2dt_432d": client.Pasaran_limitglobal2dt_432d,
 			"pasaran_win4d_432d":          client.Pasaran_win4d_432d,
 			"pasaran_win3d_432d":          client.Pasaran_win3d_432d,
+			"pasaran_win3dd_432d":         client.Pasaran_win3dd_432d,
 			"pasaran_win2d_432d":          client.Pasaran_win2d_432d,
 			"pasaran_win2dd_432d":         client.Pasaran_win2dd_432d,
 			"pasaran_win2dt_432d":         client.Pasaran_win2dt_432d,
 			"pasaran_disc4d_432d":         client.Pasaran_disc4d_432d,
 			"pasaran_disc3d_432d":         client.Pasaran_disc3d_432d,
+			"pasaran_disc3dd_432d":        client.Pasaran_disc3dd_432d,
 			"pasaran_disc2d_432d":         client.Pasaran_disc2d_432d,
 			"pasaran_disc2dd_432d":        client.Pasaran_disc2dd_432d,
 			"pasaran_disc2dt_432d":        client.Pasaran_disc2dt_432d,

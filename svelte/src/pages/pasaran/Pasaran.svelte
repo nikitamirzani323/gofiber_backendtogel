@@ -21,6 +21,7 @@
 	let pasaran_buka_field = "";
 	let pasaran_limitline4d_field = 0;
 	let pasaran_limitline3d_field = 0;
+	let pasaran_limitline3dd_field = 0;
 	let pasaran_limitline2d_field = 0;
 	let pasaran_limitline2dd_field = 0;
 	let pasaran_limitline2dt_field = 0;
@@ -28,26 +29,31 @@
 	let pasaran_minbet_432d_field = 0;
 	let pasaran_maxbet4d_432d_field = 0;
 	let pasaran_maxbet3d_432d_field = 0;
+	let pasaran_maxbet3dd_432d_field = 0;
 	let pasaran_maxbet2d_432d_field = 0;
 	let pasaran_maxbet2dd_432d_field = 0;
 	let pasaran_maxbet2dt_432d_field = 0;
 	let pasaran_limitotal4d_432d_field = 0;
 	let pasaran_limitotal3d_432d_field = 0;
+	let pasaran_limitotal3dd_432d_field = 0;
 	let pasaran_limitotal2d_432d_field = 0;
 	let pasaran_limitotal2dd_432d_field = 0;
 	let pasaran_limitotal2dt_432d_field = 0;
 	let pasaran_limitglobal4d_432d_field = 0;
 	let pasaran_limitglobal3d_432d_field = 0;
+	let pasaran_limitglobal3dd_432d_field = 0;
 	let pasaran_limitglobal2d_432d_field = 0;
 	let pasaran_limitglobal2dd_432d_field = 0;
 	let pasaran_limitglobal2dt_432d_field = 0;
 	let pasaran_disc4d_432d_field = 0;
 	let pasaran_disc3d_432d_field = 0;
+	let pasaran_disc3dd_432d_field = 0;
 	let pasaran_disc2d_432d_field = 0;
 	let pasaran_disc2dd_432d_field = 0;
 	let pasaran_disc2dt_432d_field = 0;
 	let pasaran_win4d_432d_field = 0;
 	let pasaran_win3d_432d_field = 0;
+	let pasaran_win3dd_432d_field = 0;
 	let pasaran_win2d_432d_field = 0;
 	let pasaran_win2dd_432d_field = 0;
 	let pasaran_win2dt_432d_field = 0;
@@ -281,6 +287,7 @@
 				pasaran_buka_field = record[i]["jamopen"];
 				pasaran_limitline4d_field = record[i]["limitline_4d"];
 				pasaran_limitline3d_field = record[i]["limitline_3d"];
+				pasaran_limitline3dd_field = record[i]["limitline_3dd"];
 				pasaran_limitline2d_field = record[i]["limitline_2d"];
 				pasaran_limitline2dd_field = record[i]["limitline_2dd"];
 				pasaran_limitline2dt_field = record[i]["limitline_2dt"];
@@ -288,32 +295,25 @@
 				pasaran_minbet_432d_field = record[i]["minbet_432d"];
 				pasaran_maxbet4d_432d_field = record[i]["maxbet4d_432d"];
 				pasaran_maxbet3d_432d_field = record[i]["maxbet3d_432d"];
+				pasaran_maxbet3dd_432d_field = record[i]["maxbet3dd_432d"];
 				pasaran_maxbet2d_432d_field = record[i]["maxbet2d_432d"];
 				pasaran_maxbet2dd_432d_field = record[i]["maxbet2dd_432d"];
 				pasaran_maxbet2dt_432d_field = record[i]["maxbet2dt_432d"];
 				pasaran_limitotal4d_432d_field = record[i]["limitotal4d_432d"];
 				pasaran_limitotal3d_432d_field = record[i]["limitotal3d_432d"];
+				pasaran_limitotal3dd_432d_field = record[i]["limitotal3dd_432d"];
 				pasaran_limitotal2d_432d_field = record[i]["limitotal2d_432d"];
-				pasaran_limitotal2dd_432d_field =
-					record[i]["limitotal2dd_432d"];
-				pasaran_limitotal2dt_432d_field =
-					record[i]["limitotal2dt_432d"];
-				pasaran_limitglobal4d_432d_field =
-					record[i]["limitglobal4d_432d"];
-				pasaran_limitglobal3d_432d_field =
-					record[i]["limitglobal3d_432d"];
-				pasaran_limitglobal2d_432d_field =
-					record[i]["limitglobal2d_432d"];
-				pasaran_limitglobal2dd_432d_field =
-					record[i]["limitglobal2dd_432d"];
-				pasaran_limitglobal2dt_432d_field =
-					record[i]["limitglobal2dt_432d"];
-				pasaran_disc4d_432d_field = Math.ceil(
-					record[i]["disc4d_432d"] * 100
-				);
-				pasaran_disc3d_432d_field = Math.ceil(
-					record[i]["disc3d_432d"] * 100
-				);
+				pasaran_limitotal2dd_432d_field = record[i]["limitotal2dd_432d"];
+				pasaran_limitotal2dt_432d_field = record[i]["limitotal2dt_432d"];
+				pasaran_limitglobal4d_432d_field = record[i]["limitglobal4d_432d"];
+				pasaran_limitglobal3d_432d_field = record[i]["limitglobal3d_432d"];
+				pasaran_limitglobal3dd_432d_field = record[i]["limitglobal3dd_432d"];
+				pasaran_limitglobal2d_432d_field = record[i]["limitglobal2d_432d"];
+				pasaran_limitglobal2dd_432d_field = record[i]["limitglobal2dd_432d"];
+				pasaran_limitglobal2dt_432d_field = record[i]["limitglobal2dt_432d"];
+				pasaran_disc4d_432d_field = Math.ceil(record[i]["disc4d_432d"] * 100);
+				pasaran_disc3d_432d_field = Math.ceil(record[i]["disc3d_432d"] * 100);
+				pasaran_disc3dd_432d_field = Math.ceil(record[i]["disc3dd_432d"] * 100);
 				pasaran_disc2d_432d_field = Math.ceil(
 					record[i]["disc2d_432d"] * 100
 				);
@@ -325,14 +325,14 @@
 				);
 				pasaran_win4d_432d_field = record[i]["win4d_432d"];
 				pasaran_win3d_432d_field = record[i]["win3d_432d"];
+				pasaran_win3dd_432d_field = record[i]["win3dd_432d"];
 				pasaran_win2d_432d_field = record[i]["win2d_432d"];
 				pasaran_win2dd_432d_field = record[i]["win2dd_432d"];
 				pasaran_win2dt_432d_field = record[i]["win2dt_432d"];
 				pasaran_minbet_cbebas_field = record[i]["minbet_cbebas"];
 				pasaran_maxbet_cbebas_field = record[i]["maxbet_cbebas"];
 				pasaran_limitotal_cbebas_field = record[i]["limittotal_cbebas"];
-				pasaran_limitglobal_cbebas_field =
-					record[i]["limitglobal_cbebas"];
+				pasaran_limitglobal_cbebas_field = record[i]["limitglobal_cbebas"];
 				pasaran_win_cbebas_field = record[i]["win_cbebas"];
 				pasaran_disc_cbebas_field = record[i]["disc_cbebas"] * 100;
 				pasaran_minbet_cmacau_field = record[i]["minbet_cmacau"];
@@ -694,6 +694,7 @@
 		{pasaran_buka_field}
 		{pasaran_limitline4d_field}
 		{pasaran_limitline3d_field}
+		{pasaran_limitline3dd_field}
 		{pasaran_limitline2d_field}
 		{pasaran_limitline2dd_field}
 		{pasaran_limitline2dt_field}
@@ -701,26 +702,31 @@
 		{pasaran_minbet_432d_field}
 		{pasaran_maxbet4d_432d_field}
 		{pasaran_maxbet3d_432d_field}
+		{pasaran_maxbet3dd_432d_field}
 		{pasaran_maxbet2d_432d_field}
 		{pasaran_maxbet2dd_432d_field}
 		{pasaran_maxbet2dt_432d_field}
 		{pasaran_limitotal4d_432d_field}
 		{pasaran_limitotal3d_432d_field}
+		{pasaran_limitotal3dd_432d_field}
 		{pasaran_limitotal2d_432d_field}
 		{pasaran_limitotal2dd_432d_field}
 		{pasaran_limitotal2dt_432d_field}
 		{pasaran_limitglobal4d_432d_field}
 		{pasaran_limitglobal3d_432d_field}
+		{pasaran_limitglobal3dd_432d_field}
 		{pasaran_limitglobal2d_432d_field}
 		{pasaran_limitglobal2dd_432d_field}
 		{pasaran_limitglobal2dt_432d_field}
 		{pasaran_disc4d_432d_field}
 		{pasaran_disc3d_432d_field}
+		{pasaran_disc3dd_432d_field}
 		{pasaran_disc2d_432d_field}
 		{pasaran_disc2dd_432d_field}
 		{pasaran_disc2dt_432d_field}
 		{pasaran_win4d_432d_field}
 		{pasaran_win3d_432d_field}
+		{pasaran_win3dd_432d_field}
 		{pasaran_win2d_432d_field}
 		{pasaran_win2dd_432d_field}
 		{pasaran_win2dt_432d_field}

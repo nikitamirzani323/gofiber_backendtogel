@@ -46,14 +46,14 @@
         }
     }
     async function initTimezone() {
-        const res = await fetch("https://ipinfo.io/json?token=8ebfb6b9d0a436");
+        const res = await fetch("api/healthz");
         if (!res.ok) {
             const message = `An error has occured: ${res.status}`;
             throw new Error(message);
         } else {
             const json = await res.json();
-            client_ipaddress = json.ip;
-            client_timezone = json.timezone;
+            client_ipaddress = json.real_ip;
+            client_timezone = "Asia/Jakarta";
         }
     }
     initTimezone();

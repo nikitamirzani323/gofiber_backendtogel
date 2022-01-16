@@ -4,21 +4,26 @@ import (
 	"bitbucket.org/isbtotogroup/frontendagen_svelte/controllers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
+	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
 func Init() *fiber.App {
 	app := fiber.New()
+
 	app.Use(logger.New())
 	app.Use(recover.New())
 	app.Use(compress.New())
+	app.Use(requestid.New())
+	app.Use(etag.New())
 	app.Static("/", "svelte/public", fiber.Static{
 		Compress:  true,
 		ByteRange: true,
 		Browse:    true,
 	})
-
+	app.Get("api/healthz", controllers.HealthCheck)
 	app.Post("/api/login", controllers.Login)
 	app.Post("/api/home", controllers.Home)
 	app.Post("/api/dashboardwinlose", controllers.Dashboard)

@@ -40,18 +40,11 @@
     let css_winlose = "color:red;font-weight:bold;";
     let chooce_permainan = "";
     let css_loader = "display: none;";
-    let css_btnsave = "display: none;";
-    let css_btnrevisi = "display: none;";
     let msgloader = "";
     let myModalrevisi = "";
     let dispatch = createEventDispatcher();
 
-    if(periode_statusonline_field == "OFFLINE"){
-        css_btnsave = "";
-    }
-    if(periode_statusrevisi_field == "OPEN"){
-        css_btnrevisi = "";
-    }
+    
 
     const schema = yup.object().shape({
         msgrevisi: yup
@@ -673,7 +666,7 @@
                                         SaveTransaksi();
                                     }}
                                     class="btn btn-warning btn-sm"
-                                    style="border-radius: 0px;{css_btnsave}">
+                                    style="border-radius: 0px;">
                                     Save
                                 </button>
                             {/if}
@@ -683,7 +676,7 @@
                                     callrevisiTransaksi();
                                 }}
                                 class="btn btn-warning btn-sm"
-                                style="border-radius: 0px;{css_btnrevisi}">
+                                style="border-radius: 0px;">
                                 Revisi
                             </button>
                         {/if}

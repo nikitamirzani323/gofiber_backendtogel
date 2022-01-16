@@ -10,10 +10,10 @@
 	import Report_Winlose from "./pages/report/Winlose.svelte";
 	import Admin from "./pages/admin/Admin.svelte";
 	import AdminRule from "./pages/adminrule/Adminrule.svelte";
+	import Log from "./pages/log/Log.svelte";
 	import Login from "./pages/Login.svelte";
 	import NotFound from "./pages/NotFound.svelte";
 	let token = localStorage.getItem("token");
-	let idcomp = localStorage.getItem("idcomp");
 	let routes = "";
 	let isNav = false;
 
@@ -31,6 +31,9 @@
 		routes = {
 			"/": wrap({
 				component: Home,
+			}),
+			"/log": wrap({
+				component: Log,
 			}),
 			"/periode": wrap({
 				component: Periode,

@@ -72,5 +72,7 @@ func Init() *fiber.App {
 	app.Post("/api/editadminrule", controllers.Adminruledetail)
 	app.Post("/api/saveadminrule", controllers.Adminrulesave)
 	app.Post("/api/saveadminruleconf", controllers.Adminruleconfsave)
+
+	app.Post("/api/log", controllers.Log)
 	return app
 }

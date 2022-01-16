@@ -107,8 +107,7 @@
                     NewData();
                 }}
                 class="btn btn-primary btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 New
             </button>
             <button
@@ -116,8 +115,7 @@
                     RefreshHalaman();
                 }}
                 class="btn btn-primary btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Refresh
             </button>
             <Panel height_body="{screen_height}px">
@@ -130,9 +128,8 @@
                             bind:value={searchPasaran}
                             type="text"
                             class="form-control"
-                            placeholder="Search Pasaran"
-                            aria-label="Search"
-                        />
+                            placeholder="Search Pasaran + Invoice + Status"
+                            aria-label="Search"/>
                     </div>
                 </slot:template>
                 <slot:template slot="cbody">
@@ -142,67 +139,48 @@
                                 <tr>
                                     <th
                                         width="1%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >&nbsp;</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">&nbsp;</th>
                                     <th
                                         width="1%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >NO</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">NO</th>
                                     <th
                                         width="1%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >&nbsp;</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">&nbsp;</th>
                                     <th
                                         width="7%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >DATE</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">DATE</th>
                                     <th
                                         NOWRAP
                                         width="1%"
-                                        style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >INVOICE</th>
+                                        style="text-align: left;vertical-align:top;font-size: 14px;">INVOICE</th>
                                     <th
                                         width="7%"
-                                        style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >PERIODE</th>
+                                        style="text-align: left;vertical-align:top;font-size: 14px;">PERIODE</th>
                                     <th
                                         width="*"
-                                        style="text-align: left;vertical-align:top;font-size: 14px;"
-                                        >PASARAN</th>
+                                        style="text-align: left;vertical-align:top;font-size: 14px;">PASARAN</th>
                                     <th
                                         width="10%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;"
-                                        >KELUARAN</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">KELUARAN</th>
                                     <th
                                         NOWRAP
                                         width="1%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >REVISI</th>
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">REVISI</th>
                                     <th
                                         width="10%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >MEMBER</th
-                                    >
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">MEMBER</th>
                                     <th
                                         width="10%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >BET</th
-                                    >
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">BET</th>
                                     <th
                                         width="10%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >BAYAR</th
-                                    >
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">BAYAR</th>
                                     <th
                                         width="10%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >CANCEL</th
-                                    >
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">CANCEL</th>
                                     <th
                                         width="10%"
-                                        style="text-align: right;vertical-align:top;font-size: 14px;"
-                                        >WINLOSE</th
-                                    >
+                                        style="text-align: right;vertical-align:top;font-size: 14px;">WINLOSE</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -216,50 +194,35 @@
                                                 );
                                             }}
                                             NOWRAP
-                                            style="text-align: center;vertical-align:top;font-size: 13px;cursor:pointer;"
-                                        >
+                                            style="text-align: center;vertical-align:top;font-size: 13px;cursor:pointer;">
                                             <Icon name="pencil" />
                                         </td>
                                         <td
                                             NOWRAP
-                                            style="text-align: center;vertical-align:top;font-size: 13px;"
-                                            >{rec.no}</td
-                                        >
+                                            style="text-align: center;vertical-align:top;font-size: 13px;">{rec.no}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: center;vertical-align:top;font-size: 13px;{rec.pasaran_status_css}"
-                                            >{rec.pasaran_status}</td
-                                        >
+                                            style="text-align: center;vertical-align:top;font-size: 13px;{rec.pasaran_status_css}">{rec.pasaran_status}</td>
 
                                         <td
                                             NOWRAP
-                                            style="text-align: center;vertical-align:top;font-size: 13px;"
-                                            >{rec.pasaran_tanggal}</td
-                                        >
+                                            style="text-align: center;vertical-align:top;font-size: 13px;">{rec.pasaran_tanggal}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: left;vertical-align:top;font-size: 13px;"
-                                            >{rec.pasaran_invoice}</td
-                                        >
+                                            style="text-align: left;vertical-align:top;font-size: 13px;">{rec.pasaran_invoice}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: left;vertical-align:top;font-size: 13px;"
-                                            >{rec.pasaran_periode}</td
-                                        >
+                                            style="text-align: left;vertical-align:top;font-size: 13px;">{rec.pasaran_periode}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: left;vertical-align:top;font-size: 13px;"
-                                            >{rec.pasaran_name}</td
-                                        >
+                                            style="text-align: left;vertical-align:top;font-size: 13px;">{rec.pasaran_name}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: center;vertical-align:top;font-size: 13px;font-weight:bold;color:black;"
-                                            >{rec.pasaran_keluaran}</td
-                                        >
+                                            style="text-align: center;vertical-align:top;font-size: 13px;font-weight:bold;color:black;">{rec.pasaran_keluaran}</td>
                                         <td
                                             NOWRAP
-                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_revisi_css}"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_revisi_css}">
+                                            {new Intl.NumberFormat().format(
                                                 rec.pasaran_revisi
                                             )}
                                             {#if rec.pasaran_revisi > 0}
@@ -276,36 +239,36 @@
                                             style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalmember_css}"
                                             >{new Intl.NumberFormat().format(
                                                 rec.pasaran_totalmember
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                         <td
                                             NOWRAP
-                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalbet_css}"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalbet_css}">
+                                            {new Intl.NumberFormat().format(
                                                 rec.pasaran_totalbet
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                         <td
                                             NOWRAP
-                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totaloutstanding_css}"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totaloutstanding_css}">
+                                            {new Intl.NumberFormat().format(
                                                 rec.pasaran_totaloutstanding
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                         <td
                                             NOWRAP
-                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalcancelbet_css}"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_totalcancelbet_css}">
+                                            {new Intl.NumberFormat().format(
                                                 rec.pasaran_totalcancelbet
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                         <td
                                             NOWRAP
-                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_winlose_css}"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-size: 13px;{rec.pasaran_winlose_css}">
+                                            {new Intl.NumberFormat().format(
                                                 rec.pasaran_winlose
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                 {/each}
                             </tbody>
@@ -327,8 +290,7 @@
     modal_id={"modalNew"}
     modal_size={"modal-dialog-centered"}
     modal_body_height={"height:100px;"}
-    modal_footer_flag={true}
->
+    modal_footer_flag={true}>
     <slot:template slot="header">
         <h5 class="modal-title" id="exampleModalLabel">Entry/{sData}</h5>
     </slot:template>
@@ -339,12 +301,9 @@
                     <label for="exampleForm" class="form-label">Pasaran</label>
                     <select
                         class="form-control required"
-                        bind:value={select_pasaran}
-                    >
+                        bind:value={select_pasaran}>
                         {#each listPeriodePasaran as rec}
-                            <option value={rec.pasarancomp_idcompp}
-                                >{rec.pasarancomp_nama}</option
-                            >
+                            <option value={rec.pasarancomp_idcompp}>{rec.pasarancomp_nama}</option>
                         {/each}
                     </select>
                 </div>
@@ -358,8 +317,7 @@
                     SaveTransaksi();
                 }}
                 class="btn btn-warning"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Save
             </button>
         </div>

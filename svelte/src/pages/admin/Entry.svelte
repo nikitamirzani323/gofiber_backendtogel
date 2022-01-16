@@ -1,5 +1,5 @@
 <script>
-    import { Row, Col, Container, Icon } from "sveltestrap";
+    import { Icon } from "sveltestrap";
     import { createEventDispatcher } from "svelte";
 
     export let sData = "";
@@ -16,6 +16,7 @@
     let admin_password = "";
     let admin_ipaddress = "";
     let css_loader = "display: none;";
+    let css_panel_iplist = "display: none;";
     let msgloader = "";
     let dispatch = createEventDispatcher();
     const BackHalaman = () => {
@@ -135,28 +136,28 @@
         );
         myModal.show();
     }
+    if(admin_type_field != "MASTER") {
+        css_panel_iplist = "";
+    }
 </script>
 
 <div id="loader" style="margin-left:50%;{css_loader}">
     {msgloader}
 </div>
-<Container fluid style="margin-top: 70px;">
-    <Row>
-        <Col>
+<div class="container-fluid" style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-sm-12">
             <button
                 on:click={() => {
                     BackHalaman();
                 }}
                 class="btn btn-dark btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Back
             </button>
-        </Col>
-    </Row>
-    <div class="clearfix" />
-    <Row>
-        <Col xs="3">
+        </div>
+        <div class="clearfix" />
+        <div class="col-sm-3">
             <div class="card" style="border-radius: 0px;margin-top:10px;">
                 <div class="card-header" style="">
                     Pasaran / {sData}
@@ -166,17 +167,14 @@
                                 SaveTransaksi();
                             }}
                             class="btn btn-warning btn-sm"
-                            style="border-radius: 0px;"
-                        >
+                            style="border-radius: 0px;">
                             Save
                         </button>
                     </div>
                 </div>
                 <div class="card-body" style="height:500px;">
                     <div class="mb-3">
-                        <label for="exampleForm" class="form-label"
-                            >Username</label
-                        >
+                        <label for="exampleForm" class="form-label">Username</label>
                         <input
                             bind:value={admin_username}
                             type="text"
@@ -184,35 +182,26 @@
                             maxlength="70"
                             class="form-control"
                             placeholder="Username"
-                            aria-label="Username"
-                        />
+                            aria-label="Username"/>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleForm" class="form-label"
-                            >Password</label
-                        >
+                        <label for="exampleForm" class="form-label">Password</label>
                         <input
                             bind:value={admin_password}
                             type="password"
                             class="form-control"
                             placeholder="Password"
-                            aria-label="Password"
-                        />
+                            aria-label="Password"/>
                     </div>
                     {#if admin_type_field != "MASTER"}
                         <div class="mb-3">
-                            <label for="exampleForm" class="form-label"
-                                >Admin Rule</label
-                            >
+                            <label for="exampleForm" class="form-label">Admin Rule</label>
                             <select
                                 bind:value={admin_idrule_field}
-                                class="form-control"
-                            >
+                                class="form-control">
                                 <option value="0">--Select--</option>
                                 {#each admin_listrule as rec}
-                                    <option value={rec.adminrule_idruleadmin}
-                                        >{rec.adminrule_name}</option
-                                    >
+                                    <option value={rec.adminrule_idruleadmin}>{rec.adminrule_name}</option>
                                 {/each}
                             </select>
                         </div>
@@ -225,17 +214,13 @@
                             maxlength="70"
                             class="form-control"
                             placeholder="Name"
-                            aria-label="Name"
-                        />
+                            aria-label="Name"/>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleForm" class="form-label"
-                            >Status</label
-                        >
+                        <label for="exampleForm" class="form-label">Status</label>
                         <select
                             class="form-control"
-                            bind:value={admin_status_field}
-                        >
+                            bind:value={admin_status_field}>
                             <option value="ACTIVE">ACTIVE</option>
                             <option value="BANNED">BANNED</option>
                         </select>
@@ -245,100 +230,79 @@
                             <tr>
                                 <td style="font-size: 11px;">Create</td>
                                 <td style="font-size: 11px;">:</td>
-                                <td style="font-size: 11px;"
-                                    >{admin_create_field}</td
-                                >
+                                <td style="font-size: 11px;">{admin_create_field}</td>
                             </tr>
                             <tr>
                                 <td style="font-size: 11px;">Update</td>
                                 <td style="font-size: 11px;">:</td>
-                                <td style="font-size: 11px;"
-                                    >{admin_update_field}</td
-                                >
+                                <td style="font-size: 11px;">{admin_update_field}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
-        </Col>
-        {#if admin_type_field != "MASTER"}
-            <Col xs="3">
-                <div class="card" style="border-radius: 0px;margin-top:10px;">
-                    <div class="card-header" style="">
-                        IP LIST
-                        <div class="float-end">
-                            <button
-                                on:click={() => {
-                                    NewIplist();
-                                }}
-                                class="btn btn-primary"
-                                style="border-radius: 0px;"
-                            >
-                                New
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body" style="height:455px;">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th
-                                        width="1%"
-                                        style="text-align:center;font-size:14px;"
-                                        >&nbsp;</th
-                                    >
-                                    <th
-                                        width="1%"
-                                        style="text-align:center;font-size:14px;"
-                                        >NO</th
-                                    >
-                                    <th
-                                        width="*"
-                                        style="text-align:left;font-size:14px;"
-                                        >IPADDRESS</th
-                                    >
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {#each admin_listip as rec}
-                                    <tr>
-                                        <td
-                                            on:click={() => {
-                                                DeleteIpList(
-                                                    rec.adminiplist_idcompiplist
-                                                );
-                                            }}
-                                            style="text-align:center;font-size:12px;cursor:pointer;"
-                                            ><Icon name="trash" /></td
-                                        >
-                                        <td
-                                            style="text-align:center;font-size:12px;"
-                                            >{rec.adminiplist_no}</td
-                                        >
-                                        <td
-                                            style="text-align:left;font-size:12px;"
-                                            >{rec.adminiplist_iplist}</td
-                                        >
-                                    </tr>
-                                {/each}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer" style="margin:0px;padding:10px;">
-                        <b>TOTAL RECORD : {admin_listip.length}</b>
+        </div>
+        <div class="col-sm-3">
+            <div class="card" style="border-radius: 0px;margin-top:10px;{css_panel_iplist}">
+                <div class="card-header" style="">
+                    IP LIST
+                    <div class="float-end">
+                        <button
+                            on:click={() => {
+                                NewIplist();
+                            }}
+                            class="btn btn-primary btn-sm">
+                            New
+                        </button>
                     </div>
                 </div>
-            </Col>
-        {/if}
-    </Row>
-</Container>
+                <div class="card-body" style="height:455px;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th
+                                    width="1%"
+                                    style="text-align:center;font-size:14px;">&nbsp;</th>
+                                <th
+                                    width="1%"
+                                    style="text-align:center;font-size:14px;">NO</th>
+                                <th
+                                    width="*"
+                                    style="text-align:left;font-size:14px;">IPADDRESS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each admin_listip as rec}
+                                <tr>
+                                    <td
+                                        on:click={() => {
+                                            DeleteIpList(
+                                                rec.adminiplist_idcompiplist
+                                            );
+                                        }}
+                                        style="text-align:center;font-size:12px;cursor:pointer;"><Icon name="trash" /></td>
+                                    <td
+                                        style="text-align:center;font-size:12px;">{rec.adminiplist_no}</td>
+                                    <td
+                                        style="text-align:left;font-size:12px;">{rec.adminiplist_iplist}</td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer" style="margin:0px;padding:10px;font-size:13px;">
+                    <b>TOTAL RECORD : {admin_listip.length}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div
     class="modal fade"
     id="modalNewIpaddress"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

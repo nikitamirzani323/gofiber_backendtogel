@@ -36,6 +36,7 @@
     };
     const handleEditData = (e) => {
         admin_username = e.detail.e;
+        admin_type_field = e.detail.f;
         sData = "Edit";
         editAdmin(admin_username);
     };
@@ -93,6 +94,7 @@
                             admin_no: record[i]["admin_no"],
                             admin_username: record[i]["admin_username"],
                             admin_nama: record[i]["admin_nama"],
+                            admin_tipe: record[i]["admin_tipe"],
                             admin_rule: record[i]["admin_rule"],
                             admin_timezone: record[i]["admin_timezone"],
                             admin_joindate: record[i]["admin_joindate"],
@@ -121,6 +123,7 @@
         }
     }
     async function editAdmin(e) {
+        clearEdit();
         const res = await fetch("/api/editadmin", {
             method: "POST",
             headers: {
@@ -141,7 +144,6 @@
         } else {
             for (let i = 0; i < record.length; i++) {
                 admin_name_field = record[i]["admin_nama"];
-                admin_type_field = record[i]["admin_type"];
                 admin_idrule_field = parseInt(record[i]["admin_idrule"]);
                 admin_status_field = record[i]["admin_status"];
                 admin_create_field = record[i]["admin_create"];
@@ -152,8 +154,7 @@
                     admin_listrule = [
                         ...admin_listrule,
                         {
-                            adminrule_idruleadmin:
-                                recordlistrule[i]["adminrule_idruleadmin"],
+                            adminrule_idruleadmin:recordlistrule[i]["adminrule_idruleadmin"],
                             adminrule_name: recordlistrule[i]["adminrule_name"],
                         },
                     ];
@@ -167,10 +168,8 @@
                         ...admin_listip,
                         {
                             adminiplist_no: no,
-                            adminiplist_idcompiplist:
-                                recordlistip[i]["adminiplist_idcompiplist"],
-                            adminiplist_iplist:
-                                recordlistip[i]["adminiplist_iplist"],
+                            adminiplist_idcompiplist:recordlistip[i]["adminiplist_idcompiplist"],
+                            adminiplist_iplist:recordlistip[i]["adminiplist_iplist"],
                         },
                     ];
                 }
@@ -212,6 +211,13 @@
         }else if(json.status == 403){
             alert(json.message)
         }
+    }
+    function clearEdit(){
+        admin_name_field = "";
+        admin_idrule_field = "";
+        admin_status_field = "";
+        admin_create_field = "";
+        admin_update_field = "";
     }
     initapp();
 </script>

@@ -89,9 +89,9 @@
         let myModal = new bootstrap.Modal(document.getElementById("modalNew"));
         myModal.show();
     };
-    const EditData = (e) => {
+    const EditData = (e,f) => {
         const adminpage = {
-            e,
+            e,f,
         };
         dispatch("handleEditData", adminpage);
     };
@@ -170,8 +170,7 @@
                     NewData();
                 }}
                 class="btn btn-primary btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 New
             </button>
             <button
@@ -179,8 +178,7 @@
                     RefreshHalaman();
                 }}
                 class="btn btn-primary btn-sm"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Refresh
             </button>
             <Panel height_body="{screen_height}px">
@@ -194,8 +192,7 @@
                             type="text"
                             class="form-control"
                             placeholder="Search"
-                            aria-label="Search"
-                        />
+                            aria-label="Search"/>
                     </div>
                 </slot:template>
                 <slot:template slot="cbody">
@@ -260,7 +257,7 @@
                                     <tr>
                                         <td
                                             on:click={() => {
-                                                EditData(rec.admin_username);
+                                                EditData(rec.admin_username,rec.admin_tipe);
                                             }}
                                             NOWRAP
                                             style="text-align: center;vertical-align:top;font-size: 13px;cursor:pointer;"

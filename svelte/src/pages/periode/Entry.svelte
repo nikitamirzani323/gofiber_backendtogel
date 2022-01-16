@@ -784,38 +784,26 @@
                             <tr>
                                 <th
                                     width="1%"
-                                    style="text-align: center;vertical-align: top;font-size: 13px;"
-                                    >NO</th
-                                >
+                                    style="text-align: center;vertical-align: top;font-size: 13px;">NO</th>
                                 <th
                                     width="*"
-                                    style="text-align: left;vertical-align: top;font-size: 13px;"
-                                    >USERNAME</th
-                                >
+                                    style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                                 <th
                                     NOWRAP
                                     width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />BET</th
-                                >
+                                    style="text-align: right;vertical-align: top;font-size: 13px;">TOTAL<br />BET</th>
                                 <th
                                     NOWRAP
                                     width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />BAYAR</th
-                                >
+                                    style="text-align: right;vertical-align: top;font-size: 13px;">TOTAL<br />BAYAR</th>
                                 <th
                                     NOWRAP
                                     width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />CANCEL</th
-                                >
+                                    style="text-align: right;vertical-align: top;font-size: 13px;">TOTAL<br />CANCEL</th>
                                 <th
                                     NOWRAP
                                     width="20%"
-                                    style="text-align: right;vertical-align: top;font-size: 13px;"
-                                    >TOTAL<br />WIN</th
-                                >
+                                    style="text-align: right;vertical-align: top;font-size: 13px;">TOTAL<br />WIN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -823,45 +811,41 @@
                                 <tr>
                                     <td
                                         NOWRAP
-                                        style="text-align: center;vertical-align: top;font-size: 12px;"
-                                        >{rec.member_no}</td
-                                    >
+                                        style="text-align: center;vertical-align: top;font-size: 12px;">{rec.member_no}</td>
                                     <td
                                         on:click={() => {
                                             listbetbyusername(rec.member_name);
                                         }}
                                         NOWRAP
-                                        style="text-decoration:underline;cursor:pointer;text-align: left;vertical-align: top;font-size: 12px;"
-                                        >{rec.member_name}</td
-                                    >
+                                        style="text-decoration:underline;cursor:pointer;text-align: left;vertical-align: top;font-size: 12px;">{rec.member_name}</td>
                                     <td
                                         NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                        >{new Intl.NumberFormat().format(
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                                        {new Intl.NumberFormat().format(
                                             rec.member_totalbet
-                                        )}</td
-                                    >
+                                        )}
+                                    </td>
                                     <td
                                         NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                        >{new Intl.NumberFormat().format(
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                                        {new Intl.NumberFormat().format(
                                             rec.member_totalbayar
-                                        )}</td
-                                    >
+                                        )}
+                                    </td>
                                     <td
                                         NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                        >{new Intl.NumberFormat().format(
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                                        {new Intl.NumberFormat().format(
                                             rec.member_totalcancel
-                                        )}</td
-                                    >
+                                        )}
+                                    </td>
                                     <td
                                         NOWRAP
-                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                        >{new Intl.NumberFormat().format(
+                                        style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                                        {new Intl.NumberFormat().format(
                                             rec.member_totalwin
-                                        )}</td
-                                    >
+                                        )}
+                                    </td>
                                 </tr>
                             {/each}
                         </tbody>
@@ -872,63 +856,46 @@
                         <tbody>
                             <tr style="padding: 0px;margin:0px;">
                                 <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
-                                    >TOTAL BET</td
-                                >
+                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;">TOTAL BET</td>
                                 <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
+                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                    {new Intl.NumberFormat().format(
                                         subtotal_member_bet
-                                    )}</td
-                                >
+                                    )}
+                                </td>
                             </tr>
                             <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL BAYAR</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
+                                <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL BAYAR</td>
+                                <td style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                    {new Intl.NumberFormat().format(
                                         subtotal_member_bayar
-                                    )}</td
-                                >
+                                    )}
+                                </td>
                             </tr>
                             <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL CANCEL</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
+                                <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL CANCEL</td>
+                                <td style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                    {new Intl.NumberFormat().format(
                                         subtotal_member_cancel
-                                    )}</td
-                                >
+                                    )}
+                                </td>
                             </tr>
                             <tr style="padding: 0px;margin:0px;">
-                                <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL WIN</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
+                                <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL WIN</td>
+                                <td style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;">
+                                    {new Intl.NumberFormat().format(
                                         subtotal_member_win
-                                    )}</td
-                                >
+                                    )}
+                                </td>
                             </tr>
                             <tr style="padding: 0px;margin:0px;">
+                                <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL WINLOSE</td>
                                 <td
-                                    style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                    >TOTAL WINLOSE</td
-                                >
-                                <td
-                                    style="text-align: right;vertical-align:top;{css_winlose}font-size:12px;border:none;"
-                                    >{new Intl.NumberFormat().format(
+                                    style="text-align: right;vertical-align:top;{css_winlose}font-size:12px;border:none;">
+                                    {new Intl.NumberFormat().format(
                                         subtotal_member_winlose
-                                    )}</td
-                                >
+                                    )}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -944,8 +911,7 @@
                             class="nav flex-column nav-pills me-3"
                             id="v-pills-tab"
                             role="tablist"
-                            aria-orientation="vertical"
-                        >
+                            aria-orientation="vertical">
                             {#each listBetTable as rec}
                                 <button
                                     on:click={() => {
@@ -959,51 +925,33 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="v-pills-home"
-                                    aria-selected="true">{rec.permainan}</button
-                                >
+                                    aria-selected="true">{rec.permainan}</button>
                             {/each}
                         </div>
                         <div
                             class="tab-content"
                             id="v-pills-tabContent"
-                            style="width:100%;"
-                        >
+                            style="width:100%;">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th
-                                            style="text-align: center;vertical-align: top;font-size:13px;"
-                                            >NOMOR</th
-                                        >
-                                        <th
-                                            style="text-align: right;vertical-align: top;font-size:13px;"
-                                            >TOTAL MEMBER</th
-                                        >
-                                        <th
-                                            style="text-align: right;vertical-align: top;font-size:13px;"
-                                            >TOTAL BET</th
-                                        >
+                                        <th style="text-align: center;vertical-align: top;font-size:13px;">NOMOR</th>
+                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL MEMBER</th>
+                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL BET</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {#each listBetTableGroup as rec}
                                         <tr>
-                                            <td
-                                                style="text-align: center;vertical-align: top;font-size:12px;"
-                                                >{rec.bet_keluaran}</td
-                                            >
+                                            <td style="text-align: center;vertical-align: top;font-size:12px;">{rec.bet_keluaran}</td>
                                             <td
                                                 on:click={() => {
                                                     groupMember(
                                                         rec.bet_keluaran
                                                     );
                                                 }}
-                                                style="text-decoration:underline;cursor:pointer;text-align: right;vertical-align: top;font-size:12px;"
-                                                >{rec.bet_totalmember}</td
-                                            >
-                                            <td
-                                                style="text-align: right;vertical-align: top;font-size:12px;color:blue;"
-                                            >
+                                                style="text-decoration:underline;cursor:pointer;text-align: right;vertical-align: top;font-size:12px;">{rec.bet_totalmember}</td>
+                                            <td style="text-align: right;vertical-align: top;font-size:12px;color:blue;">
                                                 {new Intl.NumberFormat().format(
                                                     rec.bet_totalbet
                                                 )}
@@ -1236,44 +1184,31 @@
                         <slot:template slot="cfooter">
                             <table
                                 width="100%"
-                                style="padding:0px;margin-bottom:0px;"
-                            >
+                                style="padding:0px;margin-bottom:0px;">
                                 <tbody>
                                     <tr style="padding: 0px;margin:0px;">
-                                        <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
-                                            >TOTAL BET</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;">TOTAL BET</td>
+                                        <td style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbet
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
-                                        <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL BAYAR</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL BAYAR</td>
+                                        <td style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbayar
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
-                                        <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL WIN</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL WIN</td>
+                                        <td style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalwin
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1284,12 +1219,10 @@
                     class="tab-pane fade"
                     id="pills-winner"
                     role="tabpanel"
-                    aria-labelledby="pills-winner-tab"
-                >
+                    aria-labelledby="pills-winner-tab">
                     <Panel
                         height_body="700px"
-                        css_footer="padding:10px;margin:0px;"
-                    >
+                        css_footer="padding:10px;margin:0px;">
                         <slot:template slot="cheader"> List Bet </slot:template>
                         <slot:template slot="cbody">
                             <table class="table" width="100%">
@@ -1297,79 +1230,49 @@
                                     <tr>
                                         <th
                                             width="1%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >STATUS</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">STATUS</th>
                                         <th
                                             width="1%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >CODE</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">CODE</th>
                                         <th
                                             width="10%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >TANGGAL</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">TANGGAL</th>
                                         <th
                                             width="*"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >USERNAME</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >IPADDRESS</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">IPADDRESS</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >BROWSER</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">BROWSER</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >TIMEZONE</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >PERMAINAN</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                         <th
                                             width="1%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >NOMOR</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
                                         <th
                                             width="20%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >BET</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                                         <th
                                             width="10%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >DISC</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">DISC</th>
                                         <th
                                             width="10%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >KEI</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">KEI</th>
                                         <th
                                             width="20%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >BAYAR</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">BAYAR</th>
                                         <th
                                             width="7%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >WIN</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">WIN</th>
                                         <th
                                             width="7%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >WIN<br />TOTAL</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">WIN<br />TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1377,85 +1280,61 @@
                                         <tr>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
-                                                >{rec.bet_status}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}">{rec.bet_status}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_id}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_id}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_datetime}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_datetime}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_username}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_username}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_ipaddress}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_ipaddress}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_device}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_device}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_timezone}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_typegame}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_nomortogel}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_nomortogel}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_bet
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                                >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                                >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_bayar
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_win}x</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;">{rec.bet_win}x</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_totalwin
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                         </tr>
                                     {/each}
                                 </tbody>
@@ -1464,44 +1343,34 @@
                         <slot:template slot="cfooter">
                             <table
                                 width="100%"
-                                style="padding:0px;margin-bottom:0px;"
-                            >
+                                style="padding:0px;margin-bottom:0px;">
                                 <tbody>
                                     <tr style="padding: 0px;margin:0px;">
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;">TOTAL BET</td>
                                         <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
-                                            >TOTAL BET</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbet
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL BAYAR</td>
                                         <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL BAYAR</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbayar
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL WIN</td>
                                         <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL WIN</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalwin
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1512,12 +1381,10 @@
                     class="tab-pane fade"
                     id="pills-cancel"
                     role="tabpanel"
-                    aria-labelledby="pills-cancel-tab"
-                >
+                    aria-labelledby="pills-cancel-tab">
                     <Panel
                         height_body="700px"
-                        css_footer="padding:10px;margin:0px;"
-                    >
+                        css_footer="padding:10px;margin:0px;">
                         <slot:template slot="cheader"> List Bet </slot:template>
                         <slot:template slot="cbody">
                             <table class="table" width="100%">
@@ -1525,79 +1392,49 @@
                                     <tr>
                                         <th
                                             width="1%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >STATUS</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">STATUS</th>
                                         <th
                                             width="1%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >CODE</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">CODE</th>
                                         <th
                                             width="10%"
-                                            style="text-align: center;vertical-align: top;font-size: 13px;"
-                                            >TANGGAL</th
-                                        >
+                                            style="text-align: center;vertical-align: top;font-size: 13px;">TANGGAL</th>
                                         <th
                                             width="*"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >USERNAME</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >IPADDRESS</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">IPADDRESS</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >BROWSER</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">BROWSER</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >TIMEZONE</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                                         <th
                                             width="7%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >PERMAINAN</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                         <th
                                             width="1%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;"
-                                            >NOMOR</th
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
                                         <th
                                             width="20%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >BET</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                                         <th
                                             width="10%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >DISC</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">DISC</th>
                                         <th
                                             width="10%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >KEI</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">KEI</th>
                                         <th
                                             width="20%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >BAYAR</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">BAYAR</th>
                                         <th
                                             width="7%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >WIN</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">WIN</th>
                                         <th
                                             width="7%"
-                                            style="text-align: right;vertical-align: top;font-size: 13px;"
-                                            >WIN<br />TOTAL</th
-                                        >
+                                            style="text-align: right;vertical-align: top;font-size: 13px;">WIN<br />TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1605,85 +1442,61 @@
                                         <tr>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
-                                                >{rec.bet_status}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}">{rec.bet_status}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_id}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_id}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: center;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_datetime}</td
-                                            >
+                                                style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_datetime}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_username}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_username}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_ipaddress}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_ipaddress}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_device}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_device}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_timezone}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_typegame}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: left;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_nomortogel}</td
-                                            >
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_nomortogel}</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_bet
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                                >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                                >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_bayar
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;"
-                                                >{rec.bet_win}x</td
-                                            >
+                                                style="text-align: right;vertical-align: top;font-size: 12px;">{rec.bet_win}x</td>
                                             <td
                                                 NOWRAP
-                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                                                >{new Intl.NumberFormat().format(
+                                                style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                                                {new Intl.NumberFormat().format(
                                                     rec.bet_totalwin
-                                                )}</td
-                                            >
+                                                )}
+                                            </td>
                                         </tr>
                                     {/each}
                                 </tbody>
@@ -1692,44 +1505,33 @@
                         <slot:template slot="cfooter">
                             <table
                                 width="100%"
-                                style="padding:0px;margin-bottom:0px;"
-                            >
+                                style="padding:0px;margin-bottom:0px;">
                                 <tbody>
                                     <tr style="padding: 0px;margin:0px;">
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;">TOTAL BET</td>
                                         <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none;"
-                                            >TOTAL BET</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbet
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL BAYAR</td>
                                         <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL BAYAR</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="text-align: right;vertical-align:top;font-weight: bold;color:blue;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalbayar
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                     <tr style="padding: 0px;margin:0px;">
-                                        <td
-                                            style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none"
-                                            >TOTAL WIN</td
-                                        >
-                                        <td
-                                            style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;"
-                                            >{new Intl.NumberFormat().format(
+                                        <td style="text-align: left;vertical-align:top;font-weight: bold;font-size:12px;border:none">TOTAL WIN</td>
+                                        <td style="text-align: right;vertical-align:top;font-weight: bold;color:red;font-size:12px;border:none;">
+                                            {new Intl.NumberFormat().format(
                                                 totalwin
-                                            )}</td
-                                        >
+                                            )}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1755,49 +1557,31 @@
                 <tr>
                     <th
                         width="*"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >USERNAME</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                     <th
                         width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >PERMAINAN</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                     <th
                         width="1%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >NOMOR</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
                     <th
                         width="20%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >BET</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                     <th
                         width="10%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >DISC</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">DISC</th>
                     <th
                         width="10%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >KEI</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">KEI</th>
                     <th
                         width="20%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >BAYAR</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">BAYAR</th>
                     <th
                         width="7%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >WIN</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">WIN</th>
                     <th
                         width="7%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >WIN<br />TOTAL</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">WIN<br />TOTAL</th>
                 </tr>
             </thead>
             <tbody>
@@ -1805,55 +1589,43 @@
                     <tr>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.member_name}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_name}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.member_permainan}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_permainan}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.member_nomor}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_nomor}</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;"
-                            >{new Intl.NumberFormat().format(
+                            style="text-align: right;vertical-align: top;font-size: 12px;">
+                            {new Intl.NumberFormat().format(
                                 rec.member_bet
-                            )}</td
-                        >
+                            )}
+                        </td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                            >{rec.member_disc}&nbsp;({rec.member_discpercen}%)</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{rec.member_disc}&nbsp;({rec.member_discpercen}%)</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                            >{rec.member_kei}&nbsp;({rec.member_keipercen}%)</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{rec.member_kei}&nbsp;({rec.member_keipercen}%)</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                            >{new Intl.NumberFormat().format(
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                            {new Intl.NumberFormat().format(
                                 rec.member_bayar
-                            )}</td
-                        >
+                            )}
+                        </td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;"
-                            >{rec.member_win}x</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;">{rec.member_win}x</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                            >{new Intl.NumberFormat().format(
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                            {new Intl.NumberFormat().format(
                                 rec.member_winhasil
-                            )}</td
-                        >
+                            )}
+                        </td>
                     </tr>
                 {/each}
             </tbody>
@@ -1893,8 +1665,7 @@
                     handleSubmit();
                 }}
                 class="btn btn-warning"
-                style="border-radius: 0px;"
-            >
+                style="border-radius: 0px;">
                 Save
             </button>
         </div>
@@ -1917,87 +1688,56 @@
                 class="form-control"
                 placeholder="Searching"
                 bind:value={searchBetUsername}
-                type="text"
-            />
+                type="text"/>
         </div>
         <table class="table" width="100%">
             <thead>
                 <tr>
                     <th
                         width="1%"
-                        style="text-align: center;vertical-align: top;font-size: 13px;"
-                        >STATUS</th
-                    >
+                        style="text-align: center;vertical-align: top;font-size: 13px;">STATUS</th>
                     <th
                         width="1%"
-                        style="text-align: center;vertical-align: top;font-size: 13px;"
-                        >CODE</th
-                    >
+                        style="text-align: center;vertical-align: top;font-size: 13px;">CODE</th>
                     <th
                         width="10%"
-                        style="text-align: center;vertical-align: top;font-size: 13px;"
-                        >TANGGAL</th
-                    >
+                        style="text-align: center;vertical-align: top;font-size: 13px;">TANGGAL</th>
                     <th
                         width="*"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >USERNAME</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                     <th
                         width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >IPADDRESS</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">IPADDRESS</th>
                     <th
                         width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >BROWSER</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">BROWSER</th>
                     <th
                         width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >TIMEZONE</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                     <th
                         width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >PERMAINAN</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                     <th
                         width="1%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                        >NOMOR</th
-                    >
+                        style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
                     <th
                         width="20%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >BET</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                     <th
                         width="10%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >DISC</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">DISC</th>
                     <th
                         width="10%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >KEI</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">KEI</th>
                     <th
                         width="20%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >BAYAR</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">BAYAR</th>
                     <th
                         width="7%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >WIN</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">WIN</th>
                     <th
                         width="7%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;"
-                        >WIN<br />TOTAL</th
-                    >
+                        style="text-align: right;vertical-align: top;font-size: 13px;">WIN<br />TOTAL</th>
                 </tr>
             </thead>
             <tbody>
@@ -2005,81 +1745,55 @@
                     <tr>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}"
-                            >{rec.bet_status}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size: 12px;{rec.bet_statuscss}">{rec.bet_status}</td>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_id}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_id}</td>
                         <td
                             NOWRAP
-                            style="text-align: center;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_datetime}</td
-                        >
+                            style="text-align: center;vertical-align: top;font-size: 12px;">{rec.bet_datetime}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_username}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_username}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_ipaddress}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_ipaddress}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_device}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_device}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_timezone}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_typegame}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_nomortogel}</td
-                        >
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_nomortogel}</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;"
-                            >{new Intl.NumberFormat().format(rec.bet_bet)}</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;">{new Intl.NumberFormat().format(rec.bet_bet)}</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                            >{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{rec.bet_diskon}&nbsp;({rec.bet_diskonpercen}%)</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                            >{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{rec.bet_kei}&nbsp;({rec.bet_keipercen}%)</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;"
-                            >{new Intl.NumberFormat().format(rec.bet_bayar)}</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
+                            {new Intl.NumberFormat().format(rec.bet_bayar)}
+                        </td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;"
-                            >{rec.bet_win}x</td
-                        >
+                            style="text-align: right;vertical-align: top;font-size: 12px;">{rec.bet_win}x</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;"
-                            >{new Intl.NumberFormat().format(
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
+                            {new Intl.NumberFormat().format(
                                 rec.bet_totalwin
-                            )}</td
-                        >
+                            )}
+                        </td>
                     </tr>
                 {/each}
             </tbody>

@@ -30,7 +30,7 @@
         totalrecord = 0;
         setTimeout(function () {
             initPeriode();
-        }, 1000);
+        }, 500);
     };
     const handleBackHalaman = () => {
         idtrxkeluaran = "";

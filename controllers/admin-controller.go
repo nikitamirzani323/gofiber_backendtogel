@@ -16,15 +16,7 @@ import (
 type admindetail struct {
 	Username string `json:"username" validate:"required"`
 }
-type adminsave struct {
-	Sdata       string `json:"sdata" validate:"required"`
-	Page        string `json:"page"`
-	Idruleadmin int    `json:"idruleadmin" `
-	Username    string `json:"username" validate:"required,alphanum,max=20"`
-	Password    string `json:"password" `
-	Name        string `json:"nama" validate:"required,alphanum,max=70"`
-	Status      string `json:"status" validate:"required,alpha"`
-}
+
 type adminsaveiplist struct {
 	Sdata     string `json:"sdata" validate:"required"`
 	Page      string `json:"page"`
@@ -145,8 +137,17 @@ func Admindetail(c *fiber.Ctx) error {
 	}
 }
 func Adminsave(c *fiber.Ctx) error {
+	type payload_adminsave struct {
+		Sdata       string `json:"sdata" validate:"required"`
+		Page        string `json:"page"`
+		Idruleadmin int    `json:"idruleadmin" `
+		Username    string `json:"username" validate:"required,alphanum,max=20"`
+		Password    string `json:"password" `
+		Name        string `json:"nama" validate:"required,alphanum,max=70"`
+		Status      string `json:"status" validate:"required,alpha"`
+	}
 	var errors []*helpers.ErrorResponse
-	client := new(adminsave)
+	client := new(payload_adminsave)
 	validate := validator.New()
 	if err := c.BodyParser(client); err != nil {
 		c.Status(fiber.StatusBadRequest)
@@ -181,12 +182,27 @@ func Adminsave(c *fiber.Ctx) error {
 		SetError(response_adminsave{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
-			"username": client.Username,
+			"sdata":       client.Sdata,
+			"page":        client.Page,
+			"idruleadmin": client.Idruleadmin,
+			"username":    client.Username,
+			"password":    client.Password,
+			"nama":        client.Name,
+			"status":      client.Status,
 		}).
-		Post(config.Path_url() + "api/editadmin")
+		Post(config.Path_url() + "api/saveadmin")
 	if err != nil {
 		log.Println(err.Error())
 	}
+	log.Println("Response Info:")
+	log.Println("  Error      :", err)
+	log.Println("  Status Code:", resp.StatusCode())
+	log.Println("  Status     :", resp.Status())
+	log.Println("  Proto      :", resp.Proto())
+	log.Println("  Time       :", resp.Time())
+	log.Println("  Received At:", resp.ReceivedAt())
+	log.Println("  Body       :\n", resp)
+	log.Println()
 	result := resp.Result().(*response_adminsave)
 	if result.Status == 200 {
 		c.Status(fiber.StatusOK)
@@ -250,6 +266,77 @@ func Adminsaveiplist(c *fiber.Ctx) error {
 			"ipaddress": client.Ipaddress,
 		}).
 		Post(config.Path_url() + "api/saveadminiplist")
+	if err != nil {
+		log.Println(err.Error())
+	}
+	result := resp.Result().(*response_adminsave)
+	if result.Status == 200 {
+		c.Status(fiber.StatusOK)
+		return c.JSON(fiber.Map{
+			"status":  http.StatusOK,
+			"message": result.Message,
+			"record":  result.Record,
+			"time":    time.Since(render_page).String(),
+		})
+	} else {
+		result_error := resp.Error().(*response_adminsave)
+		c.Status(result_error.Status)
+		return c.JSON(fiber.Map{
+			"status":  result_error.Status,
+			"message": result_error.Message,
+			"record":  nil,
+			"time":    time.Since(render_page).String(),
+		})
+	}
+}
+func Deleteiplist(c *fiber.Ctx) error {
+	type payload_deleteiplist struct {
+		Page         string `json:"page"`
+		Username     string `json:"username" validate:"required,alphanum,max=20"`
+		Idcompiplist int    `json:"idcompiplist" validate:"required"`
+	}
+
+	var errors []*helpers.ErrorResponse
+	client := new(payload_deleteiplist)
+	validate := validator.New()
+	if err := c.BodyParser(client); err != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": err.Error(),
+			"record":  nil,
+		})
+	}
+	err := validate.Struct(client)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			var element helpers.ErrorResponse
+			element.Field = err.StructField()
+			element.Tag = err.Tag()
+			errors = append(errors, &element)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"status":  fiber.StatusBadRequest,
+			"message": "validation",
+			"record":  errors,
+		})
+	}
+	render_page := time.Now()
+	bearToken := c.Get("Authorization")
+	token := strings.Split(bearToken, " ")
+	axios := resty.New()
+	resp, err := axios.R().
+		SetAuthToken(token[1]).
+		SetResult(response_adminsave{}).
+		SetError(response_adminsave{}).
+		SetHeader("Content-Type", "application/json").
+		SetBody(map[string]interface{}{
+			"page":         client.Page,
+			"username":     client.Username,
+			"idcompiplist": client.Idcompiplist,
+		}).
+		Post(config.Path_url() + "api/deleteadminiplist")
 	if err != nil {
 		log.Println(err.Error())
 	}

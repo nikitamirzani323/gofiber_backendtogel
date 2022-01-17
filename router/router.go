@@ -67,6 +67,7 @@ func Init() *fiber.App {
 	app.Post("/api/editadmin", controllers.Admindetail)
 	app.Post("/api/saveadmin", controllers.Adminsave)
 	app.Post("/api/saveadminiplist", controllers.Adminsaveiplist)
+	app.Post("/api/deleteadminiplist", controllers.Deleteiplist)
 
 	app.Post("/api/alladminrule", controllers.Adminrule)
 	app.Post("/api/editadminrule", controllers.Adminruledetail)

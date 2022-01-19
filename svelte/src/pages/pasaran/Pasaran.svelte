@@ -57,6 +57,12 @@
 	let pasaran_win2d_432d_field = 0;
 	let pasaran_win2dd_432d_field = 0;
 	let pasaran_win2dt_432d_field = 0;
+	let pasaran_win4dnodisc_432d_field = 0;
+	let pasaran_win3dnodisc_432d_field = 0;
+	let pasaran_win3ddnodisc_432d_field = 0;
+	let pasaran_win2dnodisc_432d_field = 0;
+	let pasaran_win2ddnodisc_432d_field = 0;
+	let pasaran_win2dtnodisc_432d_field = 0;
 	let pasaran_minbet_cbebas_field = 0;
 	let pasaran_maxbet_cbebas_field = 0;
 	let pasaran_limitotal_cbebas_field = 0;
@@ -314,21 +320,21 @@
 				pasaran_disc4d_432d_field = Math.ceil(record[i]["disc4d_432d"] * 100);
 				pasaran_disc3d_432d_field = Math.ceil(record[i]["disc3d_432d"] * 100);
 				pasaran_disc3dd_432d_field = Math.ceil(record[i]["disc3dd_432d"] * 100);
-				pasaran_disc2d_432d_field = Math.ceil(
-					record[i]["disc2d_432d"] * 100
-				);
-				pasaran_disc2dd_432d_field = Math.ceil(
-					record[i]["disc2dd_432d"] * 100
-				);
-				pasaran_disc2dt_432d_field = Math.ceil(
-					record[i]["disc2dt_432d"] * 100
-				);
+				pasaran_disc2d_432d_field = Math.ceil(record[i]["disc2d_432d"] * 100);
+				pasaran_disc2dd_432d_field = Math.ceil(record[i]["disc2dd_432d"] * 100);
+				pasaran_disc2dt_432d_field = Math.ceil(record[i]["disc2dt_432d"] * 100);
 				pasaran_win4d_432d_field = record[i]["win4d_432d"];
 				pasaran_win3d_432d_field = record[i]["win3d_432d"];
 				pasaran_win3dd_432d_field = record[i]["win3dd_432d"];
 				pasaran_win2d_432d_field = record[i]["win2d_432d"];
 				pasaran_win2dd_432d_field = record[i]["win2dd_432d"];
 				pasaran_win2dt_432d_field = record[i]["win2dt_432d"];
+				pasaran_win4dnodisc_432d_field = record[i]["win4dnodisc_432d"];
+				pasaran_win3dnodisc_432d_field = record[i]["win3dnodisc_432d"];
+				pasaran_win3ddnodisc_432d_field = record[i]["win3ddnodisc_432d"];
+				pasaran_win2dnodisc_432d_field = record[i]["win2dnodisc_432d"];
+				pasaran_win2ddnodisc_432d_field = record[i]["win2ddnodisc_432d"];
+				pasaran_win2dtnodisc_432d_field = record[i]["win2dtnodisc_432d"];
 				pasaran_minbet_cbebas_field = record[i]["minbet_cbebas"];
 				pasaran_maxbet_cbebas_field = record[i]["maxbet_cbebas"];
 				pasaran_limitotal_cbebas_field = record[i]["limittotal_cbebas"];
@@ -338,8 +344,7 @@
 				pasaran_minbet_cmacau_field = record[i]["minbet_cmacau"];
 				pasaran_maxbet_cmacau_field = record[i]["maxbet_cmacau"];
 				pasaran_limitotal_cmacau_field = record[i]["limitotal_cmacau"];
-				pasaran_limitglobal_cmacau_field =
-					record[i]["limitglobal_cmacau"];
+				pasaran_limitglobal_cmacau_field = record[i]["limitglobal_cmacau"];
 				pasaran_win2_cmacau_field = record[i]["win2d_cmacau"];
 				pasaran_win3_cmacau_field = record[i]["win3d_cmacau"];
 				pasaran_win4_cmacau_field = record[i]["win4d_cmacau"];
@@ -730,6 +735,12 @@
 		{pasaran_win2d_432d_field}
 		{pasaran_win2dd_432d_field}
 		{pasaran_win2dt_432d_field}
+		{pasaran_win4dnodisc_432d_field}
+		{pasaran_win3dnodisc_432d_field}
+		{pasaran_win3ddnodisc_432d_field}
+		{pasaran_win2dnodisc_432d_field}
+		{pasaran_win2ddnodisc_432d_field}
+		{pasaran_win2dtnodisc_432d_field}
 		{pasaran_minbet_cbebas_field}
 		{pasaran_maxbet_cbebas_field}
 		{pasaran_limitotal_cbebas_field}

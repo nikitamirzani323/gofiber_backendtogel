@@ -59,6 +59,12 @@
     export let pasaran_win2d_432d_field = 0;
     export let pasaran_win2dd_432d_field = 0;
     export let pasaran_win2dt_432d_field = 0;
+    export let pasaran_win4dnodisc_432d_field = 0;
+    export let pasaran_win3dnodisc_432d_field = 0;
+    export let pasaran_win3ddnodisc_432d_field = 0;
+    export let pasaran_win2dnodisc_432d_field = 0;
+    export let pasaran_win2ddnodisc_432d_field = 0;
+    export let pasaran_win2dtnodisc_432d_field = 0;
 
     export let pasaran_minbet_cbebas_field = 0;
     export let pasaran_maxbet_cbebas_field = 0;
@@ -556,6 +562,12 @@
                     pasaran_win2d_432d: parseInt(pasaran_win2d_432d_field),
                     pasaran_win2dd_432d: parseInt(pasaran_win2dd_432d_field),
                     pasaran_win2dt_432d: parseInt(pasaran_win2dt_432d_field),
+                    pasaran_win4dnodisc_432d: parseInt(pasaran_win4dnodisc_432d_field),
+                    pasaran_win3dnodisc_432d: parseInt(pasaran_win3dnodisc_432d_field),
+                    pasaran_win3ddnodisc_432d: parseInt(pasaran_win3ddnodisc_432d_field),
+                    pasaran_win2dnodisc_432d: parseInt(pasaran_win2dnodisc_432d_field),
+                    pasaran_win2ddnodisc_432d: parseInt(pasaran_win2ddnodisc_432d_field),
+                    pasaran_win2dtnodisc_432d: parseInt(pasaran_win2dtnodisc_432d_field),
                     pasaran_disc4d_432d: parseFloat(pasaran_disc4d_432d_field / 100),
                     pasaran_disc3d_432d: parseFloat(pasaran_disc3d_432d_field / 100),
                     pasaran_disc3dd_432d: parseFloat(pasaran_disc3dd_432d_field / 100),
@@ -2085,6 +2097,54 @@
             if (isNaN(numbera)) {
                 if (pasaran_win2dt_432d_field[i] != ".") {
                     pasaran_win2dt_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win4dnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win4dnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win4dnodisc_432d_field[i] != ".") {
+                    pasaran_win4dnodisc_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win3dnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win3dnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win3dnodisc_432d_field[i] != ".") {
+                    pasaran_win3dnodisc_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win3ddnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win3ddnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win3ddnodisc_432d_field[i] != ".") {
+                    pasaran_win3ddnodisc_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win2dnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win2dnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win2dnodisc_432d_field[i] != ".") {
+                    pasaran_win2dnodisc_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win2ddnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win2ddnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win2ddnodisc_432d_field[i] != ".") {
+                    pasaran_win2ddnodisc_432d_field = 0;
+                }
+            }
+        }
+        for (let i = 0; i < pasaran_win2dtnodisc_432d_field.length; i++) {
+            numbera = parseInt(pasaran_win2dtnodisc_432d_field[i]);
+            if (isNaN(numbera)) {
+                if (pasaran_win2dtnodisc_432d_field[i] != ".") {
+                    pasaran_win2dtnodisc_432d_field = 0;
                 }
             }
         }
@@ -4413,10 +4473,7 @@
                                 </Col>
                                 <Col xs="2">
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 4D(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 4D(x)</label>
                                         <input
                                             bind:value={pasaran_win4d_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4424,20 +4481,16 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 4D"
-                                            aria-label="Win 4D"
-                                        />
+                                            aria-label="Win 4D"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win4d_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 3D(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 3D(x)</label>
                                         <input
                                             bind:value={pasaran_win3d_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4445,20 +4498,16 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 3D"
-                                            aria-label="Win 3D"
-                                        />
+                                            aria-label="Win 3D"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win3d_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 3DD(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 3DD(x)</label>
                                         <input
                                             bind:value={pasaran_win3dd_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4466,20 +4515,16 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 3DD"
-                                            aria-label="Win 3DD"
-                                        />
+                                            aria-label="Win 3DD"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win3dd_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 2D(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2D(x)</label>
                                         <input
                                             bind:value={pasaran_win2d_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4487,20 +4532,16 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 2D"
-                                            aria-label="Win 2D"
-                                        />
+                                            aria-label="Win 2D"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win2d_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 2DD(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2DD(x)</label>
                                         <input
                                             bind:value={pasaran_win2dd_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4508,20 +4549,16 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 2DD"
-                                            aria-label="Win 2DD"
-                                        />
+                                            aria-label="Win 2DD"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win2dd_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label
-                                            for="exampleFormControlInput1"
-                                            class="form-label">Win 2DT(x)</label
-                                        >
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2DT(x)</label>
                                         <input
                                             bind:value={pasaran_win2dt_432d_field}
                                             on:keyup={handleKeyboard_number}
@@ -4529,14 +4566,117 @@
                                             style="text-align:right;"
                                             class="form-control required"
                                             placeholder="Win 2DT"
-                                            aria-label="Win 2DT"
-                                        />
+                                            aria-label="Win 2DT"/>
                                         <small
-                                            style="float:right;font-size:11px;"
-                                            >{new Intl.NumberFormat().format(
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
                                                 pasaran_win2dt_432d_field
-                                            )}</small
-                                        >
+                                            )}
+                                        </small>
+                                    </div>
+                                </Col>
+                                <Col xs="2">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 4D NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win4dnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 4D NO DISKON"
+                                            aria-label="Win 4D NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win4dnodisc_432d_field
+                                            )}
+                                        </small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 3D NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win3dnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 3D NO DISKON"
+                                            aria-label="Win 3D NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win3dnodisc_432d_field
+                                            )}
+                                        </small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 3DD NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win3ddnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 3DD NO DISKON"
+                                            aria-label="Win 3DD NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win3ddnodisc_432d_field
+                                            )}
+                                        </small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2D NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win2dnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 2D NO DISKON"
+                                            aria-label="Win 2D NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win2dnodisc_432d_field
+                                            )}
+                                        </small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2DD NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win2ddnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 2DD NO DISKON"
+                                            aria-label="Win 2DD NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win2ddnodisc_432d_field
+                                            )}
+                                        </small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Win 2DT NO DISKON(x)</label>
+                                        <input
+                                            bind:value={pasaran_win2dtnodisc_432d_field}
+                                            on:keyup={handleKeyboard_number}
+                                            type="text"
+                                            style="text-align:right;"
+                                            class="form-control required"
+                                            placeholder="Win 2DT NO DISKON"
+                                            aria-label="Win 2DT NO DISKON"/>
+                                        <small
+                                            style="float:right;font-size:11px;">
+                                            {new Intl.NumberFormat().format(
+                                                pasaran_win2dtnodisc_432d_field
+                                            )}
+                                        </small>
                                     </div>
                                 </Col>
                                 <Col xs="2">

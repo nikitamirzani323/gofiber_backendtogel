@@ -44,6 +44,10 @@
     let myModalrevisi = "";
     let dispatch = createEventDispatcher();
 
+    let temp_totalbayar = 0
+    let temp_totalwinestimate = 0
+    let temp_grandtotal = 0
+    let temp_cssgrandtotal = ""
     
 
     const schema = yup.object().shape({
@@ -201,6 +205,10 @@
         call_listmember();
     }
     async function call_listmembernomor(nomor) {
+        temp_totalbayar = 0
+        temp_totalwinestimate = 0
+        temp_grandtotal = 0
+        temp_cssgrandtotal = "color:red;font-size:13px;text-align;right;"
         const res = await fetch("/api/periodelistmemberbynomor", {
             method: "POST",
             headers: {
@@ -227,11 +235,14 @@
                 myModal.show();
                 for (var i = 0; i < record.length; i++) {
                     nomember = nomember + 1;
+                    temp_totalbayar = temp_totalbayar + parseInt(record[i]["member_bayar"])
+                    temp_totalwinestimate = temp_totalbayar + parseInt(record[i]["member_winhasil"])
                     listMemberNomor = [
                         ...listMemberNomor,
                         {
                             member_no: nomember,
                             member_name: record[i]["member"],
+                            member_posisitogel: record[i]["member_posisitogel"],
                             member_permainan: record[i]["member_permainan"],
                             member_nomor: record[i]["member_nomor"],
                             member_bet: record[i]["member_bet"],
@@ -244,6 +255,10 @@
                             member_winhasil: record[i]["member_winhasil"],
                         },
                     ];
+                }
+                temp_grandtotal = parseInt(temp_totalbayar) - parseInt(temp_totalwinestimate)
+                if(temp_grandtotal > 0){
+                    temp_cssgrandtotal = "color:blue;font-size:13px;text-align;right;"
                 }
             } else {
                 setTimeout(function () {
@@ -351,6 +366,7 @@
                                 bet_username: record[i]["bet_username"],
                                 bet_typegame: record[i]["bet_typegame"],
                                 bet_nomortogel: record[i]["bet_nomortogel"],
+                                bet_posisitogel: record[i]["bet_posisitogel"],
                                 bet_bet: record[i]["bet_bet"],
                                 bet_diskon: record[i]["bet_diskon"],
                                 bet_diskonpercen: record[i]["bet_diskonpercen"],
@@ -464,6 +480,7 @@
                             bet_username: record[i]["bet_username"],
                             bet_typegame: record[i]["bet_typegame"],
                             bet_nomortogel: record[i]["bet_nomortogel"],
+                            bet_posisitogel: record[i]["bet_posisitogel"],
                             bet_bet: record[i]["bet_bet"],
                             bet_diskon: record[i]["bet_diskon"],
                             bet_diskonpercen: record[i]["bet_diskonpercen"],
@@ -623,7 +640,14 @@
             listBet = [];
         }
     };
-
+    const handleSelectPermainangroup = (event) => {
+        listBetTableGroup = [];
+        if (event.target.value != "") {
+            listBetTableGroup = [];
+            call_bettable(event.target.value);
+        }
+    };
+    
     call_listmember();
     call_listbettable();
 </script>
@@ -685,10 +709,7 @@
                 <div class="card-body" style="height:450px;">
                     <Row>
                         <div class="mb-3">
-                            <label
-                                for="exampleFormControlInput1"
-                                class="form-label">Invoice</label
-                            >
+                            <label for="exampleFormControlInput1" class="form-label">Invoice</label>
                             <input
                                 bind:value={idtrxkeluaran}
                                 type="text"
@@ -699,10 +720,7 @@
                             />
                         </div>
                         <div class="mb-3">
-                            <label
-                                for="exampleFormControlInput1"
-                                class="form-label">Tanggal</label
-                            >
+                            <label for="exampleFormControlInput1"class="form-label">Tanggal</label>
                             <input
                                 bind:value={periode_tglkeluaran_field}
                                 type="text"
@@ -710,28 +728,20 @@
                                 disabled
                                 class="form-control"
                                 placeholder="Tanggal"
-                                aria-label="Tanggal"
-                            />
+                                aria-label="Tanggal"/>
                         </div>
                         <div class="mb-3">
-                            <label
-                                for="exampleFormControlInput1"
-                                class="form-label">Periode</label
-                            >
+                            <label for="exampleFormControlInput1" class="form-label">Periode</label>
                             <input
                                 bind:value={periode_periode_field}
                                 type="text"
                                 disabled
                                 class="form-control required"
                                 placeholder="Periode"
-                                aria-label="Periode"
-                            />
+                                aria-label="Periode"/>
                         </div>
                         <div class="mb-3">
-                            <label
-                                for="exampleFormControlInput1"
-                                class="form-label">Keluaran</label
-                            >
+                            <label for="exampleFormControlInput1"class="form-label">Prize 1</label>
                             <input
                                 bind:value={periode_keluaran_field}
                                 on:keyup={handleKeyboard_number}
@@ -739,17 +749,14 @@
                                 maxlength="4"
                                 class="form-control required"
                                 placeholder="Keluaran"
-                                aria-label="Keluaran"
-                            />
+                                aria-label="Keluaran"/>
                         </div>
                         <div class="mb-3">
                             <table>
                                 <tr>
                                     <td style="font-size: 11px;">Create</td>
                                     <td style="font-size: 11px;">:</td>
-                                    <td style="font-size: 11px;"
-                                        >{periode_create_field} - {periode_createdate_field}</td
-                                    >
+                                    <td style="font-size: 11px;">{periode_create_field} - {periode_createdate_field}</td>
                                 </tr>
                                 {#if periode_update_field != ""}
                                     <tr>
@@ -897,64 +904,44 @@
         </Col>
         <Col xs="5">
             <Panel height_body="510px" css_footer="">
-                <slot:template slot="cheader"> Bet Group </slot:template>
+                <slot:template slot="cheader">Bet Group </slot:template>
                 <slot:template slot="cbody">
-                    <div class="d-flex align-items-start">
-                        <div
-                            class="nav flex-column nav-pills me-3"
-                            id="v-pills-tab"
-                            role="tablist"
-                            aria-orientation="vertical">
-                            {#each listBetTable as rec}
-                                <button
-                                    on:click={() => {
-                                        openCity(rec.permainan);
-                                    }}
-                                    style="font-size:13px;"
-                                    class="nav-link"
-                                    id="listbet_4d-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#listbet_4d"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="v-pills-home"
-                                    aria-selected="true">{rec.permainan}</button>
+                    <select
+                        on:change={handleSelectPermainangroup}
+                        class="form-control">
+                        <option value="">--Pilih Permainan--</option>
+                        {#each listBetTable as rec}
+                            <option value={rec.permainan}>{rec.permainan}</option>
+                        {/each}
+                    </select>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th NOWRAP style="text-align: center;vertical-align: top;font-size:13px;">PRIZE 1</th>
+                                <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL MEMBER</th>
+                                <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL BET</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each listBetTableGroup as rec}
+                                <tr>
+                                    <td style="text-align: center;vertical-align: top;font-size:12px;">{rec.bet_keluaran}</td>
+                                    <td
+                                        on:click={() => {
+                                            groupMember(
+                                                rec.bet_keluaran
+                                            );
+                                        }}
+                                        style="text-decoration:underline;cursor:pointer;text-align: right;vertical-align: top;font-size:12px;">{rec.bet_totalmember}</td>
+                                    <td style="text-align: right;vertical-align: top;font-size:12px;color:blue;">
+                                        {new Intl.NumberFormat().format(
+                                            rec.bet_totalbet
+                                        )}
+                                    </td>
+                                </tr>
                             {/each}
-                        </div>
-                        <div
-                            class="tab-content"
-                            id="v-pills-tabContent"
-                            style="width:100%;">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center;vertical-align: top;font-size:13px;">NOMOR</th>
-                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL MEMBER</th>
-                                        <th style="text-align: right;vertical-align: top;font-size:13px;">TOTAL BET</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {#each listBetTableGroup as rec}
-                                        <tr>
-                                            <td style="text-align: center;vertical-align: top;font-size:12px;">{rec.bet_keluaran}</td>
-                                            <td
-                                                on:click={() => {
-                                                    groupMember(
-                                                        rec.bet_keluaran
-                                                    );
-                                                }}
-                                                style="text-decoration:underline;cursor:pointer;text-align: right;vertical-align: top;font-size:12px;">{rec.bet_totalmember}</td>
-                                            <td style="text-align: right;vertical-align: top;font-size:12px;color:blue;">
-                                                {new Intl.NumberFormat().format(
-                                                    rec.bet_totalbet
-                                                )}
-                                            </td>
-                                        </tr>
-                                    {/each}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </slot:template>
             </Panel>
         </Col>
@@ -1069,12 +1056,16 @@
                                             style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                                         <th
                                             width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
+                                        <th
+                                            width="7%"
                                             style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                         <th
-                                            width="1%"
-                                            style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
+                                            nowrap
+                                            width="10%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">PRIZE 1</th>
                                         <th
-                                            width="20%"
+                                            width="10%"
                                             style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                                         <th
                                             width="10%"
@@ -1107,11 +1098,9 @@
                                                                     rec.bet_id,rec.bet_typegame
                                                                 );
                                                             }}
-                                                            class="btn btn-danger btn-sm"
-                                                            ><i
-                                                                class="bi bi-trash"
-                                                            /></button
-                                                        >
+                                                            class="btn btn-danger btn-sm">
+                                                            <i  class="bi bi-trash"/>
+                                                        </button>
                                                     {/if}
                                                 {/if}
                                             </td>
@@ -1136,6 +1125,9 @@
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_posisitogel}</td>
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>
@@ -1539,8 +1531,8 @@
 <Modal
     modal_id={"modalmemberbet"}
     modal_size={"modal-xl modal-dialog-centered"}
-    modal_body_height={"height:500px;overflow:scroll;"}
-    modal_footer_flag={false}>
+    modal_body_height={"height:500px;overflow:scroll;padding:5px;"}
+    modal_footer_flag={true}>
     <slot:template slot="header">
         <h5 class="modal-title" id="exampleModalLabel">INFORMATION</h5>
     </slot:template>
@@ -1553,12 +1545,16 @@
                         style="text-align: left;vertical-align: top;font-size: 13px;">USERNAME</th>
                     <th
                         width="7%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
+                    <th
+                        width="7%"
                         style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                     <th
-                        width="1%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
+                        NOWRAP
+                        width="10%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;">PRIZE 1</th>
                     <th
-                        width="20%"
+                        width="10%"
                         style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                     <th
                         width="10%"
@@ -1567,14 +1563,15 @@
                         width="10%"
                         style="text-align: right;vertical-align: top;font-size: 13px;">KEI</th>
                     <th
-                        width="20%"
+                        width="100%"
                         style="text-align: right;vertical-align: top;font-size: 13px;">BAYAR</th>
                     <th
                         width="7%"
                         style="text-align: right;vertical-align: top;font-size: 13px;">WIN</th>
                     <th
-                        width="7%"
-                        style="text-align: right;vertical-align: top;font-size: 13px;">WIN<br />TOTAL</th>
+                        NOWRAP
+                        width="10%"
+                        style="text-align: right;vertical-align: top;font-size: 13px;">ESTIMATE WIN<br />TOTAL</th>
                 </tr>
             </thead>
             <tbody>
@@ -1583,6 +1580,9 @@
                         <td
                             NOWRAP
                             style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_name}</td>
+                        <td
+                            NOWRAP
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_posisitogel}</td>
                         <td
                             NOWRAP
                             style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_permainan}</td>
@@ -1622,6 +1622,37 @@
                     </tr>
                 {/each}
             </tbody>
+        </table>
+    </slot:template>
+    <slot:template slot="footer">
+        <table>
+            <tr>
+                <td style="font-size:13px;text-align:left;">TOTAL BAYAR</td>
+                <td style="font-size:13px;text-align:center;">:</td>
+                <td style="font-size:13px;color:blue;text-align:right;">
+                    {new Intl.NumberFormat().format(
+                        temp_totalbayar
+                    )}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:13px;text-align:left;">TOTAL ESTIMATE WIN</td>
+                <td style="font-size:13px;text-align:center;">:</td>
+                <td style="font-size:13px;color:blue;text-align:right;">
+                    {new Intl.NumberFormat().format(
+                        temp_totalwinestimate
+                    )}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:13px;text-align:left;">GRANDTOTAL</td>
+                <td style="font-size:13px;text-align:center;">:</td>
+                <td style="{temp_cssgrandtotal}">
+                    {new Intl.NumberFormat().format(
+                        temp_grandtotal
+                    )}
+                </td>
+            </tr>
         </table>
     </slot:template>
 </Modal>
@@ -1668,7 +1699,7 @@
 <Modal
     modal_id={"modallistbetusername"}
     modal_size={"modal-xl modal-dialog-centered"}
-    modal_body_height={"height:500px;overflow:scroll;"}
+    modal_body_height={"height:500px;overflow:scroll;padding:5px;"}
     modal_footer_flag={false}>
     <slot:template slot="header">
         <h5 class="modal-title" id="exampleModalLabel">
@@ -1705,16 +1736,17 @@
                         width="7%"
                         style="text-align: left;vertical-align: top;font-size: 13px;">BROWSER</th>
                     <th
-                        width="7%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
+                        width="1%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
                     <th
                         width="7%"
                         style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                     <th
-                        width="1%"
-                        style="text-align: left;vertical-align: top;font-size: 13px;">NOMOR</th>
+                        NOWRAP
+                        width="10%"
+                        style="text-align: left;vertical-align: top;font-size: 13px;">PRIZE 1</th>
                     <th
-                        width="20%"
+                        width="10%"
                         style="text-align: right;vertical-align: top;font-size: 13px;">BET</th>
                     <th
                         width="10%"
@@ -1756,7 +1788,7 @@
                             style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_device}</td>
                         <td
                             NOWRAP
-                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
+                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_posisitogel}</td>
                         <td
                             NOWRAP
                             style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>

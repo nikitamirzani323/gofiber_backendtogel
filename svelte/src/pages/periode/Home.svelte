@@ -160,8 +160,9 @@
                                         width="*"
                                         style="text-align: left;vertical-align:top;font-size: 14px;">PASARAN</th>
                                     <th
+                                        nowrap
                                         width="10%"
-                                        style="text-align: center;vertical-align:top;font-size: 14px;">KELUARAN</th>
+                                        style="text-align: center;vertical-align:top;font-size: 14px;">PRIZE 1</th>
                                     <th
                                         NOWRAP
                                         width="1%"

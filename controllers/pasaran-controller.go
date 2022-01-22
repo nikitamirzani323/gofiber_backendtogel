@@ -47,48 +47,7 @@ type pasaransavelimit struct {
 	Pasaran_limitline2dd int    `json:"pasaran_limitline2dd"`
 	Pasaran_limitline2dt int    `json:"pasaran_limitline2dt"`
 }
-type pasaranconf432 struct {
-	Idpasaran                   int     `json:"idpasaran"`
-	Idpasarantogel              string  `json:"idpasarantogel"`
-	Page                        string  `json:"page"`
-	Pasaran_minbet_432d         int     `json:"pasaran_minbet_432d"`
-	Pasaran_maxbet4d_432d       int     `json:"pasaran_maxbet4d_432d"`
-	Pasaran_maxbet3d_432d       int     `json:"pasaran_maxbet3d_432d"`
-	Pasaran_maxbet3dd_432d      int     `json:"pasaran_maxbet3dd_432d"`
-	Pasaran_maxbet2d_432d       int     `json:"pasaran_maxbet2d_432d"`
-	Pasaran_maxbet2dd_432d      int     `json:"pasaran_maxbet2dd_432d"`
-	Pasaran_maxbet2dt_432d      int     `json:"pasaran_maxbet2dt_432d"`
-	Pasaran_limitotal4d_432d    int     `json:"pasaran_limitotal4d_432d"`
-	Pasaran_limitotal3d_432d    int     `json:"pasaran_limitotal3d_432d"`
-	Pasaran_limitotal3dd_432d   int     `json:"pasaran_limitotal3dd_432d"`
-	Pasaran_limitotal2d_432d    int     `json:"pasaran_limitotal2d_432d"`
-	Pasaran_limitotal2dd_432d   int     `json:"pasaran_limitotal2dd_432d"`
-	Pasaran_limitotal2dt_432d   int     `json:"pasaran_limitotal2dt_432d"`
-	Pasaran_limitglobal4d_432d  int     `json:"pasaran_limitglobal4d_432d"`
-	Pasaran_limitglobal3d_432d  int     `json:"pasaran_limitglobal3d_432d"`
-	Pasaran_limitglobal3dd_432d int     `json:"pasaran_limitglobal3dd_432d"`
-	Pasaran_limitglobal2d_432d  int     `json:"pasaran_limitglobal2d_432d"`
-	Pasaran_limitglobal2dd_432d int     `json:"pasaran_limitglobal2dd_432d"`
-	Pasaran_limitglobal2dt_432d int     `json:"pasaran_limitglobal2dt_432d"`
-	Pasaran_win4d_432d          int     `json:"pasaran_win4d_432d"`
-	Pasaran_win3d_432d          int     `json:"pasaran_win3d_432d"`
-	Pasaran_win3dd_432d         int     `json:"pasaran_win3dd_432d"`
-	Pasaran_win2d_432d          int     `json:"pasaran_win2d_432d"`
-	Pasaran_win2dd_432d         int     `json:"pasaran_win2dd_432d"`
-	Pasaran_win2dt_432d         int     `json:"pasaran_win2dt_432d"`
-	Pasaran_win4dnodisc_432d    int     `json:"pasaran_win4dnodisc_432d"`
-	Pasaran_win3dnodisc_432d    int     `json:"pasaran_win3dnodisc_432d"`
-	Pasaran_win3ddnodisc_432d   int     `json:"pasaran_win3ddnodisc_432d"`
-	Pasaran_win2dnodisc_432d    int     `json:"pasaran_win2dnodisc_432d"`
-	Pasaran_win2ddnodisc_432d   int     `json:"pasaran_win2ddnodisc_432d"`
-	Pasaran_win2dtnodisc_432d   int     `json:"pasaran_win2dtnodisc_432d"`
-	Pasaran_disc4d_432d         float32 `json:"pasaran_disc4d_432d"`
-	Pasaran_disc3d_432d         float32 `json:"pasaran_disc3d_432d"`
-	Pasaran_disc3dd_432d        float32 `json:"pasaran_disc3dd_432d"`
-	Pasaran_disc2d_432d         float32 `json:"pasaran_disc2d_432d"`
-	Pasaran_disc2dd_432d        float32 `json:"pasaran_disc2dd_432d"`
-	Pasaran_disc2dt_432d        float32 `json:"pasaran_disc2dt_432d"`
-}
+
 type pasaranconfcbebas struct {
 	Idpasaran                  int     `json:"idpasaran"`
 	Idpasarantogel             string  `json:"idpasarantogel"`
@@ -678,8 +637,62 @@ func Pasaransavelimit(c *fiber.Ctx) error {
 	}
 }
 func Pasaransaveconf432d(c *fiber.Ctx) error {
+	type payload_pasaranconf432 struct {
+		Idpasaran                   int     `json:"idpasaran"`
+		Idpasarantogel              string  `json:"idpasarantogel"`
+		Page                        string  `json:"page"`
+		Pasaran_minbet_432d         int     `json:"pasaran_minbet_432d"`
+		Pasaran_maxbet4d_432d       int     `json:"pasaran_maxbet4d_432d"`
+		Pasaran_maxbet3d_432d       int     `json:"pasaran_maxbet3d_432d"`
+		Pasaran_maxbet3dd_432d      int     `json:"pasaran_maxbet3dd_432d"`
+		Pasaran_maxbet2d_432d       int     `json:"pasaran_maxbet2d_432d"`
+		Pasaran_maxbet2dd_432d      int     `json:"pasaran_maxbet2dd_432d"`
+		Pasaran_maxbet2dt_432d      int     `json:"pasaran_maxbet2dt_432d"`
+		Pasaran_limitotal4d_432d    int     `json:"pasaran_limitotal4d_432d"`
+		Pasaran_limitotal3d_432d    int     `json:"pasaran_limitotal3d_432d"`
+		Pasaran_limitotal3dd_432d   int     `json:"pasaran_limitotal3dd_432d"`
+		Pasaran_limitotal2d_432d    int     `json:"pasaran_limitotal2d_432d"`
+		Pasaran_limitotal2dd_432d   int     `json:"pasaran_limitotal2dd_432d"`
+		Pasaran_limitotal2dt_432d   int     `json:"pasaran_limitotal2dt_432d"`
+		Pasaran_limitglobal4d_432d  int     `json:"pasaran_limitglobal4d_432d"`
+		Pasaran_limitglobal3d_432d  int     `json:"pasaran_limitglobal3d_432d"`
+		Pasaran_limitglobal3dd_432d int     `json:"pasaran_limitglobal3dd_432d"`
+		Pasaran_limitglobal2d_432d  int     `json:"pasaran_limitglobal2d_432d"`
+		Pasaran_limitglobal2dd_432d int     `json:"pasaran_limitglobal2dd_432d"`
+		Pasaran_limitglobal2dt_432d int     `json:"pasaran_limitglobal2dt_432d"`
+		Pasaran_win4d_432d          int     `json:"pasaran_win4d_432d"`
+		Pasaran_win3d_432d          int     `json:"pasaran_win3d_432d"`
+		Pasaran_win3dd_432d         int     `json:"pasaran_win3dd_432d"`
+		Pasaran_win2d_432d          int     `json:"pasaran_win2d_432d"`
+		Pasaran_win2dd_432d         int     `json:"pasaran_win2dd_432d"`
+		Pasaran_win2dt_432d         int     `json:"pasaran_win2dt_432d"`
+		Pasaran_win4dnodisc_432d    int     `json:"pasaran_win4dnodisc_432d"`
+		Pasaran_win3dnodisc_432d    int     `json:"pasaran_win3dnodisc_432d"`
+		Pasaran_win3ddnodisc_432d   int     `json:"pasaran_win3ddnodisc_432d"`
+		Pasaran_win2dnodisc_432d    int     `json:"pasaran_win2dnodisc_432d"`
+		Pasaran_win2ddnodisc_432d   int     `json:"pasaran_win2ddnodisc_432d"`
+		Pasaran_win2dtnodisc_432d   int     `json:"pasaran_win2dtnodisc_432d"`
+		Pasaran_win4d_bb_432d       int     `json:"pasaran_win4d_bb_432d" `
+		Pasaran_win3d_bb_432d       int     `json:"pasaran_win3d_bb_432d" `
+		Pasaran_win3dd_bb_432d      int     `json:"pasaran_win3dd_bb_432d" `
+		Pasaran_win2d_bb_432d       int     `json:"pasaran_win2d_bb_432d" `
+		Pasaran_win2dd_bb_432d      int     `json:"pasaran_win2dd_bb_432d" `
+		Pasaran_win2dt_bb_432d      int     `json:"pasaran_win2dt_bb_432d" `
+		Pasaran_win4d_bb_kena_432d  int     `json:"pasaran_win4d_bb_kena_432d" `
+		Pasaran_win3d_bb_kena_432d  int     `json:"pasaran_win3d_bb_kena_432d" `
+		Pasaran_win3dd_bb_kena_432d int     `json:"pasaran_win3dd_bb_kena_432d" `
+		Pasaran_win2d_bb_kena_432d  int     `json:"pasaran_win2d_bb_kena_432d" `
+		Pasaran_win2dd_bb_kena_432d int     `json:"pasaran_win2dd_bb_kena_432d" `
+		Pasaran_win2dt_bb_kena_432d int     `json:"pasaran_win2dt_bb_kena_432d" `
+		Pasaran_disc4d_432d         float32 `json:"pasaran_disc4d_432d"`
+		Pasaran_disc3d_432d         float32 `json:"pasaran_disc3d_432d"`
+		Pasaran_disc3dd_432d        float32 `json:"pasaran_disc3dd_432d"`
+		Pasaran_disc2d_432d         float32 `json:"pasaran_disc2d_432d"`
+		Pasaran_disc2dd_432d        float32 `json:"pasaran_disc2dd_432d"`
+		Pasaran_disc2dt_432d        float32 `json:"pasaran_disc2dt_432d"`
+	}
 	var errors []*helpers.ErrorResponse
-	client := new(pasaranconf432)
+	client := new(payload_pasaranconf432)
 	validate := validator.New()
 	if err := c.BodyParser(client); err != nil {
 		c.Status(fiber.StatusBadRequest)
@@ -748,6 +761,18 @@ func Pasaransaveconf432d(c *fiber.Ctx) error {
 			"pasaran_win2dnodisc_432d":    client.Pasaran_win2dnodisc_432d,
 			"pasaran_win2ddnodisc_432d":   client.Pasaran_win2ddnodisc_432d,
 			"pasaran_win2dtnodisc_432d":   client.Pasaran_win2dtnodisc_432d,
+			"pasaran_win4dbb_kena_432d":   client.Pasaran_win4d_bb_kena_432d,
+			"pasaran_win3dbb_kena_432d":   client.Pasaran_win3d_bb_kena_432d,
+			"pasaran_win3ddbb_kena_432d":  client.Pasaran_win3dd_bb_kena_432d,
+			"pasaran_win2dbb_kena_432d":   client.Pasaran_win2d_bb_kena_432d,
+			"pasaran_win2ddbb_kena_432d":  client.Pasaran_win2dd_bb_kena_432d,
+			"pasaran_win2dtbb_kena_432d":  client.Pasaran_win2dt_bb_kena_432d,
+			"pasaran_win4dbb_432d":        client.Pasaran_win4d_bb_432d,
+			"pasaran_win3dbb_432d":        client.Pasaran_win3d_bb_432d,
+			"pasaran_win3ddbb_432d":       client.Pasaran_win3dd_bb_432d,
+			"pasaran_win2dbb_432d":        client.Pasaran_win2d_bb_432d,
+			"pasaran_win2ddbb_432d":       client.Pasaran_win2dd_bb_432d,
+			"pasaran_win2dtbb_432d":       client.Pasaran_win2dt_bb_432d,
 			"pasaran_disc4d_432d":         client.Pasaran_disc4d_432d,
 			"pasaran_disc3d_432d":         client.Pasaran_disc3d_432d,
 			"pasaran_disc3dd_432d":        client.Pasaran_disc3dd_432d,

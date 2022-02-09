@@ -182,6 +182,7 @@
         }
     }
     async function editPeriode(e) {
+        clearField_Edit()
         const res = await fetch("/api/editperiode", {
             method: "POST",
             headers: {
@@ -223,10 +224,22 @@
             }
         }
     }
-
     async function logout() {
         localStorage.clear();
         window.location.href = "/";
+    }
+    const clearField_Edit = () =>{
+        periode_tglkeluaran_field = "";
+        periode_tanggalnext_field = "";
+        periode_periode_field = "";
+        periode_keluaran_field = "";
+        periode_status_field = "";
+        periode_statusonline_field = "";
+        periode_statusrevisi_field = "";
+        periode_create_field = "";
+        periode_createdate_field = "";
+        periode_update_field = "";
+        periode_updatedate_field = "";
     }
     initapp();
 </script>

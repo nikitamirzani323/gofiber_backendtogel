@@ -378,8 +378,7 @@
 				pasaran_win3_cnaga_field = record[i]["win3_cnaga"];
 				pasaran_win4_cnaga_field = record[i]["win4_cnaga"];
 				pasaran_disc_cnaga_field = record[i]["disc_cnaga"] * 100;
-				pasaran_limitglobal_cnaga_field =
-					record[i]["limitglobal_cnaga"];
+				pasaran_limitglobal_cnaga_field = record[i]["limitglobal_cnaga"];
 				pasaran_limittotal_cnaga_field = record[i]["limittotal_cnaga"];
 				pasaran_minbet_cjitu_field = record[i]["minbet_cjitu"];
 				pasaran_maxbet_cjitu_field = record[i]["maxbet_cjitu"];
@@ -388,15 +387,12 @@
 				pasaran_winkepala_cjitu_field = record[i]["winkepala_cjitu"];
 				pasaran_winekor_cjitu_field = record[i]["winekor_cjitu"];
 				pasaran_desc_cjitu_field = record[i]["desc_cjitu"] * 100;
-				pasaran_limitglobal_cjitu_field =
-					record[i]["limitglobal_cjitu"];
+				pasaran_limitglobal_cjitu_field = record[i]["limitglobal_cjitu"];
 				pasaran_limittotal_cjitu_field = record[i]["limittotal_cjitu"];
 				pasaran_minbet_5050umum_field = record[i]["minbet_5050umum"];
 				pasaran_maxbet_5050umum_field = record[i]["maxbet_5050umum"];
-				pasaran_keibesar_5050umum_field =
-					record[i]["keibesar_5050umum"] * 100;
-				pasaran_keikecil_5050umum_field =
-					record[i]["keikecil_5050umum"] * 100;
+				pasaran_keibesar_5050umum_field = record[i]["keibesar_5050umum"] * 100;
+				pasaran_keikecil_5050umum_field = record[i]["keikecil_5050umum"] * 100;
 				pasaran_keigenap_5050umum_field =
 					record[i]["keigenap_5050umum"] * 100;
 				pasaran_keiganjil_5050umum_field =

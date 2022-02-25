@@ -424,6 +424,7 @@
                             bet_username: record[i]["bet_username"],
                             bet_typegame: record[i]["bet_typegame"],
                             bet_nomortogel: record[i]["bet_nomortogel"],
+                            bet_posisitogel: record[i]["bet_posisitogel"],
                             bet_bet: record[i]["bet_bet"],
                             bet_diskon: record[i]["bet_diskon"],
                             bet_diskonpercen: record[i]["bet_diskonpercen"],
@@ -1236,6 +1237,9 @@
                                             style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                                         <th
                                             width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
+                                        <th
+                                            width="7%"
                                             style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                         <th
                                             width="1%"
@@ -1284,6 +1288,9 @@
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_posisitogel}</td>
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>
@@ -1398,6 +1405,9 @@
                                             style="text-align: left;vertical-align: top;font-size: 13px;">TIMEZONE</th>
                                         <th
                                             width="7%"
+                                            style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
+                                        <th
+                                            width="7%"
                                             style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                         <th
                                             width="1%"
@@ -1446,6 +1456,9 @@
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_timezone}</td>
+                                            <td
+                                                NOWRAP
+                                                style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_posisitogel}</td>
                                             <td
                                                 NOWRAP
                                                 style="text-align: left;vertical-align: top;font-size: 12px;">{rec.bet_typegame}</td>

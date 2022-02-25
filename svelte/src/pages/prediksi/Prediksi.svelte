@@ -15,6 +15,10 @@
     let subtotal_css = "";
     async function callPrediksi() {
         listresult = [];
+        totalbet = 0;
+        totalwin = 0;
+        subtotal = 0;
+        subtotal_css = "";
         let flag = false;
         let msg = "";
         css_loader = "display: inline-block;";
@@ -61,6 +65,8 @@
                         listresult = [
                             ...listresult,
                             {
+                                prediksi_invoice: record[i]["prediksi_invoice"],
+                                prediksi_code: record[i]["prediksi_code"],
                                 prediksi_tanggal: record[i]["prediksi_tanggal"],
                                 prediksi_username: record[i]["prediksi_username"],
                                 prediksi_permainan: record[i]["prediksi_permainan"],
@@ -212,7 +218,7 @@
             </Col>
             <Col xs="9">
                 <Panel
-                    height_body="500px"
+                    height_body="700px"
                     css_footer="padding:10px;margin:0px;">
                     <slot:template slot="cheader"> List Bet </slot:template>
                     <slot:template slot="cbody">
@@ -225,10 +231,14 @@
                                         >STATUS</th
                                     >
                                     <th
+                                        width="7%"
+                                        style="text-align: left;vertical-align: top;font-size: 13px;">INVOICE</th>
+                                    <th
+                                        width="7%"
+                                        style="text-align: left;vertical-align: top;font-size: 13px;">CODE</th>
+                                    <th
                                         width="10%"
-                                        style="text-align: center;vertical-align: top;font-size: 13px;"
-                                        >TANGGAL</th
-                                    >
+                                        style="text-align: center;vertical-align: top;font-size: 13px;">TANGGAL</th>
                                     <th
                                         width="*"
                                         style="text-align: left;vertical-align: top;font-size: 13px;"
@@ -287,9 +297,13 @@
                                         >
                                         <td
                                             NOWRAP
-                                            style="text-align: center;vertical-align: top;font-size: 12px;"
-                                            >{rec.prediksi_tanggal}</td
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.prediksi_invoice}</td>
+                                        <td
+                                            NOWRAP
+                                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.prediksi_code}</td>
+                                        <td
+                                            NOWRAP
+                                            style="text-align: center;vertical-align: top;font-size: 12px;">{rec.prediksi_tanggal}</td>
                                         <td
                                             NOWRAP
                                             style="text-align: left;vertical-align: top;font-size: 12px;"

@@ -64,6 +64,7 @@
                                 prediksi_tanggal: record[i]["prediksi_tanggal"],
                                 prediksi_username: record[i]["prediksi_username"],
                                 prediksi_permainan: record[i]["prediksi_permainan"],
+                                prediksi_posisitogel: record[i]["prediksi_posisitogel"],
                                 prediksi_nomor: record[i]["prediksi_nomor"],
                                 prediksi_bet: record[i]["prediksi_bet"],
                                 prediksi_diskon: record[i]["prediksi_diskon"],
@@ -212,8 +213,7 @@
             <Col xs="9">
                 <Panel
                     height_body="500px"
-                    css_footer="padding:10px;margin:0px;"
-                >
+                    css_footer="padding:10px;margin:0px;">
                     <slot:template slot="cheader"> List Bet </slot:template>
                     <slot:template slot="cbody">
                         <table class="table">
@@ -236,9 +236,10 @@
                                     >
                                     <th
                                         width="7%"
-                                        style="text-align: left;vertical-align: top;font-size: 13px;"
-                                        >PERMAINAN</th
-                                    >
+                                        style="text-align: left;vertical-align: top;font-size: 13px;">TIPE</th>
+                                    <th
+                                        width="7%"
+                                        style="text-align: left;vertical-align: top;font-size: 13px;">PERMAINAN</th>
                                     <th
                                         width="1%"
                                         style="text-align: left;vertical-align: top;font-size: 13px;"
@@ -296,9 +297,10 @@
                                         >
                                         <td
                                             NOWRAP
-                                            style="text-align: left;vertical-align: top;font-size: 12px;"
-                                            >{rec.prediksi_permainan}</td
-                                        >
+                                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.prediksi_posisitogel}</td>
+                                        <td
+                                            NOWRAP
+                                            style="text-align: left;vertical-align: top;font-size: 12px;">{rec.prediksi_permainan}</td>
                                         <td
                                             NOWRAP
                                             style="text-align: left;vertical-align: top;font-size: 12px;"

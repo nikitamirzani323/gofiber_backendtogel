@@ -169,10 +169,8 @@
                     listPeriodePasaran = [
                         ...listPeriodePasaran,
                         {
-                            pasarancomp_idcompp:
-                                recordpasaran[j]["pasarancomp_idcompp"],
-                            pasarancomp_nama:
-                                recordpasaran[j]["pasarancomp_nama"],
+                            pasarancomp_idcompp: recordpasaran[j]["pasarancomp_idcompp"],
+                            pasarancomp_nama: recordpasaran[j]["pasarancomp_nama"],
                         },
                     ];
                 }

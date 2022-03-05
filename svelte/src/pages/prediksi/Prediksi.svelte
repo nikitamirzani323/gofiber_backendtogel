@@ -74,11 +74,11 @@
                                 prediksi_nomor: record[i]["prediksi_nomor"],
                                 prediksi_bet: record[i]["prediksi_bet"],
                                 prediksi_diskon: record[i]["prediksi_diskon"],
-                                prediksi_diskonpercen: record[i]["prediksi_diskonpercen"],
+                                prediksi_diskonpercen: record[i]["prediksi_diskonpercen"].toFixed(2),
                                 prediksi_kei: record[i]["prediksi_kei"],
-                                prediksi_keipercen: record[i]["prediksi_keipercen"],
+                                prediksi_keipercen: record[i]["prediksi_keipercen"].toFixed(2),
                                 prediksi_bayar: record[i]["prediksi_bayar"],
-                                prediksi_win: record[i]["prediksi_win"],
+                                prediksi_win: record[i]["prediksi_win"].toFixed(2),
                                 prediksi_totalwin: record[i]["prediksi_totalwin"],
                                 prediksi_status: record[i]["prediksi_status"],
                                 prediksi_statuscss: record[i]["prediksi_statuscss"],
@@ -332,12 +332,12 @@
                                         <td
                                             NOWRAP
                                             style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
-                                            {rec.prediksi_diskon}&nbsp;({new Intl.NumberFormat().format(rec.prediksi_diskonpercen)}%)
+                                            {rec.prediksi_diskon}&nbsp;({rec.prediksi_diskonpercen}%)
                                         </td>
                                         <td
                                             NOWRAP
                                             style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
-                                            {rec.prediksi_kei}&nbsp;({new Intl.NumberFormat().format(rec.prediksi_keipercen)}%)
+                                            {rec.prediksi_kei}&nbsp;({rec.prediksi_keipercen}%)
                                         </td>
                                         <td
                                             NOWRAP

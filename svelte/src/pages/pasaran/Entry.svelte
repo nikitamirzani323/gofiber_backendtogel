@@ -643,15 +643,9 @@
                     pasaran_disc4d_432d: parseFloat(pasaran_disc4d_432d_field / 100),
                     pasaran_disc3d_432d: parseFloat(pasaran_disc3d_432d_field / 100),
                     pasaran_disc3dd_432d: parseFloat(pasaran_disc3dd_432d_field / 100),
-                    pasaran_disc2d_432d: parseFloat(
-                        pasaran_disc2d_432d_field / 100
-                    ),
-                    pasaran_disc2dd_432d: parseFloat(
-                        pasaran_disc2dd_432d_field / 100
-                    ),
-                    pasaran_disc2dt_432d: parseFloat(
-                        pasaran_disc2dt_432d_field / 100
-                    ),
+                    pasaran_disc2d_432d: parseFloat(pasaran_disc2d_432d_field / 100),
+                    pasaran_disc2dd_432d: parseFloat(pasaran_disc2dd_432d_field / 100),
+                    pasaran_disc2dt_432d: parseFloat( pasaran_disc2dt_432d_field / 100),
                 }),
             });
             const json = await res.json();
@@ -2127,97 +2121,73 @@
         for (let i = 0; i < pasaran_win4d_432d_field.length; i++) {
             numbera = parseInt(pasaran_win4d_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win4d_432d_field[i] != ".") {
-                    pasaran_win4d_432d_field = 0;
-                }
+                pasaran_win4d_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win3d_432d_field.length; i++) {
             numbera = parseInt(pasaran_win3d_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win3d_432d_field[i] != ".") {
-                    pasaran_win3d_432d_field = 0;
-                }
+                pasaran_win3d_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win3dd_432d_field.length; i++) {
             numbera = parseInt(pasaran_win3dd_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win3dd_432d_field[i] != ".") {
-                    pasaran_win3dd_432d_field = 0;
-                }
+                pasaran_win3dd_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2d_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2d_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2d_432d_field[i] != ".") {
-                    pasaran_win2d_432d_field = 0;
-                }
+                pasaran_win2d_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2dd_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2dd_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2dd_432d_field[i] != ".") {
-                    pasaran_win2dd_432d_field = 0;
-                }
+                pasaran_win2dd_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2dt_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2dt_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2dt_432d_field[i] != ".") {
-                    pasaran_win2dt_432d_field = 0;
-                }
+                pasaran_win2dt_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win4dnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win4dnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win4dnodisc_432d_field[i] != ".") {
-                    pasaran_win4dnodisc_432d_field = 0;
-                }
+                pasaran_win4dnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win3dnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win3dnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win3dnodisc_432d_field[i] != ".") {
-                    pasaran_win3dnodisc_432d_field = 0;
-                }
+                pasaran_win3dnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win3ddnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win3ddnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win3ddnodisc_432d_field[i] != ".") {
-                    pasaran_win3ddnodisc_432d_field = 0;
-                }
+                pasaran_win3ddnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2dnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2dnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2dnodisc_432d_field[i] != ".") {
-                    pasaran_win2dnodisc_432d_field = 0;
-                }
+                pasaran_win2dnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2ddnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2ddnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2ddnodisc_432d_field[i] != ".") {
-                    pasaran_win2ddnodisc_432d_field = 0;
-                }
+                pasaran_win2ddnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win2dtnodisc_432d_field.length; i++) {
             numbera = parseInt(pasaran_win2dtnodisc_432d_field[i]);
             if (isNaN(numbera)) {
-                if (pasaran_win2dtnodisc_432d_field[i] != ".") {
-                    pasaran_win2dtnodisc_432d_field = 0;
-                }
+                pasaran_win2dtnodisc_432d_field = 0;
             }
         }
         for (let i = 0; i < pasaran_win4d_bb_kena_432d_field.length; i++) {
@@ -3584,7 +3554,9 @@
         for (let i = 0; i < pasaran_win_kombinasi_field.length; i++) {
             numbera = parseInt(pasaran_win_kombinasi_field[i]);
             if (isNaN(numbera)) {
-                pasaran_win_kombinasi_field = 0;
+                if (pasaran_win_kombinasi_field[i] != ".") {
+                    pasaran_win_kombinasi_field = 0;
+                }
             }
         }
         for (let i = 0; i < pasaran_disc_kombinasi_field.length; i++) {
@@ -4533,7 +4505,7 @@
                                             >Limit Global 3DD</label
                                         >
                                         <input
-                                            bind:value={pasaran_limitglobal3d_432d_field}
+                                            bind:value={pasaran_limitglobal3dd_432d_field}
                                             on:keyup={handleKeyboard_number}
                                             type="text"
                                             style="text-align:right;"
@@ -8427,7 +8399,7 @@
                                     <div class="mb-3">
                                         <label
                                             for="exampleForm"
-                                            class="form-label">Min Bet</label
+                                            class="form-label">Shio</label
                                         >
                                         <select
                                             bind:value={pasaran_shioyear_shio_field}

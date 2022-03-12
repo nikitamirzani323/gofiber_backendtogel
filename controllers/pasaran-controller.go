@@ -1061,7 +1061,7 @@ func Pasaransaveconfcjitu(c *fiber.Ctx) error {
 			"idpasarantogel":            client.Idpasarantogel,
 			"page":                      client.Page,
 			"pasaran_minbet_cjitu":      client.Pasaran_minbet_cjitu,
-			"pasaran_maxbet_cjitu":      client.Pasaran_minbet_cjitu,
+			"pasaran_maxbet_cjitu":      client.Pasaran_maxbet_cjitu,
 			"pasaran_limittotal_cjitu":  client.Pasaran_limittotal_cjitu,
 			"pasaran_limitglobal_cjitu": client.Pasaran_limitglobal_cjitu,
 			"pasaran_winas_cjitu":       client.Pasaran_winas_cjitu,

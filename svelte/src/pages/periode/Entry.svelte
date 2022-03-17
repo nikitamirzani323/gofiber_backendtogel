@@ -236,7 +236,7 @@
                 for (var i = 0; i < record.length; i++) {
                     nomember = nomember + 1;
                     temp_totalbayar = temp_totalbayar + parseInt(record[i]["member_bayar"])
-                    temp_totalwinestimate = temp_totalbayar + parseInt(record[i]["member_winhasil"])
+                    temp_totalwinestimate = temp_totalwinestimate + parseInt(record[i]["member_winhasil"])
                     listMemberNomor = [
                         ...listMemberNomor,
                         {
@@ -1604,11 +1604,7 @@
                             style="text-align: left;vertical-align: top;font-size: 12px;">{rec.member_nomor}</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;">
-                            {new Intl.NumberFormat().format(
-                                rec.member_bet
-                            )}
-                        </td>
+                            style="text-align: right;vertical-align: top;font-size: 12px;">{new Intl.NumberFormat().format(rec.member_bet)}</td>
                         <td
                             NOWRAP
                             style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{rec.member_disc}&nbsp;({rec.member_discpercen}%)</td>
@@ -1617,21 +1613,13 @@
                             style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{rec.member_kei}&nbsp;({rec.member_keipercen}%)</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">
-                            {new Intl.NumberFormat().format(
-                                rec.member_bayar
-                            )}
-                        </td>
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:blue;">{new Intl.NumberFormat().format(rec.member_bayar)}</td>
                         <td
                             NOWRAP
                             style="text-align: right;vertical-align: top;font-size: 12px;">{rec.member_win}x</td>
                         <td
                             NOWRAP
-                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">
-                            {new Intl.NumberFormat().format(
-                                rec.member_winhasil
-                            )}
-                        </td>
+                            style="text-align: right;vertical-align: top;font-size: 12px;color:red;">{new Intl.NumberFormat().format(rec.member_winhasil)}</td>
                     </tr>
                 {/each}
             </tbody>
@@ -1642,29 +1630,17 @@
             <tr>
                 <td style="font-size:13px;text-align:left;">TOTAL BAYAR</td>
                 <td style="font-size:13px;text-align:center;">:</td>
-                <td style="font-size:13px;color:blue;text-align:right;">
-                    {new Intl.NumberFormat().format(
-                        temp_totalbayar
-                    )}
-                </td>
+                <td style="font-size:13px;color:blue;text-align:right;">{new Intl.NumberFormat().format(temp_totalbayar)}</td>
             </tr>
             <tr>
                 <td style="font-size:13px;text-align:left;">TOTAL ESTIMATE WIN</td>
                 <td style="font-size:13px;text-align:center;">:</td>
-                <td style="font-size:13px;color:blue;text-align:right;">
-                    {new Intl.NumberFormat().format(
-                        temp_totalwinestimate
-                    )}
-                </td>
+                <td style="font-size:13px;color:blue;text-align:right;">{new Intl.NumberFormat().format(temp_totalwinestimate)}</td>
             </tr>
             <tr>
                 <td style="font-size:13px;text-align:left;">GRANDTOTAL</td>
                 <td style="font-size:13px;text-align:center;">:</td>
-                <td style="{temp_cssgrandtotal}">
-                    {new Intl.NumberFormat().format(
-                        temp_grandtotal
-                    )}
-                </td>
+                <td style="{temp_cssgrandtotal}">{new Intl.NumberFormat().format(temp_grandtotal)}</td>
             </tr>
         </table>
     </slot:template>

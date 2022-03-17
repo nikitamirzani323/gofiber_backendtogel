@@ -163,6 +163,14 @@
 			}
 		}
     }
+    function generate(field){
+        let numbergenerate = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+        switch(field){
+            case "prediksi_field":
+                prediksi_field = numbergenerate
+                break;
+        }
+    }
     initapp();
 </script>
 
@@ -204,15 +212,22 @@
                             </div>
                             <div class="mb-3">
                                 <label for="example" class="form-label">Nomor Keluaran</label>
-                                <input
-                                    bind:value={prediksi_field}
-                                    on:keyup={handleKeyboard_number}
-                                    type="text"
-                                    minlength="4"
-                                    maxlength="4"
-                                    class="form-control"
-                                    placeholder="Nomor Keluaran: Ex: 1234"
-                                    aria-label="Nomor Keluaran"/>
+                                <div class="input-group mb-3">
+                                    <input
+                                        bind:value={prediksi_field}
+                                        on:keyup={handleKeyboard_number}
+                                        type="text"
+                                        minlength="4"
+                                        maxlength="4"
+                                        class="form-control"
+                                        placeholder="Nomor Keluaran: Ex: 1234"
+                                        aria-label="Nomor Keluaran"/>
+                                    <button
+                                        on:click={() => {
+                                            generate("prediksi_field");
+                                        }}
+                                        type="button" class="btn btn-info">Generate</button>
+                                </div>
                             </div>
                         </Row>
                     </div>
